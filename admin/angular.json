@@ -108,6 +108,16 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "admin:build:production",
+            "firebaseProject": "koukokutori",
+            "firebaseHostingSite": "koukokutori-admin"
+          }
         }
       }
     }

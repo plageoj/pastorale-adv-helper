@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "koukokutori": {
+      "hosting": {
+        "client": [
+          "koukokutori"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "koukokutori"
+  }
+}

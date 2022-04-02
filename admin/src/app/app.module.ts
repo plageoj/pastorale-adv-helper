@@ -21,8 +21,15 @@ import {
   provideRemoteConfig,
 } from '@angular/fire/remote-config';
 
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+import { MatIconModule } from '@angular/material/icon';
+import { MembersComponent } from './members/members.component';
+import { StoresComponent } from './stores/stores.component';
+
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, MembersComponent, StoresComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -34,6 +41,10 @@ import {
     provideFunctions(() => getFunctions()),
     providePerformance(() => getPerformance()),
     provideRemoteConfig(() => getRemoteConfig()),
+    MatToolbarModule,
+    MatSidenavModule,
+    MatListModule,
+    MatIconModule,
   ],
   providers: [ScreenTrackingService, UserTrackingService],
   bootstrap: [AppComponent],

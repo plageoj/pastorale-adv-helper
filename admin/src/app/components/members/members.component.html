@@ -1,1 +1,27 @@
-<p>members works!</p>
+<table mat-table [dataSource]="members">
+  <mat-text-column name="name" headerText="名前"></mat-text-column>
+
+  <ng-container matColumnDef="currentAddress">
+    <th mat-header-cell *matHeaderCellDef>住所<br />帰省先</th>
+    <td mat-cell *matCellDef="let member">
+      <p>
+        {{ member.currentAddress }} <br />
+        {{ member.tempAddress || member.homeAddress }}
+      </p>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="stores">
+    <th mat-header-cell *matHeaderCellDef>担当</th>
+    <td mat-cell *matCellDef="let member">
+      <ul>
+        <li *ngFor="let store of member.stores">
+          {{ store.name }}
+        </li>
+      </ul>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="columns; sticky: true"></tr>
+  <tr mat-row *matRowDef="let row; columns: columns"></tr>
+</table>

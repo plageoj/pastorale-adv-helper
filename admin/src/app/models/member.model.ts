@@ -3,6 +3,7 @@ import { Store } from './store.model';
 
 export type Member = {
   uid: string;
+  studentNumber: number;
   name: string;
   job: string;
   currentAddress: string;
@@ -11,4 +12,5 @@ export type Member = {
   comment: string;
   stores: Store[];
   commute: Commute[];
+  isAdmin: boolean;
 };

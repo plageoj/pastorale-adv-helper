@@ -25,8 +25,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
-import { MembersComponent } from './members/members.component';
-import { StoresComponent } from './stores/stores.component';
+import { MembersComponent } from './components/members/members.component';
+import { StoresComponent } from '../stores/stores.component';
 
 @NgModule({
   declarations: [AppComponent, MembersComponent, StoresComponent],

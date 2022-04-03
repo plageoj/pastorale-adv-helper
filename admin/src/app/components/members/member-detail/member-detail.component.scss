@@ -4,6 +4,11 @@ mat-card {
 
 mat-form-field {
   display: block;
-  margin: 0 1rem;
   min-width: 20vw;
+}
+
+#commute-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  margin-bottom: 1rem;
 }

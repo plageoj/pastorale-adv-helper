@@ -26,7 +26,3 @@ mat-drawer {
   position: fixed;
   top: 64px;
 }
-
-[mat-fab].opened {
-  transform: translateX(calc(-20vw - 6rem));
-}

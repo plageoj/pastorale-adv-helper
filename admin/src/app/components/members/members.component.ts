@@ -13,14 +13,14 @@ export class MembersComponent implements OnInit {
   members;
   columns: (keyof Member)[] = ['name', 'currentAddress', 'job', 'stores'];
 
-  studentNumber: string = '';
+  uid: string = '';
 
   constructor(private mems: MemberService, private route: ActivatedRoute) {
     this.members = this.mems.getAll();
     this.route.queryParamMap
       .pipe(map((params) => params.get('n')))
-      .subscribe((studentNumber) => {
-        this.studentNumber = studentNumber ?? '';
+      .subscribe((uid) => {
+        this.uid = uid ?? '';
       });
   }
 

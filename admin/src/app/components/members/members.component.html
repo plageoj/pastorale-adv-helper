@@ -1,6 +1,6 @@
 <mat-drawer-container>
-  <mat-drawer mode="side" position="end" [opened]="!!studentNumber">
-    <app-member-detail *ngIf="studentNumber"></app-member-detail>
+  <mat-drawer mode="side" position="end" [opened]="!!uid">
+    <app-member-detail *ngIf="uid"></app-member-detail>
   </mat-drawer>
 
   <mat-drawer-content>
@@ -37,13 +37,9 @@
         mat-row
         *matRowDef="let row; columns: columns"
         routerLink="/members"
-        [queryParams]="{ n: row.studentNumber }"
-        [ngClass]="{ active: row.studentNumber === studentNumber }"
+        [queryParams]="{ n: row.uid }"
+        [ngClass]="{ active: row.uid === uid }"
       ></tr>
     </table>
   </mat-drawer-content>
 </mat-drawer-container>
-
-<button mat-fab title="メンバーを追加" [ngClass]="{ opened: !!studentNumber }">
-  <mat-icon>add</mat-icon>
-</button>

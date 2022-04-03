@@ -17,14 +17,19 @@ import {
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRippleModule } from '@angular/material/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
+import {
+  MatSnackBarModule,
+  MAT_SNACK_BAR_DEFAULT_OPTIONS,
+} from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserModule } from '@angular/platform-browser';
@@ -36,6 +41,7 @@ import { AppComponent } from './app.component';
 import { MemberDetailComponent } from './components/members/member-detail/member-detail.component';
 import { MembersComponent } from './components/members/members.component';
 import { BoolPipe } from './pipes/bool.pipe';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -57,19 +63,28 @@ import { BoolPipe } from './pipes/bool.pipe';
     providePerformance(() => getPerformance()),
     provideRemoteConfig(() => getRemoteConfig()),
     MatButtonModule,
+    MatCardModule,
+    MatCheckboxModule,
     MatDialogModule,
+    MatFormFieldModule,
     MatIconModule,
+    MatInputModule,
     MatListModule,
+    MatProgressBarModule,
     MatRippleModule,
     MatSidenavModule,
     MatSnackBarModule,
     MatTableModule,
     MatToolbarModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatCardModule,
   ],
-  providers: [ScreenTrackingService, UserTrackingService],
+  providers: [
+    ScreenTrackingService,
+    UserTrackingService,
+    {
+      provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
+      useValue: { duration: 2500 },
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

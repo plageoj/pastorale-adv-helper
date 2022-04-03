@@ -6,6 +6,9 @@ import {
   doc,
   docData,
   Firestore,
+  orderBy,
+  query,
+  setDoc,
 } from '@angular/fire/firestore';
 import { Member } from '../models/member.model';
 
@@ -20,10 +23,14 @@ export class MemberService {
   }
 
   getAll() {
-    return collectionData(this.col);
+    return collectionData(query(this.col, orderBy('studentNumber', 'desc')));
   }
 
-  get(studentNumber: string) {
-    return docData(doc(this.col, studentNumber));
+  get(uid: string) {
+    return docData(doc(this.col, uid));
+  }
+
+  update(data: Member) {
+    return setDoc(doc(this.col, data.uid), data, { merge: true });
   }
 }

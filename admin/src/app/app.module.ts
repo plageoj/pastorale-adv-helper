@@ -15,6 +15,8 @@ import {
   provideRemoteConfig,
 } from '@angular/fire/remote-config';
 import { MatButtonModule } from '@angular/material/button';
+import { MatRippleModule } from '@angular/material/core';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -27,12 +29,18 @@ import { environment } from '../environments/environment';
 import { StoresComponent } from '../stores/stores.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { MemberDetailComponent } from './components/members/member-detail/member-detail.component';
 import { MembersComponent } from './components/members/members.component';
 import { BoolPipe } from './pipes/bool.pipe';
-import { MatRippleModule } from '@angular/material/core';
 
 @NgModule({
-  declarations: [AppComponent, MembersComponent, StoresComponent, BoolPipe],
+  declarations: [
+    AppComponent,
+    MembersComponent,
+    StoresComponent,
+    BoolPipe,
+    MemberDetailComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -44,14 +52,15 @@ import { MatRippleModule } from '@angular/material/core';
     provideFunctions(() => getFunctions()),
     providePerformance(() => getPerformance()),
     provideRemoteConfig(() => getRemoteConfig()),
-    MatToolbarModule,
-    MatSidenavModule,
-    MatListModule,
-    MatIconModule,
     MatButtonModule,
+    MatDialogModule,
+    MatIconModule,
+    MatListModule,
+    MatRippleModule,
+    MatSidenavModule,
     MatSnackBarModule,
     MatTableModule,
-    MatRippleModule,
+    MatToolbarModule,
   ],
   providers: [ScreenTrackingService, UserTrackingService],
   bootstrap: [AppComponent],

@@ -12,3 +12,10 @@ body {
   padding-top: 64px;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
+.mat-fab {
+  position: fixed!important;
+  bottom: 16px;
+  right: 16px;
+  z-index: 1;
+}

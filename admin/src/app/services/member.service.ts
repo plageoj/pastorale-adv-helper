@@ -3,6 +3,8 @@ import {
   collection,
   collectionData,
   CollectionReference,
+  doc,
+  docData,
   Firestore,
 } from '@angular/fire/firestore';
 import { Member } from '../models/member.model';
@@ -19,5 +21,9 @@ export class MemberService {
 
   getAll() {
     return collectionData(this.col);
+  }
+
+  get(studentNumber: string) {
+    return docData(doc(this.col, studentNumber));
   }
 }

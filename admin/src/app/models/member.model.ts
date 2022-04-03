@@ -11,6 +11,6 @@ export type Member = {
   homeAddress: string;
   comment: string;
   stores: Store[];
-  commute: Commute[];
+  commute: { [key in Commute]: boolean };
   isAdmin: boolean;
 };

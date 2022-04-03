@@ -1,1 +1,53 @@
-<p>member-detail works!</p>
+<mat-card>
+  <h2 mat-card-title> メンバーを編集 </h2>
+
+  <mat-card-content>
+    <form [formGroup]="memberForm" id="member-editor">
+      <mat-form-field>
+        <mat-label>名前</mat-label>
+        <input matInput formControlName="name" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>学生番号</mat-label>
+        <input matInput formControlName="studentNumber" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>バイト先</mat-label>
+        <input matInput formControlName="job" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>住所</mat-label>
+        <input matInput formControlName="currentAddress" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>帰省先</mat-label>
+        <input matInput formControlName="homeAddress" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>コメント</mat-label>
+        <textarea matInput formControlName="comment" rows="3"></textarea>
+      </mat-form-field>
+    </form>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <a routerLink="/members" mat-stroked-button>
+      <mat-icon>arrow_back</mat-icon>
+      キャンセル
+    </a>
+    <button
+      mat-stroked-button
+      color="primary"
+      type="submit"
+      form="member-editor"
+    >
+      <mat-icon>save</mat-icon>
+      保存
+    </button>
+  </mat-card-actions>
+</mat-card>

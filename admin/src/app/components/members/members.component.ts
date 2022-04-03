@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Member } from 'src/app/models/member.model';
 import { MemberService } from 'src/app/services/member.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-members',
@@ -9,10 +11,17 @@ import { MemberService } from 'src/app/services/member.service';
 })
 export class MembersComponent implements OnInit {
   members;
-  columns: (keyof Member)[] = ['name', 'currentAddress', 'stores'];
+  columns: (keyof Member)[] = ['name', 'currentAddress', 'job', 'stores'];
 
-  constructor(private mems: MemberService) {
+  studentNumber: string = '';
+
+  constructor(private mems: MemberService, private route: ActivatedRoute) {
     this.members = this.mems.getAll();
+    this.route.queryParamMap
+      .pipe(map((params) => params.get('n')))
+      .subscribe((studentNumber) => {
+        this.studentNumber = studentNumber ?? '';
+      });
   }
 
   ngOnInit(): void {}

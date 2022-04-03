@@ -14,10 +14,14 @@ import {
   getRemoteConfig,
   provideRemoteConfig,
 } from '@angular/fire/remote-config';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 import { MatRippleModule } from '@angular/material/core';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -32,7 +36,6 @@ import { AppComponent } from './app.component';
 import { MemberDetailComponent } from './components/members/member-detail/member-detail.component';
 import { MembersComponent } from './components/members/members.component';
 import { BoolPipe } from './pipes/bool.pipe';
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,6 +48,7 @@ import { BoolPipe } from './pipes/bool.pipe';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    ReactiveFormsModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAnalytics(() => getAnalytics()),
     provideAuth(() => getAuth()),
@@ -61,6 +65,9 @@ import { BoolPipe } from './pipes/bool.pipe';
     MatSnackBarModule,
     MatTableModule,
     MatToolbarModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatCardModule,
   ],
   providers: [ScreenTrackingService, UserTrackingService],
   bootstrap: [AppComponent],

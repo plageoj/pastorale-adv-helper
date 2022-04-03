@@ -1,8 +1,10 @@
-*{
+@use "@angular/material" as mat;
+
+* {
   box-sizing: border-box;
 }
 
-html{
+html {
   height: 100%;
 }
 
@@ -11,4 +13,16 @@ body {
   margin: 0;
   padding-top: 64px;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+a {
+  text-decoration: none;
+  color: map-get(mat.$blue-palette, 500);
+}
+
+.mat-fab {
+  position: fixed !important;
+  bottom: 16px;
+  right: 16px;
+  z-index: 1;
 }

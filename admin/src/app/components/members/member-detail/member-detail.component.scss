@@ -1,0 +1,14 @@
+mat-card {
+  margin: 1rem;
+}
+
+mat-form-field {
+  display: block;
+  min-width: 20vw;
+}
+
+#commute-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  margin-bottom: 1rem;
+}

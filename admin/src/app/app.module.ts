@@ -14,11 +14,22 @@ import {
   getRemoteConfig,
   provideRemoteConfig,
 } from '@angular/fire/remote-config';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatRippleModule } from '@angular/material/core';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
+import {
+  MatSnackBarModule,
+  MAT_SNACK_BAR_DEFAULT_OPTIONS,
+} from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserModule } from '@angular/platform-browser';
@@ -27,16 +38,23 @@ import { environment } from '../environments/environment';
 import { StoresComponent } from '../stores/stores.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { MemberDetailComponent } from './components/members/member-detail/member-detail.component';
 import { MembersComponent } from './components/members/members.component';
 import { BoolPipe } from './pipes/bool.pipe';
-import { MatRippleModule } from '@angular/material/core';
 
 @NgModule({
-  declarations: [AppComponent, MembersComponent, StoresComponent, BoolPipe],
+  declarations: [
+    AppComponent,
+    MembersComponent,
+    StoresComponent,
+    BoolPipe,
+    MemberDetailComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    ReactiveFormsModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAnalytics(() => getAnalytics()),
     provideAuth(() => getAuth()),
@@ -44,16 +62,29 @@ import { MatRippleModule } from '@angular/material/core';
     provideFunctions(() => getFunctions()),
     providePerformance(() => getPerformance()),
     provideRemoteConfig(() => getRemoteConfig()),
-    MatToolbarModule,
-    MatSidenavModule,
-    MatListModule,
-    MatIconModule,
     MatButtonModule,
+    MatCardModule,
+    MatCheckboxModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    MatListModule,
+    MatProgressBarModule,
+    MatRippleModule,
+    MatSidenavModule,
     MatSnackBarModule,
     MatTableModule,
-    MatRippleModule,
+    MatToolbarModule,
   ],
-  providers: [ScreenTrackingService, UserTrackingService],
+  providers: [
+    ScreenTrackingService,
+    UserTrackingService,
+    {
+      provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
+      useValue: { duration: 2500 },
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

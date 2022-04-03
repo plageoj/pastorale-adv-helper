@@ -11,11 +11,12 @@ import {
   setDoc,
 } from '@angular/fire/firestore';
 import { Member } from '../models/member.model';
+import { IFirestore } from './firestore.interface';
 
 @Injectable({
   providedIn: 'root',
 })
-export class MemberService {
+export class MemberService implements IFirestore<Member> {
   private col;
 
   constructor(private db: Firestore) {

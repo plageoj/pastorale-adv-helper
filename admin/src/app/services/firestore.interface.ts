@@ -1,4 +1,3 @@
-import { CollectionReference, Firestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 
 export interface IFirestore<T> {

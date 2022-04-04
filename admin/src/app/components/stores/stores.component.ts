@@ -5,6 +5,7 @@ import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { Subscription } from 'rxjs';
 import { Store } from 'src/app/models/store.model';
 import { StoreService } from 'src/app/services/store.service';
 import { EditStoreComponent } from './edit-store/edit-store.component';
@@ -30,6 +31,7 @@ export class StoresComponent implements OnInit {
   ] as (keyof Store | 'actions')[];
 
   private includeHidden = false;
+  private subscription?: Subscription;
 
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -40,10 +42,11 @@ export class StoresComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.store
+    if (this.subscription) this.subscription.unsubscribe();
+    this.subscription = this.store
       .getAll({ includeHidden: this.includeHidden })
       .subscribe((stores) => {
-        this.stores = new MatTableDataSource(stores);
+        this.stores.data = stores;
         this.stores.sort = this.sort;
       });
   }
@@ -69,7 +72,7 @@ export class StoresComponent implements OnInit {
 
   attention(store: Store, event: MatCheckboxChange) {
     store.needAttention = event.checked;
-    this.updateStore(store);
+    return this.updateStore(store);
   }
 
   private async updateStore(data?: Store) {

@@ -8,6 +8,8 @@ import {
 } from '@angular/fire/firestore';
 import { environment } from 'src/environments/environment';
 
+let initialized = false;
+
 @NgModule({
   declarations: [],
   imports: [
@@ -15,10 +17,9 @@ import { environment } from 'src/environments/environment';
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => {
       const db = getFirestore();
-      try {
+      if (!initialized) {
         connectFirestoreEmulator(db, 'localhost', 8080);
-      } catch (e) {
-        console.error(e);
+        initialized = true;
       }
       return db;
     }),

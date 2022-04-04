@@ -1,12 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
-import {
-  connectFirestoreEmulator,
-  getFirestore,
-  provideFirestore,
-} from '@angular/fire/firestore';
 import { RouterTestingModule } from '@angular/router/testing';
-import { environment } from 'src/environments/environment';
+import { FirebaseTestingModule } from 'src/app/firebase-testing.module';
 import { MembersComponent } from './members.component';
 
 describe('MembersComponent', () => {
@@ -16,15 +10,7 @@ describe('MembersComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [MembersComponent],
-      imports: [
-        provideFirebaseApp(() => initializeApp(environment.firebase)),
-        provideFirestore(() => {
-          const db = getFirestore();
-          connectFirestoreEmulator(db, 'localhost', 8080);
-          return db;
-        }),
-        RouterTestingModule,
-      ],
+      imports: [FirebaseTestingModule, RouterTestingModule],
     }).compileComponents();
   });
 

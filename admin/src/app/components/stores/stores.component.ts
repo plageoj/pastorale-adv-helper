@@ -1,9 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatCheckboxChange } from '@angular/material/checkbox';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Store } from 'src/app/models/store.model';
 import { StoreService } from 'src/app/services/store.service';
+import { EditStoreComponent } from './edit-store/edit-store.component';
 
 @Component({
   selector: 'app-stores',
@@ -22,13 +26,18 @@ export class StoresComponent implements OnInit {
     'amount',
     'last',
     'draft',
-  ] as (keyof Store)[];
+    'actions',
+  ] as (keyof Store | 'actions')[];
 
   private includeHidden = false;
 
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private store: StoreService) {}
+  constructor(
+    private store: StoreService,
+    private dialog: MatDialog,
+    private snack: MatSnackBar
+  ) {}
 
   ngOnInit(): void {
     this.store
@@ -47,5 +56,31 @@ export class StoresComponent implements OnInit {
   applyFilter(event: Event) {
     const value = (event.target as HTMLInputElement).value.trim();
     this.stores.filter = value;
+  }
+
+  edit(store: Store) {
+    this.dialog
+      .open(EditStoreComponent, {
+        data: store,
+      })
+      .afterClosed()
+      .subscribe(this.updateStore);
+  }
+
+  attention(store: Store, event: MatCheckboxChange) {
+    store.needAttention = event.checked;
+    this.updateStore(store);
+  }
+
+  private async updateStore(data?: Store) {
+    if (!data) return;
+    try {
+      await this.store.update(data);
+    } catch (e) {
+      console.error(e);
+      this.snack.open('保存できませんでした！');
+      return;
+    }
+    this.snack.open('保存しました');
   }
 }

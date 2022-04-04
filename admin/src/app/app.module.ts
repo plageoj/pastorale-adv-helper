@@ -43,6 +43,7 @@ import { MemberDetailComponent } from './components/members/member-detail/member
 import { MembersComponent } from './components/members/members.component';
 import { StoresComponent } from './components/stores/stores.component';
 import { BoolPipe } from './pipes/bool.pipe';
+import { EditStoreComponent } from './components/stores/edit-store/edit-store.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { BoolPipe } from './pipes/bool.pipe';
     StoresComponent,
     BoolPipe,
     MemberDetailComponent,
+    EditStoreComponent,
   ],
   imports: [
     BrowserModule,

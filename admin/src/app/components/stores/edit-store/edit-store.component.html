@@ -1,0 +1,65 @@
+<h3 mat-dialog-title>広告先を編集</h3>
+
+<mat-dialog-content>
+  <form [formGroup]="storeForm">
+    <mat-form-field class="name">
+      <mat-label>名前</mat-label>
+      <input matInput formControlName="name" required autocomplete="off" />
+    </mat-form-field>
+
+    <mat-form-field class="address">
+      <mat-label>住所</mat-label>
+      <input matInput formControlName="address" autocomplete="off" />
+    </mat-form-field>
+
+    <mat-form-field class="te11">
+      <mat-label>電話番号1</mat-label>
+      <input matInput formControlName="tel" type="tel" autocomplete="off" />
+    </mat-form-field>
+
+    <mat-form-field class="tel2">
+      <mat-label>電話番号2</mat-label>
+      <input matInput formControlName="altTel" type="tel" autocomplete="off" />
+    </mat-form-field>
+
+    <mat-form-field class="comment">
+      <mat-label>備考</mat-label>
+      <textarea
+        matInput
+        formControlName="comment"
+        rows="3"
+        autocomplete="off"
+      ></textarea>
+    </mat-form-field>
+
+    <mat-form-field class="note">
+      <mat-label>申し送り事項</mat-label>
+      <textarea
+        matInput
+        formControlName="notes"
+        rows="3"
+        autocomplete="off"
+      ></textarea>
+    </mat-form-field>
+
+    <mat-slide-toggle formControlName="visible" class="visible">
+      一覧に表示する
+    </mat-slide-toggle>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-stroked-button mat-dialog-close>
+    <mat-icon>close</mat-icon>
+    キャンセル
+  </button>
+  <button
+    mat-stroked-button
+    [mat-dialog-close]="storeForm.value"
+    color="primary"
+    [disabled]="!storeForm.valid"
+  >
+    <mat-icon>save</mat-icon>
+    保存
+  </button>
+</mat-dialog-actions>

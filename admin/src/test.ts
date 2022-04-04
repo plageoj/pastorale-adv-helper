@@ -4,11 +4,19 @@ import 'zone.js/testing';
 import { getTestBed } from '@angular/core/testing';
 import {
   BrowserDynamicTestingModule,
-  platformBrowserDynamicTesting
+  platformBrowserDynamicTesting,
 } from '@angular/platform-browser-dynamic/testing';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { provideFirestore } from '@angular/fire/firestore';
+import { getFirestore } from '@firebase/firestore';
+import { environment } from './environments/environment';
 
 declare const require: {
-  context(path: string, deep?: boolean, filter?: RegExp): {
+  context(
+    path: string,
+    deep?: boolean,
+    filter?: RegExp
+  ): {
     keys(): string[];
     <T>(id: string): T;
   };
@@ -18,8 +26,15 @@ declare const require: {
 getTestBed().initTestEnvironment(
   BrowserDynamicTestingModule,
   platformBrowserDynamicTesting(),
-  { teardown: { destroyAfterEach: true }},
+  { teardown: { destroyAfterEach: true } }
 );
+
+getTestBed().configureTestingModule({
+  imports: [
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideFirestore(() => getFirestore()),
+  ],
+});
 
 // Then we find all the tests.
 const context = require.context('./', true, /\.spec\.ts$/);

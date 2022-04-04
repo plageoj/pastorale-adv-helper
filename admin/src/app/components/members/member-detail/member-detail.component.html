@@ -35,6 +35,7 @@
         <mat-checkbox
           *ngFor="let option of commuteOptions"
           [formControlName]="option"
+          ngDefaultControl
         >
           {{ option }}
         </mat-checkbox>

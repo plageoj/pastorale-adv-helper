@@ -1,21 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
-import {
-  connectFirestoreEmulator,
-  getFirestore,
-  provideFirestore,
-} from '@angular/fire/firestore';
-import { RouterTestingModule } from '@angular/router/testing';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { connectFirestoreEmulator } from '@firebase/firestore';
 import { environment } from 'src/environments/environment';
-import { MembersComponent } from './members.component';
 
-describe('MembersComponent', () => {
-  let component: MembersComponent;
-  let fixture: ComponentFixture<MembersComponent>;
+import { StoresComponent } from './stores.component';
+
+describe('StoresComponent', () => {
+  let component: StoresComponent;
+  let fixture: ComponentFixture<StoresComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [MembersComponent],
+      declarations: [StoresComponent],
       imports: [
         provideFirebaseApp(() => initializeApp(environment.firebase)),
         provideFirestore(() => {
@@ -23,13 +20,12 @@ describe('MembersComponent', () => {
           connectFirestoreEmulator(db, 'localhost', 8080);
           return db;
         }),
-        RouterTestingModule,
       ],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MembersComponent);
+    fixture = TestBed.createComponent(StoresComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

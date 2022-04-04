@@ -1,15 +1,15 @@
 import { TestBed } from '@angular/core/testing';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import {
+  connectFirestoreEmulator,
   getFirestore,
   provideFirestore,
-  connectFirestoreEmulator,
 } from '@angular/fire/firestore';
 import { environment } from 'src/environments/environment';
-import { MemberService } from './member.service';
+import { StoreService } from './store.service';
 
-describe('MemberService', () => {
-  let service: MemberService;
+describe('StoreService', () => {
+  let service: StoreService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -22,7 +22,7 @@ describe('MemberService', () => {
         }),
       ],
     });
-    service = TestBed.inject(MemberService);
+    service = TestBed.inject(StoreService);
   });
 
   it('should be created', () => {

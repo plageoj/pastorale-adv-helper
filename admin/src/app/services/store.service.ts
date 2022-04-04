@@ -6,7 +6,10 @@ import {
   doc,
   docData,
   Firestore,
+  orderBy,
+  query,
   setDoc,
+  where,
 } from '@angular/fire/firestore';
 import { Store } from '../models/store.model';
 import { IFirestore } from './firestore.interface';
@@ -21,8 +24,12 @@ export class StoreService implements IFirestore<Store> {
     this.col = collection(this.db, 'stores') as CollectionReference<Store>;
   }
 
-  getAll() {
-    return collectionData(this.col);
+  getAll(
+    { includeHidden }: { includeHidden: boolean } = { includeHidden: false }
+  ) {
+    const queries = [orderBy('needAttention', 'desc')];
+    if (!includeHidden) queries.push(where('visible', '==', true));
+    return collectionData(query(this.col, ...queries));
   }
 
   get(storeId: string) {

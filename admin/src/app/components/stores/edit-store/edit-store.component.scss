@@ -1,0 +1,22 @@
+form {
+  display: grid;
+  grid-template:
+    "name name" auto
+    "address address" auto
+    "tel1 tel2" auto
+    "comment note" auto
+    "visible empty" auto / 20rem 20rem;
+  column-gap: 1rem;
+}
+
+mat-form-field {
+  display: block;
+}
+
+$areas: name, address, tel1, tel2, comment, note, visible;
+
+@each $area in $areas {
+  .#{$area} {
+    grid-area: #{$area};
+  }
+}

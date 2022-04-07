@@ -8,7 +8,7 @@ export type Store = {
   comment: string;
   draft: string;
   id: string;
-  assigned?: Member;
+  assigned?: Omit<Member, 'stores'>;
   last?: {
     amount: number;
     uid: Member['uid'];

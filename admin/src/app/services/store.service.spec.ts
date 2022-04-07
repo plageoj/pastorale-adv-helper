@@ -1,11 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
-import {
-  connectFirestoreEmulator,
-  getFirestore,
-  provideFirestore,
-} from '@angular/fire/firestore';
-import { environment } from 'src/environments/environment';
+import { FirebaseTestingModule } from '../firebase-testing.module';
 import { StoreService } from './store.service';
 
 describe('StoreService', () => {
@@ -13,14 +7,7 @@ describe('StoreService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-        provideFirebaseApp(() => initializeApp(environment.firebase)),
-        provideFirestore(() => {
-          const db = getFirestore();
-          connectFirestoreEmulator(db, 'localhost', 8080);
-          return db;
-        }),
-      ],
+      imports: [FirebaseTestingModule],
     });
     service = TestBed.inject(StoreService);
   });

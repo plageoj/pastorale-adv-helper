@@ -1,5 +1,11 @@
+@use "@angular/material" as mat;
+
 table {
   width: 100%;
+}
+
+.invisible {
+  background: map-get(mat.$grey-palette, 300);
 }
 
 mat-card-content {

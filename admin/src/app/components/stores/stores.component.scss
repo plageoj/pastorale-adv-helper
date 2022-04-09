@@ -4,6 +4,19 @@ table {
   width: 100%;
 }
 
+[mat-row] {
+  transition: background-color 0.2s ease-in-out;
+  cursor: pointer;
+
+  &:hover {
+    background-color: map-get(mat.$grey-palette, 50);
+  }
+
+  &:active {
+    background-color: map-get(mat.$deep-purple-palette, 50);
+  }
+}
+
 .invisible {
   background: map-get(mat.$grey-palette, 300);
 }

@@ -61,13 +61,17 @@ export class StoresComponent implements OnInit {
     this.stores.filter = value;
   }
 
+  susupendNavigation(event: Event) {
+    event.stopPropagation();
+  }
+
   edit(store: Store) {
     this.dialog
-      .open(EditStoreComponent, {
+      .open<EditStoreComponent, Store, Store>(EditStoreComponent, {
         data: store,
       })
       .afterClosed()
-      .subscribe(this.updateStore);
+      .subscribe((store) => this.updateStore(store));
   }
 
   attention(store: Store, event: MatCheckboxChange) {

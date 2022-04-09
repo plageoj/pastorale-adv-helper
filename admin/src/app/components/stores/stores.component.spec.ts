@@ -85,7 +85,7 @@ describe('StoresComponent', () => {
   it('should filter data', () => {
     const filter = fixture.nativeElement.querySelector('input');
     filter.value = 'Store';
-    filter.dispatchEvent(new Event('change'));
+    filter.dispatchEvent(new Event('input'));
     fixture.detectChanges();
     expect(component.stores.filter).toBe('Store');
   });

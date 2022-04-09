@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Member } from 'src/app/models/member.model';
 
 @Component({
@@ -6,10 +6,8 @@ import { Member } from 'src/app/models/member.model';
   templateUrl: './commute.component.html',
   styleUrls: ['./commute.component.scss'],
 })
-export class CommuteComponent implements OnInit {
-  @Input('commute') commute: Member['commute'] = {};
+export class CommuteComponent {
+  @Input() commute: Member['commute'] = {};
 
   constructor() {}
-
-  ngOnInit(): void {}
 }

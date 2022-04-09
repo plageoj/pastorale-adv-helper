@@ -4,7 +4,7 @@ import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { connectFirestoreEmulator } from '@firebase/firestore';
 import { environment } from 'src/environments/environment';
-import { provideAuth } from '@angular/fire/auth';
+import { provideAuth, signInAnonymously } from '@angular/fire/auth';
 import { connectAuthEmulator, getAuth } from '@firebase/auth';
 
 let initialized = { db: false, auth: false };

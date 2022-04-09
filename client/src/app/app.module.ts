@@ -32,9 +32,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/member/login/login.component';
 import { RegisterComponent } from './components/member/register/register.component';
+import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { DetailComponent } from './components/store/detail/detail.component';
 import { ListComponent } from './components/store/list/list.component';
-import { NavBarComponent } from './components/nav-bar/nav-bar.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
   declarations: [
@@ -60,13 +62,15 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
       enabled: environment.production,
       registrationStrategy: 'registerWhenStable:30000',
     }),
-    MatFormFieldModule,
-    MatInputModule,
     MatButtonModule,
+    MatCheckboxModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
     MatSnackBarModule,
     MatToolbarModule,
-    MatIconModule,
-    MatDialogModule,
+    MatListModule,
   ],
   providers: [
     ScreenTrackingService,

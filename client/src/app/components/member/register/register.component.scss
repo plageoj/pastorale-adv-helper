@@ -1,0 +1,29 @@
+form {
+  margin: 1rem;
+}
+
+mat-form-field{
+  width: 100%;
+}
+
+h4 {
+  margin: 0;
+  font-weight: normal;
+}
+
+#commute-list {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+  line-height: 2rem;
+
+  mat-checkbox {
+    display: block;
+    width: 7rem;
+  }
+}
+
+button {
+  width: 100%;
+  margin-bottom: 1rem;
+}

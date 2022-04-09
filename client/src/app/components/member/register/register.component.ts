@@ -41,6 +41,7 @@ export class RegisterComponent implements OnInit {
       isAdmin: [false],
       isHomeInHiroshima: [false],
       stores: [[]],
+      visible: [true],
     } as { [key in keyof Member]: any });
     this.profile.disable();
   }
@@ -48,7 +49,10 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
     this.mems.me().subscribe((me) => {
       if (me) {
-        this.profile.patchValue(me);
+        this.profile.patchValue({
+          ...me,
+          studentNumber: `b${me.studentNumber}`,
+        });
       }
 
       if (!me || Object.keys(me.commute).length === 0) {
@@ -78,17 +82,26 @@ export class RegisterComponent implements OnInit {
     });
   }
 
-  async save() {
+  save() {
     this.loading = true;
     this.profile.disable();
-    try {
-      await this.mems.update(this.profile.value);
-    } catch (e) {
-      console.error(e);
-      this.sb.open('保存できませんでした！');
+    const member = this.profile.value;
+    if (typeof member.studentNumber === 'string') {
+      member.studentNumber = Number(
+        member.studentNumber.replace(/[^0-9]/g, '')
+      );
     }
-    this.loading = false;
-    this.profile.enable();
-    this.sb.open('保存しました');
+
+    this.mems
+      .update(member)
+      .then(() => {
+        this.loading = false;
+        this.profile.enable();
+        this.sb.open('保存しました');
+      })
+      .catch((e) => {
+        console.error(e);
+        this.sb.open('保存できませんでした！');
+      });
   }
 }

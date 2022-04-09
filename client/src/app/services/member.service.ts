@@ -36,6 +36,7 @@ export class MemberService {
         isAdmin: false,
         isHomeInHiroshima: false,
         stores: [],
+        visible: true,
       });
     return docData(doc(this.col, this.auth.currentUser?.uid));
   }

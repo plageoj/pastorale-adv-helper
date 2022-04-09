@@ -13,4 +13,5 @@ export type Member = {
   stores: Omit<Store, 'assigned'>[];
   commute: { [key in Commute]?: boolean };
   isAdmin: boolean;
+  visible: boolean;
 };

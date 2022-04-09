@@ -1,6 +1,6 @@
-<mat-toolbar color="primary"> プロフィール </mat-toolbar>
+<mat-toolbar color="primary"> プロフィール編集 </mat-toolbar>
 
-<form [formGroup]="profile" id="member-editor" (ngSubmit)="save()">
+<form [formGroup]="profile" (ngSubmit)="save()">
   <mat-form-field>
     <mat-label>名前</mat-label>
     <input matInput formControlName="name" required />

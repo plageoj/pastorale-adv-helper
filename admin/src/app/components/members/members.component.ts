@@ -17,12 +17,13 @@ export class MembersComponent implements OnInit {
 
   constructor(private mems: MemberService, private route: ActivatedRoute) {
     this.members = this.mems.getAll();
+  }
+
+  ngOnInit(): void {
     this.route.queryParamMap
       .pipe(map((params) => params.get('n')))
       .subscribe((uid) => {
         this.uid = uid ?? '';
       });
   }
-
-  ngOnInit(): void {}
 }

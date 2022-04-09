@@ -37,7 +37,9 @@ export class AssignMemberComponent implements OnInit {
     private mems: MemberService,
     private dialog: MatDialog,
     private snack: MatSnackBar
-  ) {
+  ) {}
+
+  ngOnInit(): void {
     this.route.paramMap
       .pipe(
         map((params) => params.get('id')),
@@ -51,8 +53,6 @@ export class AssignMemberComponent implements OnInit {
       this.members.sort = this.sort;
     });
   }
-
-  ngOnInit(): void {}
 
   applyFilter(event: Event) {
     const value = (event.target as HTMLInputElement).value.trim();

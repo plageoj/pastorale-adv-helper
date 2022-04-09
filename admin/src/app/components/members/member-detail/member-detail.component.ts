@@ -42,7 +42,9 @@ export class MemberDetailComponent implements OnInit {
         車: [false],
       } as { [key in Commute]: any }),
     } as { [key in keyof Member]: any });
+  }
 
+  ngOnInit(): void {
     this.route.queryParamMap.subscribe((params) => {
       const uid = params.get('n');
       if (!uid) return;
@@ -63,8 +65,6 @@ export class MemberDetailComponent implements OnInit {
       this.loading = false;
     });
   }
-
-  ngOnInit(): void {}
 
   async save() {
     this.loading = true;

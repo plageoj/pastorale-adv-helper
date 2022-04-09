@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Store } from 'src/app/models/store.model';
@@ -8,7 +8,7 @@ import { Store } from 'src/app/models/store.model';
   templateUrl: './edit-store.component.html',
   styleUrls: ['./edit-store.component.scss'],
 })
-export class EditStoreComponent implements OnInit {
+export class EditStoreComponent {
   storeForm;
 
   constructor(
@@ -26,6 +26,4 @@ export class EditStoreComponent implements OnInit {
       visible: [this.store.visible],
     } as { [key in keyof Store]: any });
   }
-
-  ngOnInit(): void {}
 }

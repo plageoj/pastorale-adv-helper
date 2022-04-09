@@ -34,6 +34,7 @@ import { LoginComponent } from './components/member/login/login.component';
 import { RegisterComponent } from './components/member/register/register.component';
 import { DetailComponent } from './components/store/detail/detail.component';
 import { ListComponent } from './components/store/list/list.component';
+import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { ListComponent } from './components/store/list/list.component';
     RegisterComponent,
     ListComponent,
     DetailComponent,
+    NavBarComponent,
   ],
   imports: [
     BrowserModule,

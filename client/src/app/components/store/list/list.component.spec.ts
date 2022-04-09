@@ -4,7 +4,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterTestingModule } from '@angular/router/testing';
 import { FirebaseTestingModule } from 'src/app/testing/firebase-testing.module';
-
+import { NavBarComponent } from '../../nav-bar/nav-bar.component';
 import { ListComponent } from './list.component';
 
 describe('ListComponent', () => {
@@ -13,7 +13,7 @@ describe('ListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ListComponent],
+      declarations: [ListComponent, NavBarComponent],
       imports: [
         FirebaseTestingModule,
         RouterTestingModule,

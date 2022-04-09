@@ -9,6 +9,7 @@ import {
   orderBy,
   query,
   setDoc,
+  where,
 } from '@angular/fire/firestore';
 import { Member } from '../models/member.model';
 import { IFirestore } from './firestore.interface';
@@ -24,7 +25,13 @@ export class MemberService implements IFirestore<Member> {
   }
 
   getAll() {
-    return collectionData(query(this.col, orderBy('studentNumber', 'desc')));
+    return collectionData(
+      query(
+        this.col,
+        where('visible', '==', true),
+        orderBy('studentNumber', 'desc')
+      )
+    );
   }
 
   get(uid: string) {

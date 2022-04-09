@@ -1,1 +1,60 @@
-<p>register works!</p>
+<mat-toolbar color="primary"> プロフィール編集 </mat-toolbar>
+
+<form [formGroup]="profile" (ngSubmit)="save()">
+  <mat-form-field>
+    <mat-label>名前</mat-label>
+    <input matInput formControlName="name" required />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>学生番号</mat-label>
+    <input matInput formControlName="studentNumber" required />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>バイト先</mat-label>
+    <input matInput formControlName="job" />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>住所</mat-label>
+    <input matInput formControlName="currentAddress" required />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>帰省先住所</mat-label>
+    <input
+      matInput
+      formControlName="homeAddress"
+      placeholder="実家生は空のままでOKです"
+    />
+  </mat-form-field>
+
+  <h4 matSubheader>交通手段</h4>
+  <div formGroupName="commute" id="commute-list">
+    <mat-checkbox
+      *ngFor="let option of commuteOptions"
+      [formControlName]="option"
+      ngDefaultControl
+    >
+      {{ option }}
+    </mat-checkbox>
+  </div>
+
+  <mat-form-field>
+    <mat-label>コメント</mat-label>
+    <textarea matInput formControlName="comment" rows="3"></textarea>
+  </mat-form-field>
+
+  <button
+    mat-raised-button
+    color="primary"
+    type="submit"
+    [disabled]="loading || !profile.valid"
+  >
+    <mat-icon>send</mat-icon>
+    送信
+  </button>
+</form>
+
+<app-nav-bar></app-nav-bar>

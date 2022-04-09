@@ -1,0 +1,41 @@
+@use "@angular/material" as mat;
+
+#container {
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  grid-template-rows: calc(100vh - 64px - 2rem);
+  grid-gap: 1rem;
+  margin: 1rem;
+}
+
+mat-card-content {
+  max-height: 100%;
+  overflow: auto;
+}
+
+mat-card-actions {
+  display: flex;
+  .left {
+    flex-grow: 1;
+  }
+}
+
+mat-list-item {
+  display: flex;
+  .left {
+    flex-grow: 1;
+    color: map-get(mat.$grey-palette, 700);
+  }
+}
+
+table {
+  width: 100%;
+}
+
+.store-link {
+  display: block;
+}
+
+mat-form-field {
+  width: 100%;
+}

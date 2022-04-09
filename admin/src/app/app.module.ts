@@ -44,6 +44,8 @@ import { MembersComponent } from './components/members/members.component';
 import { StoresComponent } from './components/stores/stores.component';
 import { BoolPipe } from './pipes/bool.pipe';
 import { EditStoreComponent } from './components/stores/edit-store/edit-store.component';
+import { AssignMemberComponent } from './components/stores/assign-member/assign-member.component';
+import { CommuteComponent } from './components/util/commute/commute.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +55,8 @@ import { EditStoreComponent } from './components/stores/edit-store/edit-store.co
     BoolPipe,
     MemberDetailComponent,
     EditStoreComponent,
+    AssignMemberComponent,
+    CommuteComponent,
   ],
   imports: [
     BrowserModule,

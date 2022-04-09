@@ -10,7 +10,7 @@ export type Member = {
   isHomeInHiroshima: boolean;
   homeAddress: string;
   comment: string;
-  stores: Store[];
+  stores: Omit<Store, 'assigned'>[];
   commute: { [key in Commute]?: boolean };
   isAdmin: boolean;
 };

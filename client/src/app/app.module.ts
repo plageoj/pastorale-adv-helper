@@ -20,9 +20,19 @@ import {
   getRemoteConfig,
 } from '@angular/fire/remote-config';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { LoginComponent } from './components/member/login/login.component';
+import { RegisterComponent } from './components/member/register/register.component';
+import { ListComponent } from './components/store/list/list.component';
+import { DetailComponent } from './components/store/detail/detail.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    RegisterComponent,
+    ListComponent,
+    DetailComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -35,9 +45,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     provideRemoteConfig(() => getRemoteConfig()),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
-      // Register the ServiceWorker as soon as the application is stable
-      // or after 30 seconds (whichever comes first).
-      registrationStrategy: 'registerWhenStable:30000'
+      registrationStrategy: 'registerWhenStable:30000',
     }),
   ],
   providers: [ScreenTrackingService, UserTrackingService],

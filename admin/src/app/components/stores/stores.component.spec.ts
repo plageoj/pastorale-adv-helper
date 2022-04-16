@@ -18,7 +18,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { FirebaseTestingModule } from 'src/app/firebase-testing.module';
+import { FirebaseTestingModule } from 'src/app/testing/firebase-testing.module';
 import { Store } from 'src/app/models/store.model';
 import { waitUntil } from 'src/app/utils/wait-until';
 import { StoresComponent } from './stores.component';

@@ -25,6 +25,10 @@ export class StoreService implements IFirestore<Store> {
     this.col = collection(this.db, 'stores') as CollectionReference<Store>;
   }
 
+  get id(): string {
+    return doc(this.col).id;
+  }
+
   getAll(
     { includeHidden }: { includeHidden: boolean } = { includeHidden: false }
   ) {

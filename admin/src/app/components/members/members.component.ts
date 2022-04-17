@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Member } from 'src/app/models/member.model';
 import { MemberService } from 'src/app/services/member.service';
 import { map } from 'rxjs/operators';
@@ -15,7 +15,11 @@ export class MembersComponent implements OnInit {
 
   uid: string = '';
 
-  constructor(private mems: MemberService, private route: ActivatedRoute) {
+  constructor(
+    private mems: MemberService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {
     this.members = this.mems.getAll();
   }
 
@@ -25,5 +29,13 @@ export class MembersComponent implements OnInit {
       .subscribe((uid) => {
         this.uid = uid ?? '';
       });
+  }
+
+  openDetails(uid: Member['uid']) {
+    if (this.uid === uid) {
+      this.router.navigateByUrl(`/members`);
+    } else {
+      this.router.navigateByUrl(`/members?n=${uid}`);
+    }
   }
 }

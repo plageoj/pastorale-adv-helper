@@ -75,25 +75,20 @@ export class StoresComponent implements OnInit {
   }
 
   add() {
-    this.dialog
-      .open<EditStoreComponent, Store, Store>(EditStoreComponent, {
-        data: {
-          id: this.store.id,
-          name: '',
-          address: '',
-          tel: '',
-          status: '担当者なし',
-          amount: 0,
-          draft: '',
-          needAttention: false,
-          visible: true,
-          altTel: '',
-          comment: '',
-          notes: '',
-        } as Store,
-      })
-      .afterClosed()
-      .subscribe((store) => this.updateStore(store));
+    this.edit({
+      id: this.store.id,
+      name: '',
+      address: '',
+      tel: '',
+      status: '担当者なし',
+      amount: 0,
+      draft: '',
+      needAttention: false,
+      visible: true,
+      altTel: '',
+      comment: '',
+      notes: '',
+    });
   }
 
   attention(store: Store, event: MatCheckboxChange) {

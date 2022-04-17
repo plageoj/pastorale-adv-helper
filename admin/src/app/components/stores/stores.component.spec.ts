@@ -1,14 +1,6 @@
 import { HarnessLoader } from '@angular/cdk/testing';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
-import {
-  ComponentFixture,
-  discardPeriodicTasks,
-  fakeAsync,
-  flush,
-  TestBed,
-  tick,
-  waitForAsync,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -25,7 +17,7 @@ import { MatTableModule } from '@angular/material/table';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { getTestScheduler } from 'jasmine-marbles';
+import { cold, getTestScheduler } from 'jasmine-marbles';
 import { of } from 'rxjs';
 import { StoreService } from 'src/app/services/store.service';
 import { FirebaseTestingModule } from 'src/app/testing/firebase-testing.module';
@@ -182,5 +174,26 @@ describe('StoresComponent', () => {
     editButton.triggerEventHandler('click', null);
     fixture.detectChanges();
     expect(snack).toHaveBeenCalledWith('保存できませんでした！');
+  });
+
+  it('should add store', () => {
+    const update = spyOn(
+      TestBed.inject(StoreService),
+      'update'
+    ).and.returnValue(Promise.resolve());
+    const dialog = (
+      spyOn(TestBed.inject(MatDialog), 'open') as jasmine.Spy
+    ).and.callFake((data) => ({
+      afterClosed: () => cold('--d|', { d: data }),
+    }));
+
+    const addButton = fixture.nativeElement.querySelector(
+      'button[title="広告先を追加"]'
+    );
+    addButton.click();
+    getTestScheduler().flush();
+    fixture.detectChanges();
+    expect(dialog).toHaveBeenCalled();
+    expect(update).toHaveBeenCalled();
   });
 });

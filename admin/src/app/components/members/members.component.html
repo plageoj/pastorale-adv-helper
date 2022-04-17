@@ -36,8 +36,7 @@
       <tr
         mat-row
         *matRowDef="let row; columns: columns"
-        routerLink="/members"
-        [queryParams]="{ n: row.uid }"
+        (click)="openDetails(row.uid)"
         [ngClass]="{ active: row.uid === uid }"
       ></tr>
     </table>

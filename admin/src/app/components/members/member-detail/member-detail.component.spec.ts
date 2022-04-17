@@ -18,7 +18,6 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { cold, getTestScheduler } from 'jasmine-marbles';
-import { of } from 'rxjs';
 import { Member } from 'src/app/models/member.model';
 import { MemberService } from 'src/app/services/member.service';
 import { ActivatedRouteStub } from 'src/app/testing/activated-route-stub';

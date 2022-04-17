@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { FirebaseTestingModule } from '../firebase-testing.module';
+import { FirebaseTestingModule } from '../testing/firebase-testing.module';
 import { MemberService } from './member.service';
 
 describe('MemberService', () => {

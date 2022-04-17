@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { deleteField } from '@angular/fire/firestore';
+import { deleteField, WithFieldValue } from '@angular/fire/firestore';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
@@ -85,7 +85,7 @@ export class AssignMemberComponent implements OnInit {
     }
 
     if (save) {
-      await this.ss.update({
+      await this.updateStore({
         ...this.store,
         status: '担当者なし',
         assigned: deleteField(),
@@ -105,10 +105,10 @@ export class AssignMemberComponent implements OnInit {
     const { stores, ...assignee } = member;
     this.store.assigned = assignee;
     this.store.status = '未着手';
-    await this.ss.update(this.store);
+    await this.updateStore(this.store);
   }
 
-  private async updateStore(data?: Store) {
+  private async updateStore(data?: WithFieldValue<Store>) {
     if (!data) return;
     try {
       await this.ss.update(data);

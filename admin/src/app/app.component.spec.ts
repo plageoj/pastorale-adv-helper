@@ -28,12 +28,19 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it('should render app', () => {
+  it('should have title on toolbar', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelector('mat-toolbar')?.textContent).toContain(
       '協賛広告ヘルパー'
     );
+  });
+
+  it('should have menu', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.querySelector('mat-sidenav-container')).toBeTruthy();
   });
 });

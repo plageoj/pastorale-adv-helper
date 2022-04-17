@@ -41,6 +41,7 @@
     "@typescript-eslint/parser": "5.17.0",
     "eslint": "^8.12.0",
     "jasmine-core": "~4.0.1",
+    "jasmine-marbles": "^0.9.2",
     "karma": "~6.3.0",
     "karma-chrome-launcher": "~3.1.0",
     "karma-coverage": "~2.2.0",
@@ -51,7 +52,7 @@
   },
   "lint-staged": {
     "*.{ts,html}": [
-      "ng lint --fix"
+      "eslint"
     ]
   }
 }

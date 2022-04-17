@@ -38,7 +38,7 @@ describe('LoginComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should open popup', () => {
+  xit('should open popup', () => {
     const authspy = jasmine.createSpyObj(auth, ['signInWithPopup']);
     const signin = authspy.signInWithPopup.and.returnValue(Promise.resolve());
     fixture.nativeElement.querySelector('button[title="ログイン"]').click();

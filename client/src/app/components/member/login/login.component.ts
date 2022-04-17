@@ -5,10 +5,11 @@ import {
   getRedirectResult,
   linkWithRedirect,
   OAuthProvider,
+  signInWithEmailAndPassword,
+  signInWithPopup,
 } from '@angular/fire/auth';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { signInWithEmailAndPassword, signInWithPopup } from '@firebase/auth';
 
 @Component({
   selector: 'app-login',

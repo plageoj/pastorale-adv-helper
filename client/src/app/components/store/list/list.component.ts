@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Auth, signOut } from '@angular/fire/auth';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { Store } from 'src/app/models/store.model';
 import { StoreService } from 'src/app/services/store.service';
 
 @Component({
@@ -8,15 +10,19 @@ import { StoreService } from 'src/app/services/store.service';
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
 })
-export class ListComponent {
-  stores;
+export class ListComponent implements OnInit {
+  stores?: Observable<Store[]>;
 
   constructor(
     private auth: Auth,
     private router: Router,
     private store: StoreService
-  ) {
-    this.stores = this.store.list();
+  ) {}
+
+  ngOnInit(): void {
+    this.auth.onAuthStateChanged(() => {
+      this.stores = this.store.list();
+    });
   }
 
   async logout() {

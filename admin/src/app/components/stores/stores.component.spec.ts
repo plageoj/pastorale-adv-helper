@@ -1,25 +1,35 @@
 import { HarnessLoader } from '@angular/cdk/testing';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  discardPeriodicTasks,
+  fakeAsync,
+  flush,
+  TestBed,
+  tick,
+  waitForAsync,
+} from '@angular/core/testing';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import {
-  MatCheckboxChange,
-  MatCheckboxModule,
-} from '@angular/material/checkbox';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatCheckboxHarness } from '@angular/material/checkbox/testing';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSlideToggleHarness } from '@angular/material/slide-toggle/testing';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
+import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
+import { getTestScheduler } from 'jasmine-marbles';
+import { of } from 'rxjs';
+import { StoreService } from 'src/app/services/store.service';
 import { FirebaseTestingModule } from 'src/app/testing/firebase-testing.module';
-import { Store } from 'src/app/models/store.model';
+import { RouterLinkStubDirective } from 'src/app/testing/router-link-stub';
 import { waitUntil } from 'src/app/utils/wait-until';
 import { StoresComponent } from './stores.component';
 
@@ -44,7 +54,7 @@ describe('StoresComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [StoresComponent],
+      declarations: [StoresComponent, RouterLinkStubDirective],
       imports: [
         FirebaseTestingModule,
         MatButtonModule,
@@ -64,11 +74,45 @@ describe('StoresComponent', () => {
     }).compileComponents();
   });
 
-  beforeEach(() => {
+  beforeEach(async () => {
     fixture = TestBed.createComponent(StoresComponent);
     component = fixture.componentInstance;
     loader = TestbedHarnessEnvironment.loader(fixture);
+    const storeService = TestBed.inject(StoreService);
+    await storeService.update({
+      id: 'store-id',
+      name: 'Store',
+      address: 'Address',
+      tel: 'Tel',
+      altTel: 'AltTel',
+      visible: true,
+      status: '担当者なし',
+      amount: 0,
+      comment: '',
+      draft: '',
+      notes: '',
+      needAttention: false,
+      assigned: member,
+    });
+    await storeService.update({
+      id: 'invisible-store-id',
+      name: 'Invisible Store',
+      address: 'Invisible Address',
+      tel: 'Invisible Tel',
+      altTel: 'Invisible AltTel',
+      visible: false,
+      status: '担当者なし',
+      amount: 0,
+      comment: '',
+      draft: '',
+      notes: '',
+      needAttention: false,
+      assigned: member,
+    });
     fixture.detectChanges();
+    getTestScheduler().flush();
+    fixture.detectChanges();
+    await waitUntil(() => component.stores.data.length !== 0);
   });
 
   it('should create', () => {
@@ -91,54 +135,52 @@ describe('StoresComponent', () => {
   });
 
   it('updates attention', async () => {
-    const store: Store = {
-      id: 'store-id',
-      name: 'Store',
-      address: 'Address',
-      tel: 'Tel',
-      altTel: 'AltTel',
-      visible: true,
-      status: '担当者なし',
-      amount: 0,
-      comment: '',
-      draft: '',
-      notes: '',
-      needAttention: false,
-      assigned: member,
-    };
-    const event = new MatCheckboxChange();
-    event.checked = true;
-    await component.attention(store, event);
+    const checkboxes = await loader.getAllHarnesses(MatCheckboxHarness);
+    await checkboxes[0].check();
     fixture.detectChanges();
     expect(component.stores.data[0].needAttention).toBeTrue();
+
+    const links = fixture.debugElement.queryAll(
+      By.directive(RouterLinkStubDirective)
+    );
+    const routerLinks = links.map((link) =>
+      link.injector.get(RouterLinkStubDirective)
+    );
+
+    expect(routerLinks.every((link) => !link.navigatedTo)).toBeTrue();
   });
 
-  it('shows invisible stores', async () => {
-    const store: Store = {
-      id: 'invisible-store-id',
-      name: 'Invisible Store',
-      address: 'Invisible Address',
-      tel: 'Invisible Tel',
-      altTel: 'Invisible AltTel',
-      visible: false,
-      status: '担当者なし',
-      amount: 0,
-      comment: '',
-      draft: '',
-      notes: '',
-      needAttention: false,
-      assigned: member,
-    };
-    const event = new MatCheckboxChange();
-    event.checked = false;
-    await component.attention(store, event);
-    fixture.detectChanges();
-    const length = component.stores.data.length;
+  it('shows invisible stores', waitForAsync(async () => {
     const toggles = await loader.getAllHarnesses(MatSlideToggleHarness);
     expect(toggles.length).toBe(1);
-    await toggles[0].toggle();
+    expect(component.stores.data.length).toBe(1);
+    await toggles[0].check();
+    await waitUntil(() => component.stores.data.length === 2);
     fixture.detectChanges();
-    await waitUntil(() => component.stores.data.length !== length);
-    expect(component.stores.data.length).toBe(length + 1);
+    expect(component.stores.data.length).toBe(2);
+  }));
+
+  it('should open edit dialog and update stores', () => {
+    const dialog = (
+      spyOn(TestBed.inject(MatDialog), 'open') as jasmine.Spy
+    ).and.returnValue({
+      afterClosed: () => of(undefined),
+    });
+    const snack = (
+      spyOn(TestBed.inject(MatSnackBar), 'open') as jasmine.Spy
+    ).and.callThrough();
+    const editButton = fixture.debugElement.query(
+      By.css('table button[title="編集"]')
+    );
+    editButton.triggerEventHandler('click', null);
+    fixture.detectChanges();
+    expect(dialog).toHaveBeenCalled();
+
+    dialog.and.returnValue({
+      afterClosed: () => of({ name: 'updated' }),
+    });
+    editButton.triggerEventHandler('click', null);
+    fixture.detectChanges();
+    expect(snack).toHaveBeenCalledWith('保存できませんでした！');
   });
 });

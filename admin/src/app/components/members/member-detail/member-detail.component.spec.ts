@@ -39,7 +39,7 @@ describe('MemberDetailComponent', () => {
       'update',
     ]);
     memberService.get.and.returnValue(
-      cold('-m:', {
+      cold('-m|', {
         m: {
           uid: 'uid',
           isAdmin: false,
@@ -104,10 +104,16 @@ describe('MemberDetailComponent', () => {
 
     navigate = spyOn(router, 'navigateByUrl').and.callThrough();
     snackbar = spyOn(snack, 'open').and.callThrough();
+    getTestScheduler().flush();
+    fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should read a member', () => {
+    expect(component.memberForm.value.name).toBe('name');
   });
 
   it('save current member', fakeAsync(() => {

@@ -37,7 +37,7 @@ export class StoreService implements IFirestore<Store> {
     return docData(doc(this.col, storeId));
   }
 
-  update(data: WithFieldValue<Store>): Promise<void> {
+  update(data: WithFieldValue<Partial<Store>>): Promise<void> {
     if (typeof data.id !== 'string') throw new Error('id is required');
     return setDoc(doc(this.col, data.id), data, { merge: true });
   }

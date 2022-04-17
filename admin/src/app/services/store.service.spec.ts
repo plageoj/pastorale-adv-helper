@@ -15,4 +15,8 @@ describe('StoreService', () => {
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
+
+  it('should throw an error if the store id is empty', () => {
+    expect(() => service.update({})).toThrowError('id is required');
+  });
 });

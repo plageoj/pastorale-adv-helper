@@ -1,8 +1,8 @@
-import { firstValueFrom, interval } from 'rxjs';
+import { firstValueFrom, timer } from 'rxjs';
 
 export const waitUntil = async (untilTruthy: Function): Promise<boolean> => {
   while (!untilTruthy()) {
-    await firstValueFrom(interval(25));
+    await firstValueFrom(timer(25));
   }
   return true;
 };

@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Auth, signOut } from '@angular/fire/auth';
 import { Router } from '@angular/router';
+import { StoreService } from 'src/app/services/store.service';
 
 @Component({
   selector: 'app-list',
@@ -8,7 +9,15 @@ import { Router } from '@angular/router';
   styleUrls: ['./list.component.scss'],
 })
 export class ListComponent {
-  constructor(private auth: Auth, private router: Router) {}
+  stores;
+
+  constructor(
+    private auth: Auth,
+    private router: Router,
+    private store: StoreService
+  ) {
+    this.stores = this.store.list();
+  }
 
   async logout() {
     await signOut(this.auth);

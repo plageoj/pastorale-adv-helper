@@ -9,7 +9,7 @@ import {
   setDoc,
   WithFieldValue,
 } from '@angular/fire/firestore';
-import { from, Observable, of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Member } from '../models/member.model';
 
 @Injectable({

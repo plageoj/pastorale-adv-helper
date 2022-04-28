@@ -40,6 +40,7 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { DetailComponent } from './components/store/detail/detail.component';
 import { ListComponent } from './components/store/list/list.component';
 import { StatusIconPipe } from './pipes/status-icon.pipe';
+import { ReportComponent } from './components/store/report/report.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { StatusIconPipe } from './pipes/status-icon.pipe';
     DetailComponent,
     NavBarComponent,
     StatusIconPipe,
+    ReportComponent,
   ],
   imports: [
     BrowserModule,

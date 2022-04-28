@@ -48,8 +48,8 @@
   </mat-list-item>
   <mat-list-item>
     <mat-icon matListIcon>notes</mat-icon>
-    <p matLine class="wrap">
-      {{ store?.notes }}
+    <p matLine class="wrap" [ngClass]="{ empty: !store?.notes }">
+      {{ store?.notes || "メモはありません" }}
     </p>
   </mat-list-item>
 </mat-list>

@@ -4,6 +4,8 @@ import {
   collection,
   collectionData,
   CollectionReference,
+  doc,
+  docData,
   Firestore,
   query,
   where,
@@ -28,5 +30,9 @@ export class StoreService {
         where('assigned.uid', '==', this.auth.currentUser.uid)
       )
     );
+  }
+
+  get(id: string) {
+    return docData(doc(this.col, id));
   }
 }

@@ -41,7 +41,7 @@ export class RegisterComponent implements OnInit {
       isAdmin: [false],
       isHomeInHiroshima: [false],
       stores: [[]],
-      visible: [true],
+      visible: [false],
     } as { [key in keyof Member]: any });
     this.profile.disable();
   }
@@ -52,6 +52,7 @@ export class RegisterComponent implements OnInit {
         this.profile.patchValue({
           ...me,
           studentNumber: `b${me.studentNumber}`,
+          visible: true,
         });
       }
 
@@ -82,7 +83,7 @@ export class RegisterComponent implements OnInit {
     });
   }
 
-  save() {
+  async save() {
     this.loading = true;
     this.profile.disable();
     const member = this.profile.value;
@@ -92,16 +93,14 @@ export class RegisterComponent implements OnInit {
       );
     }
 
-    this.mems
-      .update(member)
-      .then(() => {
-        this.loading = false;
-        this.profile.enable();
-        this.sb.open('保存しました');
-      })
-      .catch((e) => {
-        console.error(e);
-        this.sb.open('保存できませんでした！');
-      });
+    try {
+      await this.mems.update(member);
+      this.sb.open('保存しました');
+    } catch (e) {
+      console.error(e);
+      this.sb.open('保存できませんでした！');
+    }
+    this.loading = false;
+    this.profile.enable();
   }
 }

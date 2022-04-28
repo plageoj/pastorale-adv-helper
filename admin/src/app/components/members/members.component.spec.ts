@@ -3,6 +3,7 @@ import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatTableModule } from '@angular/material/table';
+import { MatRowHarness } from '@angular/material/table/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -11,8 +12,6 @@ import { MemberService } from 'src/app/services/member.service';
 import { ActivatedRouteStub } from 'src/app/testing/activated-route-stub';
 import { FirebaseTestingModule } from 'src/app/testing/firebase-testing.module';
 import { MembersComponent } from './members.component';
-import { MatRowHarness } from '@angular/material/table/testing';
-import { of } from 'rxjs';
 
 describe('MembersComponent', () => {
   let component: MembersComponent;

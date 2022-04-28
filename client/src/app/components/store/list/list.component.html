@@ -3,11 +3,23 @@
     <h1>協賛広告ヘルパー</h1>
   </div>
   <div class="right">
-    <button mat-button (click)="logout()">
+    <button mat-button (click)="logout()" title="ログアウト">
       <mat-icon>logout</mat-icon>
       ログアウト
     </button>
   </div>
 </mat-toolbar>
+
+<mat-nav-list>
+  <a
+    mat-list-item
+    *ngFor="let store of stores | async"
+    routerLink="/stores/{{ store.id }}"
+  >
+    <mat-icon mat-list-icon>store</mat-icon>
+    <h3 mat-line>{{ store.name }}</h3>
+    <p mat-line>{{ store.status }}</p>
+  </a>
+</mat-nav-list>
 
 <app-nav-bar></app-nav-bar>

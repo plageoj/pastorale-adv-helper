@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { map, mergeMap } from 'rxjs';
 import { Store } from 'src/app/models/store.model';
 import { StoreService } from 'src/app/services/store.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-detail',
@@ -46,7 +47,7 @@ export class DetailComponent {
       this.loading = true;
       this.http
         .jsonp(
-          'https://maps.googleapis.com/maps/api/js?key=AIzaSyDHN7_-ERRq7cGsVtPn9BwEo1jgSle-UH8',
+          `https://maps.googleapis.com/maps/api/js?key=${environment.firebase.apiKey}`,
           'callback'
         )
         .subscribe(() => {

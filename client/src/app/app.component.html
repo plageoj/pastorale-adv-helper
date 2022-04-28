@@ -1,1 +1,8 @@
-<router-outlet></router-outlet>
+<div id="container">
+  <main>
+    <router-outlet></router-outlet>
+  </main>
+  <div id="navbar">
+    <app-nav-bar *ngIf="signedIn"></app-nav-bar>
+  </div>
+</div>

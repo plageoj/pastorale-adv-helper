@@ -1,9 +1,6 @@
 @use "@angular/material" as mat;
 
 nav {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
   display: flex;
   border-top: 1px solid map-get(mat.$grey-palette, 300);
   background-color: map-get(mat.$grey-palette, 50);

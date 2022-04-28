@@ -54,4 +54,10 @@ export class DetailComponent {
         });
     }
   }
+
+  call(phoneNumber?: string) {
+    if (!phoneNumber || !this.store) return;
+    this.ss.setStatus(this.store.id, '連絡済み');
+    window.open(`tel:${phoneNumber}`);
+  }
 }

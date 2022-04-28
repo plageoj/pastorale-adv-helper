@@ -8,8 +8,10 @@ import {
   docData,
   Firestore,
   query,
+  updateDoc,
   where,
 } from '@angular/fire/firestore';
+import { Status } from '../models/status.model';
 import { Store } from '../models/store.model';
 
 @Injectable({
@@ -34,5 +36,9 @@ export class StoreService {
 
   get(id: string) {
     return docData(doc(this.col, id));
+  }
+
+  setStatus(id: string, status: Status) {
+    return updateDoc(doc(this.col, id), { status });
   }
 }

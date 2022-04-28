@@ -56,12 +56,12 @@
 
 <mat-action-list [disabled]="!store">
   <h2 matSubheader>アクション</h2>
-  <button mat-list-item>
+  <button mat-list-item (click)="call(store?.tel)">
     <mat-icon matListIcon>phone</mat-icon>
     <p matLine>電話をかける</p>
     <small matLine>{{ store?.tel }}</small>
   </button>
-  <button mat-list-item *ngIf="store?.altTel">
+  <button mat-list-item *ngIf="store?.altTel" (click)="call(store?.altTel)">
     <mat-icon matListIcon>phone</mat-icon>
     <p matLine>電話をかける</p>
     <small matLine>{{ store?.altTel }}</small>
@@ -71,9 +71,9 @@
     mat-list-item
     *ngIf="store?.address"
     target="_blank"
-    href="https://www.google.com/maps/search/?api=1&query={{ store?.name }}&query_place_id={{
-      placeId
-    }}"
+    href="https://www.google.com/maps/search/?api=1&query={{
+      store?.name
+    }}&query_place_id={{ placeId }}"
   >
     <mat-icon matListIcon>pin_drop</mat-icon>
     <p matLine>Googleマップで開く</p>

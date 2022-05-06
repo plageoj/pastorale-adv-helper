@@ -1,11 +1,11 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { provideAuth } from '@angular/fire/auth';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { connectAuthEmulator, getAuth } from '@firebase/auth';
 import { connectFirestoreEmulator } from '@firebase/firestore';
 import { environment } from 'src/environments/environment';
-import { provideAuth, signInAnonymously } from '@angular/fire/auth';
-import { connectAuthEmulator, getAuth } from '@firebase/auth';
 
 let initialized = { db: false, auth: false };
 

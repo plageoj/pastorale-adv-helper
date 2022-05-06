@@ -8,6 +8,7 @@ import {
   docData,
   Firestore,
   query,
+  setDoc,
   updateDoc,
   where,
 } from '@angular/fire/firestore';
@@ -39,6 +40,6 @@ export class StoreService {
   }
 
   setStatus(id: string, status: Status) {
-    return updateDoc(doc(this.col, id), { status });
+    return setDoc(doc(this.col, id), { status }, { merge: true });
   }
 }

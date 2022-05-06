@@ -4,10 +4,15 @@ import {
   collection,
   collectionData,
   CollectionReference,
+  doc,
+  docData,
   Firestore,
   query,
+  setDoc,
+  updateDoc,
   where,
 } from '@angular/fire/firestore';
+import { Status } from '../models/status.model';
 import { Store } from '../models/store.model';
 
 @Injectable({
@@ -28,5 +33,13 @@ export class StoreService {
         where('assigned.uid', '==', this.auth.currentUser.uid)
       )
     );
+  }
+
+  get(id: string) {
+    return docData(doc(this.col, id));
+  }
+
+  setStatus(id: string, status: Status) {
+    return setDoc(doc(this.col, id), { status }, { merge: true });
   }
 }

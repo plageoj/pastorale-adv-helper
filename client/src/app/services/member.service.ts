@@ -38,10 +38,10 @@ export class MemberService {
         stores: [],
         visible: true,
       });
-    return docData(doc(this.col, this.auth.currentUser?.uid));
+    return docData(doc(this.col, this.auth.currentUser.uid));
   }
 
-  update(data: WithFieldValue<Member>) {
+  update(data: WithFieldValue<Partial<Member>>) {
     if (!this.auth.currentUser) throw new Error('not logged in');
     return setDoc(doc(this.col, this.auth.currentUser.uid), data, {
       merge: true,

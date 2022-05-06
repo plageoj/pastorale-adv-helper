@@ -1,23 +1,15 @@
-import {
-  ComponentFixture,
-  fakeAsync,
-  flush,
-  TestBed,
-  tick,
-  waitForAsync,
-} from '@angular/core/testing';
-import { Auth, deleteUser } from '@angular/fire/auth';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Auth, deleteUser, signInAnonymously } from '@angular/fire/auth';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { signInAnonymously } from '@firebase/auth';
+import { getTestScheduler } from 'jasmine-marbles';
 import { FirebaseTestingModule } from 'src/app/testing/firebase-testing.module';
 import { NavBarComponent } from '../../nav-bar/nav-bar.component';
 import { ListComponent } from './list.component';
-import { getTestScheduler } from 'jasmine-marbles';
-import { MatListModule } from '@angular/material/list';
-import { Router } from '@angular/router';
 
 describe('ListComponent', () => {
   let component: ListComponent;
@@ -37,14 +29,13 @@ describe('ListComponent', () => {
         MatListModule,
       ],
     }).compileComponents();
+
+    await signInAnonymously(TestBed.inject(Auth));
   });
 
   beforeEach(async () => {
     fixture = TestBed.createComponent(ListComponent);
     component = fixture.componentInstance;
-
-    const auth = TestBed.inject(Auth);
-    await signInAnonymously(auth);
 
     fixture.detectChanges();
     getTestScheduler().flush();

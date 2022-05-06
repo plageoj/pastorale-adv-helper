@@ -16,10 +16,10 @@
     *ngFor="let store of stores | async"
     routerLink="/stores/{{ store.id }}"
   >
-    <mat-icon mat-list-icon>store</mat-icon>
+    <mat-icon mat-list-icon>
+      {{ store.status | statusIcon }}
+    </mat-icon>
     <h3 mat-line>{{ store.name }}</h3>
     <p mat-line>{{ store.status }}</p>
   </a>
 </mat-nav-list>
-
-<app-nav-bar></app-nav-bar>

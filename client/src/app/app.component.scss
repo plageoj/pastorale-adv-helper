@@ -1,0 +1,16 @@
+#container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+main {
+  flex-grow: 1;
+  overflow: auto;
+  margin-top: 64px;
+  padding-bottom: 0.5rem;
+}
+
+#navbar {
+  height: 64px;
+}

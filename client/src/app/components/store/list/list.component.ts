@@ -20,8 +20,8 @@ export class ListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.auth.onAuthStateChanged(() => {
-      this.stores = this.store.list();
+    this.auth.onAuthStateChanged((user) => {
+      if (user) this.stores = this.store.list();
     });
   }
 

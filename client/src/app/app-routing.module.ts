@@ -1,15 +1,11 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
 import {
   AuthGuard,
   redirectLoggedInTo,
   redirectUnauthorizedTo,
 } from '@angular/fire/auth-guard';
-import { LoginComponent } from './components/member/login/login.component';
-import { ListComponent } from './components/store/list/list.component';
-import { DetailComponent } from './components/store/detail/detail.component';
+import { RouterModule, Routes } from '@angular/router';
 import { RegisterComponent } from './components/member/register/register.component';
-import { ReportComponent } from './components/store/report/report.component';
 
 const loggedIn = () => redirectUnauthorizedTo('/login');
 
@@ -26,20 +22,8 @@ const routes: Routes = [
       },
       {
         path: 'stores',
-        children: [
-          {
-            path: '',
-            component: ListComponent,
-          },
-          {
-            path: ':id',
-            component: DetailComponent,
-          },
-          {
-            path: ':id/report',
-            component: ReportComponent,
-          },
-        ],
+        loadChildren: () =>
+          import('./components/store/store.module').then((m) => m.StoreModule),
       },
       {
         path: 'register',
@@ -49,7 +33,8 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    component: LoginComponent,
+    loadChildren: () =>
+      import('./components/login/login.module').then((m) => m.LoginModule),
     canActivate: [AuthGuard],
     data: { authGuardPipe: () => redirectLoggedInTo('/') },
   },

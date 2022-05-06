@@ -26,8 +26,11 @@ const routes: Routes = [
           import('./components/store/store.module').then((m) => m.StoreModule),
       },
       {
-        path: 'register',
-        component: RegisterComponent,
+        path: 'member',
+        loadChildren: () =>
+          import('./components/member/member.module').then(
+            (m) => m.MemberModule
+          ),
       },
     ],
   },

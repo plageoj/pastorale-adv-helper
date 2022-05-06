@@ -1,5 +1,11 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { RouterTestingModule } from '@angular/router/testing';
+import { StatusIconPipe } from 'src/app/pipes/status-icon.pipe';
+import { FirebaseTestingModule } from 'src/app/testing/firebase-testing.module';
 import { DetailComponent } from './detail.component';
 
 describe('DetailComponent', () => {
@@ -8,9 +14,16 @@ describe('DetailComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DetailComponent ]
-    })
-    .compileComponents();
+      declarations: [DetailComponent, StatusIconPipe],
+      imports: [
+        FirebaseTestingModule,
+        RouterTestingModule,
+        HttpClientTestingModule,
+        MatListModule,
+        MatIconModule,
+        MatToolbarModule,
+      ],
+    }).compileComponents();
   });
 
   beforeEach(() => {

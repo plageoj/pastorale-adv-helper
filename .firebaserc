@@ -1,4 +1,16 @@
 {
+  "targets": {
+    "koukokutori": {
+      "hosting": {
+        "admin": [
+          "koukokutori-admin"
+        ],
+        "client": [
+          "koukokutori"
+        ]
+      }
+    }
+  },
   "projects": {
     "default": "koukokutori"
   }

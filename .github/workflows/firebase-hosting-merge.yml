@@ -24,10 +24,10 @@ jobs:
       - run: |
           cd client
           npm ci
-          ng build -c production
+          npx ng build -c production
           cd ../admin
           npm ci
-          ng build -c production
+          npx ng build -c production
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"

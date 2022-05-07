@@ -1,26 +1,18 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { MembersComponent } from './components/members/members.component';
-import { AssignMemberComponent } from './components/stores/assign-member/assign-member.component';
-import { StoresComponent } from './components/stores/stores.component';
 
 const routes: Routes = [
   {
     path: 'members',
-    component: MembersComponent,
+    loadChildren: () =>
+      import('./components/members/members.module').then(
+        (m) => m.MembersModule
+      ),
   },
   {
     path: 'stores',
-    children: [
-      {
-        path: '',
-        component: StoresComponent,
-      },
-      {
-        path: ':id',
-        component: AssignMemberComponent,
-      },
-    ],
+    loadChildren: () =>
+      import('./components/stores/stores.module').then((m) => m.StoresModule),
   },
 ];
 

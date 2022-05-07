@@ -22,7 +22,7 @@ import { of } from 'rxjs';
 import { StoreService } from 'src/app/services/store.service';
 import { FirebaseTestingModule } from 'src/app/testing/firebase-testing.module';
 import { RouterLinkStubDirective } from 'src/app/testing/router-link-stub';
-import { waitUntil } from 'src/app/utils/wait-until';
+import { waitUntil } from 'src/app/testing/utils/wait-until';
 import { StoresComponent } from './stores.component';
 
 describe('StoresComponent', () => {

@@ -5,7 +5,6 @@ import {
   redirectUnauthorizedTo,
 } from '@angular/fire/auth-guard';
 import { RouterModule, Routes } from '@angular/router';
-import { RegisterComponent } from './components/member/register/register.component';
 
 const loggedIn = () => redirectUnauthorizedTo('/login');
 

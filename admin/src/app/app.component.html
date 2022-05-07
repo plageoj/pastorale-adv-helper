@@ -1,12 +1,16 @@
 <mat-toolbar color="primary">
-  <button mat-icon-button (click)="open = !open">
+  <button mat-icon-button (click)="open = !open" *ngIf="user">
     <mat-icon>menu</mat-icon>
   </button>
-  協賛広告ヘルパー
+  <span> 協賛広告ヘルパー </span>
+  <button mat-button (click)="logout()" *ngIf="user">
+    <mat-icon>logout</mat-icon>
+    ログアウト
+  </button>
 </mat-toolbar>
 
 <mat-sidenav-container>
-  <mat-sidenav mode="side" [opened]="open">
+  <mat-sidenav mode="side" [opened]="open && !!user">
     <mat-nav-list>
       <a mat-list-item routerLink="/members">
         <mat-icon>people</mat-icon> メンバー

@@ -7,8 +7,9 @@ import {
   connectFirestoreEmulator,
 } from '@angular/fire/firestore';
 import { environment } from 'src/environments/environment';
+import { connectAuthEmulator, getAuth, provideAuth } from '@angular/fire/auth';
 
-let initialized = false;
+const initialized = { firestore: false, auth: false };
 
 @NgModule({
   declarations: [],
@@ -17,11 +18,19 @@ let initialized = false;
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => {
       const db = getFirestore();
-      if (!initialized) {
+      if (!initialized.firestore) {
         connectFirestoreEmulator(db, 'localhost', 8080);
-        initialized = true;
+        initialized.firestore = true;
       }
       return db;
+    }),
+    provideAuth(() => {
+      const auth = getAuth();
+      if (!initialized.auth) {
+        connectAuthEmulator(auth, 'http://localhost:9099');
+        initialized.auth = true;
+      }
+      return auth;
     }),
   ],
 })

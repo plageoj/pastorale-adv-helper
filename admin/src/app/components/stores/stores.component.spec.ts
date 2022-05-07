@@ -142,7 +142,7 @@ describe('StoresComponent', () => {
     expect(routerLinks.every((link) => !link.navigatedTo)).toBeTrue();
   });
 
-  it('shows invisible stores', waitForAsync(async () => {
+  it('shows invisible stores', async () => {
     const toggles = await loader.getAllHarnesses(MatSlideToggleHarness);
     expect(toggles.length).toBe(1);
     expect(component.stores.data.length).toBe(1);
@@ -150,7 +150,7 @@ describe('StoresComponent', () => {
     await waitUntil(() => component.stores.data.length === 2);
     fixture.detectChanges();
     expect(component.stores.data.length).toBe(2);
-  }));
+  });
 
   it('should open edit dialog and update stores', () => {
     const dialog = (

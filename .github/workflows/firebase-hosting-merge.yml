@@ -2,7 +2,7 @@
 # https://github.com/firebase/firebase-tools
 
 name: Deploy to Firebase Hosting on merge
-'on':
+"on":
   push:
     branches:
       - master
@@ -18,19 +18,19 @@ jobs:
       - uses: actions/cache@v2
         with:
           key: angular-cache
-          path:
-            - client/.angular
-            - admin/.angular
+          path: |
+            client/.angular
+            admin/.angular
       - run: |
-        cd client
-        npm ci
-        ng build -c production
-        cd ../admin
-        npm ci
-        ng build -c production
+          cd client
+          npm ci
+          ng build -c production
+          cd ../admin
+          npm ci
+          ng build -c production
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
-          repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_KOUKOKUTORI }}'
+          repoToken: "${{ secrets.GITHUB_TOKEN }}"
+          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_KOUKOKUTORI }}"
           channelId: live
           projectId: koukokutori

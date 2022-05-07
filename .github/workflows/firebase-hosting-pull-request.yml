@@ -16,16 +16,16 @@ jobs:
       - uses: actions/cache@v2
         with:
           key: angular-cache
-          path:
-            - client/.angular
-            - admin/.angular
+          path: |
+            client/.angular
+            admin/.angular
       - run: |
-        cd client
-        npm ci
-        ng build -c production
-        cd ../admin
-        npm ci
-        ng build -c production
+          cd client
+          npm ci
+          ng build -c production
+          cd ../admin
+          npm ci
+          ng build -c production
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'

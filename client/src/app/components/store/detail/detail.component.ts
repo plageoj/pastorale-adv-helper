@@ -24,6 +24,23 @@ export class DetailComponent {
     private http: HttpClient,
     private geo: MapGeocoder
   ) {
+    if (typeof google === 'undefined') {
+      this.loading = true;
+      this.http
+        .jsonp(
+          `https://maps.googleapis.com/maps/api/js?key=${environment.firebase.apiKey}`,
+          'callback'
+        )
+        .subscribe(() => {
+          this.loading = false;
+          this.init();
+        });
+    } else {
+      this.init();
+    }
+  }
+
+  private init() {
     this.route.paramMap
       .pipe(
         map((params) => params.get('id')),
@@ -42,18 +59,6 @@ export class DetailComponent {
             this.placeId = result.place_id;
           });
       });
-
-    if (typeof google === 'undefined') {
-      this.loading = true;
-      this.http
-        .jsonp(
-          `https://maps.googleapis.com/maps/api/js?key=${environment.firebase.apiKey}`,
-          'callback'
-        )
-        .subscribe(() => {
-          this.loading = false;
-        });
-    }
   }
 
   call(phoneNumber?: string) {

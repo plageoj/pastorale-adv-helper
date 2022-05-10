@@ -6,9 +6,17 @@ import {
   UserTrackingService,
 } from '@angular/fire/analytics';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
-import { getAuth, provideAuth } from '@angular/fire/auth';
-import { getFirestore, provideFirestore } from '@angular/fire/firestore';
-import { getFunctions, provideFunctions } from '@angular/fire/functions';
+import { connectAuthEmulator, getAuth, provideAuth } from '@angular/fire/auth';
+import {
+  connectFirestoreEmulator,
+  getFirestore,
+  provideFirestore,
+} from '@angular/fire/firestore';
+import {
+  connectFunctionsEmulator,
+  getFunctions,
+  provideFunctions,
+} from '@angular/fire/functions';
 import { getPerformance, providePerformance } from '@angular/fire/performance';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -30,9 +38,32 @@ import { AppComponent } from './app.component';
     BrowserAnimationsModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAnalytics(() => getAnalytics()),
-    provideAuth(() => getAuth()),
-    provideFirestore(() => getFirestore()),
-    provideFunctions(() => getFunctions()),
+    provideAuth(() => {
+      const auth = getAuth();
+      environment.useEmulator &&
+        connectAuthEmulator(auth, environment.emulator.authUrl);
+      return auth;
+    }),
+    provideFirestore(() => {
+      const fire = getFirestore();
+      environment.useEmulator &&
+        connectFirestoreEmulator(
+          fire,
+          environment.emulator.firestore.host,
+          environment.emulator.firestore.port
+        );
+      return fire;
+    }),
+    provideFunctions(() => {
+      const func = getFunctions();
+      environment.useEmulator &&
+        connectFunctionsEmulator(
+          func,
+          environment.emulator.functions.host,
+          environment.emulator.functions.port
+        );
+      return func;
+    }),
     providePerformance(() => getPerformance()),
     MatButtonModule,
     MatIconModule,

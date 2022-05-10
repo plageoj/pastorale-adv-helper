@@ -6,9 +6,10 @@ import { LoginComponent } from './login/login.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 
 @NgModule({
-  declarations: [LoginComponent],
+  declarations: [LoginComponent, UnauthorizedComponent],
   imports: [
     CommonModule,
     AccountRoutingModule,

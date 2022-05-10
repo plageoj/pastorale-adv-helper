@@ -13,7 +13,19 @@ export const environment = {
     authDomain: 'koukokutori.firebaseapp.com',
     messagingSenderId: '1070658608475',
   },
-  production: false
+  production: false,
+  useEmulator: true,
+  emulator: {
+    authUrl: 'http://localhost:9099/',
+    firestore: {
+      host: 'localhost',
+      port: 8080,
+    },
+    functions: {
+      host: 'localhost',
+      port: 9000,
+    },
+  },
 };
 
 /*

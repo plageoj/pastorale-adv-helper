@@ -9,5 +9,17 @@ export const environment = {
     authDomain: 'koukokutori.firebaseapp.com',
     messagingSenderId: '1070658608475',
   },
-  production: true
+  production: true,
+  useEmulator: false,
+  emulator: {
+    authUrl: '',
+    firestore: {
+      host: '',
+      port: 0,
+    },
+    functions: {
+      host: '',
+      port: 0,
+    },
+  },
 };

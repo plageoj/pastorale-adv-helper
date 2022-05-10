@@ -41,7 +41,7 @@ export class RegisterComponent implements OnInit {
       isAdmin: [false],
       isHomeInHiroshima: [false],
       stores: [[]],
-      visible: [false],
+      visible: [true],
     } as { [key in keyof Member]: any });
     this.profile.disable();
   }

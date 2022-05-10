@@ -11,7 +11,7 @@ import {
   setDoc,
   where,
 } from '@angular/fire/firestore';
-import { Functions } from '@angular/fire/functions';
+import { Functions, httpsCallable } from '@angular/fire/functions';
 import { Member } from '../models/member.model';
 import { IFirestore } from './firestore.interface';
 
@@ -37,7 +37,11 @@ export class MemberService implements IFirestore<Member> {
     return docData(doc(this.col, uid));
   }
 
-  update(data: Member) {
+  async update(data: Member) {
+    await httpsCallable(
+      this.func,
+      'elevateAsAdmin'
+    )({ uid: data.uid, isAdmin: data.isAdmin });
     return setDoc(doc(this.col, data.uid), data, { merge: true });
   }
 }

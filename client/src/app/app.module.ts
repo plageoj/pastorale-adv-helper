@@ -6,8 +6,12 @@ import {
   UserTrackingService,
 } from '@angular/fire/analytics';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
-import { getAuth, provideAuth } from '@angular/fire/auth';
-import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { connectAuthEmulator, getAuth, provideAuth } from '@angular/fire/auth';
+import {
+  connectFirestoreEmulator,
+  getFirestore,
+  provideFirestore,
+} from '@angular/fire/firestore';
 import { getPerformance, providePerformance } from '@angular/fire/performance';
 import { MatIconModule } from '@angular/material/icon';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
@@ -27,8 +31,22 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
     BrowserAnimationsModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAnalytics(() => getAnalytics()),
-    provideAuth(() => getAuth()),
-    provideFirestore(() => getFirestore()),
+    provideAuth(() => {
+      const auth = getAuth();
+      environment.useEmulator &&
+        connectAuthEmulator(auth, environment.emulator.authUrl);
+      return auth;
+    }),
+    provideFirestore(() => {
+      const fire = getFirestore();
+      environment.useEmulator &&
+        connectFirestoreEmulator(
+          fire,
+          environment.emulator.firestore.host,
+          environment.emulator.firestore.port
+        );
+      return fire;
+    }),
     providePerformance(() => getPerformance()),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,

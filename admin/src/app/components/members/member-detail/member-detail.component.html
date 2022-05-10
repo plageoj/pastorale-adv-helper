@@ -46,8 +46,12 @@
         <textarea matInput formControlName="comment" rows="3"></textarea>
       </mat-form-field>
 
-      <mat-slide-toggle matTooltip="ONにするとこの管理画面にアクセスできるようになります" formControlName="isAdmin">
-        宣伝局員
+      <mat-slide-toggle
+        matTooltipPosition="above"
+        matTooltip="ONにするとこの管理画面にアクセスできるようになります"
+        formControlName="isAdmin"
+      >
+        宣伝局員 <mat-icon color="primary" inline>verified</mat-icon>
       </mat-slide-toggle>
     </form>
   </mat-card-content>

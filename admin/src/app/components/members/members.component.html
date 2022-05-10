@@ -21,7 +21,13 @@
     </mat-card>
 
     <table mat-table [dataSource]="members">
-      <mat-text-column name="name" headerText="名前"></mat-text-column>
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>名前</th>
+        <td mat-cell *matCellDef="let member">
+          {{ member.name }}
+          <mat-icon *ngIf="member.isAdmin" color="primary" inline>verified</mat-icon>
+        </td>
+      </ng-container>
 
       <ng-container matColumnDef="currentAddress">
         <th mat-header-cell *matHeaderCellDef>住所<br />帰省先</th>

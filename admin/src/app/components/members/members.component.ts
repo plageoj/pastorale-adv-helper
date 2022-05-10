@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Member } from 'src/app/models/member.model';
 import { MemberService } from 'src/app/services/member.service';
 import { map } from 'rxjs/operators';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'app-members',
@@ -10,17 +12,21 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./members.component.scss'],
 })
 export class MembersComponent implements OnInit {
-  members;
+  members: MatTableDataSource<Member> = new MatTableDataSource();
   columns: (keyof Member)[] = ['name', 'currentAddress', 'job', 'stores'];
 
   uid: string = '';
+
+  private memberSubscription;
 
   constructor(
     private mems: MemberService,
     private route: ActivatedRoute,
     private router: Router
   ) {
-    this.members = this.mems.getAll();
+    this.memberSubscription = this.mems.getAll().subscribe((mems) => {
+      this.members.data = mems;
+    });
   }
 
   ngOnInit(): void {
@@ -37,5 +43,19 @@ export class MembersComponent implements OnInit {
     } else {
       this.router.navigateByUrl(`/members?n=${uid}`);
     }
+  }
+
+  applyFilter(event: Event) {
+    const value = (event.target as HTMLInputElement).value.trim();
+    this.members.filter = value ? value : '';
+  }
+
+  changeShowInvisible(event: MatSlideToggleChange) {
+    this.memberSubscription.unsubscribe();
+    this.memberSubscription = this.mems
+      .getAll(event.checked)
+      .subscribe((mems) => {
+        this.members.data = mems;
+      });
   }
 }

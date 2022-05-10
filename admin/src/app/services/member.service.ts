@@ -24,14 +24,12 @@ export class MemberService implements IFirestore<Member> {
     this.col = collection(this.db, 'members') as CollectionReference<Member>;
   }
 
-  getAll() {
-    return collectionData(
-      query(
-        this.col,
-        where('visible', '==', true),
-        orderBy('studentNumber', 'desc')
-      )
-    );
+  getAll(includeHidden = false) {
+    const queries = [orderBy('studentNumber', 'desc')];
+    if (!includeHidden) {
+      queries.push(where('visible', '==', true));
+    }
+    return collectionData(query(this.col, ...queries));
   }
 
   get(uid: string) {

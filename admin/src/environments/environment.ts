@@ -14,7 +14,7 @@ export const environment = {
     messagingSenderId: '1070658608475',
   },
   production: false,
-  useEmulator: true,
+  useEmulator: false,
   emulator: {
     authUrl: 'http://localhost:9099/',
     firestore: {

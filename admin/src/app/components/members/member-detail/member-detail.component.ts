@@ -50,17 +50,20 @@ export class MemberDetailComponent implements OnInit {
       if (!uid) return;
 
       this.mem.get(uid).subscribe((member) => {
-        if (Object.keys(member.commute).length === 0) {
-          member.commute = {
+        this.memberForm.patchValue(member);
+        if (
+          typeof member === 'undefined' ||
+          Object.keys(member.commute).length === 0
+        ) {
+          this.memberForm.get('commute')?.patchValue({
             徒歩: true,
             自転車: false,
             原付: false,
             バス: false,
             電車: false,
             車: false,
-          };
+          });
         }
-        this.memberForm.patchValue(member);
       });
       this.loading = false;
     });

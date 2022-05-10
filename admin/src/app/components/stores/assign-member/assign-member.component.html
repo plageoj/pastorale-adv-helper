@@ -57,16 +57,16 @@
     </mat-card-content>
     <mat-card-actions>
       <div class="left">
-        <a routerLink="/stores" mat-stroked-button>
+        <a routerLink="/stores" mat-button>
           <mat-icon>arrow_back</mat-icon>
           戻る
         </a>
-        <button mat-stroked-button color="primary" (click)="edit()">
+        <button mat-raised-button color="primary" (click)="edit()">
           <mat-icon>edit</mat-icon> 編集
         </button>
       </div>
       <div class="right">
-        <button mat-stroked-button (click)="unassign()">
+        <button mat-button color="warn" (click)="unassign()">
           <mat-icon>assignment_returned</mat-icon> 担当を外す
         </button>
       </div>

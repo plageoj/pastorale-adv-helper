@@ -45,16 +45,20 @@
         <mat-label>コメント</mat-label>
         <textarea matInput formControlName="comment" rows="3"></textarea>
       </mat-form-field>
+
+      <mat-slide-toggle matTooltip="ONにするとこの管理画面にアクセスできるようになります" formControlName="isAdmin">
+        宣伝局員
+      </mat-slide-toggle>
     </form>
   </mat-card-content>
 
   <mat-card-actions>
-    <a routerLink="/members" mat-stroked-button>
+    <a routerLink="/members" mat-button>
       <mat-icon>arrow_back</mat-icon>
       キャンセル
     </a>
     <button
-      mat-stroked-button
+      mat-raised-button
       color="primary"
       type="submit"
       form="member-editor"

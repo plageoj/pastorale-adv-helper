@@ -11,6 +11,7 @@ import {
   setDoc,
   where,
 } from '@angular/fire/firestore';
+import { Functions } from '@angular/fire/functions';
 import { Member } from '../models/member.model';
 import { IFirestore } from './firestore.interface';
 
@@ -20,7 +21,7 @@ import { IFirestore } from './firestore.interface';
 export class MemberService implements IFirestore<Member> {
   private col;
 
-  constructor(private db: Firestore) {
+  constructor(private db: Firestore, private func: Functions) {
     this.col = collection(this.db, 'members') as CollectionReference<Member>;
   }
 

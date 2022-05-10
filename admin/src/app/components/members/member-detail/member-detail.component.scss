@@ -12,3 +12,8 @@ mat-form-field {
   grid-template-columns: 1fr 1fr 1fr;
   margin-bottom: 1rem;
 }
+
+mat-card-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}

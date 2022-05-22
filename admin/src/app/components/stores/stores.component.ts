@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
@@ -21,7 +22,6 @@ export class StoresComponent implements OnInit {
     'needAttention',
     'name',
     'address',
-    'tel',
     'assigned',
     'status',
     'amount',
@@ -33,13 +33,18 @@ export class StoresComponent implements OnInit {
   private includeHidden = false;
   private subscription?: Subscription;
 
+  filter;
+
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(
     private store: StoreService,
     private dialog: MatDialog,
     private snack: MatSnackBar
-  ) {}
+  ) {
+    this.filter = new FormControl('');
+    this.filter.valueChanges.subscribe(() => this.applyFilter());
+  }
 
   ngOnInit(): void {
     if (this.subscription) this.subscription.unsubscribe();
@@ -56,9 +61,8 @@ export class StoresComponent implements OnInit {
     this.ngOnInit();
   }
 
-  applyFilter(event: Event) {
-    const value = (event.target as HTMLInputElement).value.trim();
-    this.stores.filter = value;
+  applyFilter() {
+    this.stores.filter = this.filter.value?.trim();
   }
 
   susupendNavigation(event: Event) {

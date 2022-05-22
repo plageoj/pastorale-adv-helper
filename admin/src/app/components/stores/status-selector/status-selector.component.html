@@ -1,0 +1,12 @@
+<div>
+  <button
+    mat-icon-button
+    *ngFor="let status of statusList"
+    matTooltip="状態: {{ status }}"
+    matTooltipPosition="above"
+    (click)="choose.emit(status)"
+    color="primary"
+  >
+    <mat-icon>{{ status | statusIcon }}</mat-icon>
+  </button>
+</div>

@@ -12,10 +12,10 @@ export class StatusIconPipe implements PipeTransform {
       先方の返事待ち: 'phone_callback',
       広告掲載NG: 'cancel',
       連絡済み: 'directions_walk',
-      契約書未確認: 'pending',
-      契約書受取済み: 'check_circle',
-      領収書未確認: 'pending',
-      領収書受取済み: 'check_circle',
+      契約書未確認: 'file_open',
+      契約書受取済み: 'task',
+      領収書未確認: 'request_quote',
+      領収書受取済み: 'price_check',
     };
     if (!value) return '';
     return iconTable[value];

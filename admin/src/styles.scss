@@ -30,6 +30,7 @@ $theme: mat.define-light-theme(
 @include mat.snack-bar-theme($theme);
 @include mat.slide-toggle-theme($theme);
 @include mat.sidenav-theme($theme);
+@include mat.progress-bar-theme($theme);
 
 * {
   box-sizing: border-box;

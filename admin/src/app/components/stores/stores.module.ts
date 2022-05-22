@@ -13,14 +13,17 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { PipesModule } from 'src/app/pipes/pipes.module';
 import { UtilModule } from '../util/util.module';
 import { AssignMemberComponent } from './assign-member/assign-member.component';
 import { EditStoreComponent } from './edit-store/edit-store.component';
 import { StoresRoutingModule } from './stores-routing.module';
 import { StoresComponent } from './stores.component';
+import { StatusSelectorComponent } from './status-selector/status-selector.component';
 
 @NgModule({
-  declarations: [StoresComponent, AssignMemberComponent, EditStoreComponent],
+  declarations: [StoresComponent, AssignMemberComponent, EditStoreComponent, StatusSelectorComponent],
   imports: [
     CommonModule,
     MatButtonModule,
@@ -37,7 +40,9 @@ import { StoresComponent } from './stores.component';
     StoresRoutingModule,
     MatSortModule,
     MatSnackBarModule,
+    MatTooltipModule,
     UtilModule,
+    PipesModule,
   ],
 })
 export class StoresModule {}

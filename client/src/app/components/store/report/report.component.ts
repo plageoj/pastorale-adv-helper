@@ -1,4 +1,9 @@
 import { Component } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActivatedRoute, Router } from '@angular/router';
+import { mergeMap } from 'rxjs';
+import { StoreService } from 'src/app/services/store.service';
 
 @Component({
   selector: 'app-report',
@@ -6,5 +11,35 @@ import { Component } from '@angular/core';
   styleUrls: ['./report.component.scss'],
 })
 export class ReportComponent {
-  constructor() {}
+  store;
+  storeName = '';
+
+  constructor(
+    private ss: StoreService,
+    private route: ActivatedRoute,
+    private fb: FormBuilder,
+    private snack: MatSnackBar,
+    private router: Router
+  ) {
+    this.store = this.fb.group({
+      id: [''],
+      amount: [0],
+      notes: [''],
+      draft: [''],
+      status: [''],
+    });
+    this.route.paramMap
+      .pipe(mergeMap((params) => this.ss.get(params.get('id')!)))
+      .subscribe((store) => {
+        this.store.patchValue(store);
+        this.storeName = store.name;
+      });
+  }
+
+  async saveStore() {
+    this.store.disable();
+    await this.ss.store(this.store.value);
+    this.snack.open('保存しました。ご協力ありがとうございます😍');
+    this.router.navigateByUrl(`/stores/${this.store.value.id}`);
+  }
 }

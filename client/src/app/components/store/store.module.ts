@@ -1,10 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientJsonpModule, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { PipesModule } from 'src/app/pipes/pipes.module';
 import { DetailComponent } from './detail/detail.component';
@@ -16,15 +21,20 @@ import { StoreRoutingModule } from './store-routing.module';
   declarations: [ListComponent, DetailComponent, ReportComponent],
   imports: [
     CommonModule,
-    StoreRoutingModule,
-    PipesModule,
-    MatIconModule,
-    MatListModule,
-    MatToolbarModule,
     GoogleMapsModule,
-    HttpClientModule,
     HttpClientJsonpModule,
+    HttpClientModule,
     MatButtonModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    MatListModule,
+    MatRadioModule,
+    MatSnackBarModule,
+    MatToolbarModule,
+    PipesModule,
+    ReactiveFormsModule,
+    StoreRoutingModule,
   ],
 })
 export class StoreModule {}

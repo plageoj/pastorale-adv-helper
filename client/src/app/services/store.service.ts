@@ -42,4 +42,8 @@ export class StoreService {
   setStatus(id: string, status: Status) {
     return setDoc(doc(this.col, id), { status }, { merge: true });
   }
+
+  store(store: Store) {
+    return setDoc(doc(this.col, store.id), store, { merge: true });
+  }
 }

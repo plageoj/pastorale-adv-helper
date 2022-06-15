@@ -1,1 +1,52 @@
-<p>report works!</p>
+<mat-toolbar color="primary">
+  <mat-icon>store</mat-icon>
+  {{ storeName }}
+</mat-toolbar>
+
+<form [formGroup]="store" (ngSubmit)="saveStore()">
+  <mat-radio-group formControlName="status" required>
+    <mat-radio-button value="契約書未確認">掲載OK</mat-radio-button>
+    <mat-radio-button value="広告掲載NG">掲載NG</mat-radio-button>
+    <mat-radio-button value="先方の返事待ち">返事待ち</mat-radio-button>
+  </mat-radio-group>
+
+  <ng-container *ngIf="store.value.status === '契約書未確認'">
+    <mat-form-field>
+      <mat-label>契約金額</mat-label>
+      <input type="number" matInput formControlName="amount" required />
+      <mat-icon matPrefix inline>currency_yen</mat-icon>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>原稿</mat-label>
+      <select matNativeControl formControlName="draft">
+        <option value="例年のものを使用">例年のものを使用</option>
+        <option value="パストで作成">パストで作成</option>
+        <option value="先方が作成">先方が作成</option>
+        <option value="その他">その他</option>
+      </select>
+    </mat-form-field>
+  </ng-container>
+
+  <mat-form-field>
+    <mat-label>備考</mat-label>
+    <textarea matInput formControlName="notes"></textarea>
+  </mat-form-field>
+
+  <div id="actions">
+    <a routerLink="../" mat-stroked-button>
+      <mat-icon>arrow_back</mat-icon>
+      キャンセル
+    </a>
+
+    <button
+      mat-raised-button
+      color="primary"
+      [disabled]="!store.valid"
+      type="submit"
+    >
+      <mat-icon>send</mat-icon>
+      送信
+    </button>
+  </div>
+</form>

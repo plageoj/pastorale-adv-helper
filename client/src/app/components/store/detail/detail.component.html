@@ -54,35 +54,46 @@
   </mat-list-item>
 </mat-list>
 
-<mat-action-list [disabled]="!store">
+<mat-list>
   <h2 matSubheader>アクション</h2>
-  <button mat-list-item (click)="call(store?.tel)">
+  <mat-list-item>
     <mat-icon matListIcon>phone</mat-icon>
-    <p matLine>電話をかける</p>
     <small matLine>{{ store?.tel }}</small>
-  </button>
-  <button mat-list-item *ngIf="store?.altTel" (click)="call(store?.altTel)">
+    <button mat-raised-button (click)="call(store?.tel)">
+      <mat-icon>call</mat-icon>
+      電話をかける
+    </button>
+  </mat-list-item>
+  <mat-list-item *ngIf="store?.altTel">
     <mat-icon matListIcon>phone</mat-icon>
-    <p matLine>電話をかける</p>
     <small matLine>{{ store?.altTel }}</small>
-  </button> </mat-action-list
-><mat-nav-list>
-  <a
-    mat-list-item
-    *ngIf="store?.address"
-    target="_blank"
-    href="https://www.google.com/maps/search/?api=1&query={{
-      store?.name
-    }}&query_place_id={{ placeId }}"
-  >
+    <button mat-raised-button (click)="call(store?.altTel)">
+      <mat-icon>call</mat-icon>
+      電話をかける
+    </button>
+  </mat-list-item>
+  <mat-list-item *ngIf="store?.address">
     <mat-icon matListIcon>pin_drop</mat-icon>
-    <p matLine>Googleマップで開く</p>
     <small matLine>
       {{ store?.address }}
     </small>
-  </a>
-  <a mat-list-item routerLink="./report">
+    <a
+      mat-raised-button
+      target="_blank"
+      href="https://www.google.com/maps/search/?api=1&query={{
+        store?.name
+      }}&query_place_id={{ placeId }}"
+    >
+      <mat-icon>map</mat-icon>
+      Googleマップ
+    </a>
+  </mat-list-item>
+  <mat-list-item>
     <mat-icon matListIcon>edit</mat-icon>
     <p matLine>情報を登録・編集する</p>
-  </a>
-</mat-nav-list>
+    <button mat-raised-button routerLink="./report" color="primary">
+      <mat-icon>app_registration</mat-icon>
+      報告登録・更新
+    </button>
+  </mat-list-item>
+</mat-list>

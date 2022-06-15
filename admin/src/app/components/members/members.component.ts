@@ -58,4 +58,8 @@ export class MembersComponent implements OnInit {
         this.members.data = mems;
       });
   }
+
+  stopPropagation(event: Event) {
+    event.stopPropagation();
+  }
 }

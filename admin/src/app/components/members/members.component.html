@@ -25,9 +25,14 @@
         <th mat-header-cell *matHeaderCellDef>名前</th>
         <td mat-cell *matCellDef="let member">
           {{ member.name }}
-          <mat-icon *ngIf="member.isAdmin" color="primary" inline
-            >verified</mat-icon
+          <mat-icon
+            *ngIf="member.isAdmin"
+            color="primary"
+            inline
+            matTooltip="宣伝局員"
           >
+            verified
+          </mat-icon>
         </td>
       </ng-container>
 

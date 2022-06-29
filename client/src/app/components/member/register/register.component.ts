@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Auth } from '@angular/fire/auth';
-import { FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CommuteList } from 'src/app/models/commute.model';
 import { Member } from 'src/app/models/member.model';
@@ -17,7 +17,7 @@ export class RegisterComponent implements OnInit {
   commuteOptions = CommuteList;
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private mems: MemberService,
     private auth: Auth,
     private sb: MatSnackBar

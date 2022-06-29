@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { mergeMap } from 'rxjs';
@@ -17,7 +17,7 @@ export class ReportComponent {
   constructor(
     private ss: StoreService,
     private route: ActivatedRoute,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private snack: MatSnackBar,
     private router: Router
   ) {

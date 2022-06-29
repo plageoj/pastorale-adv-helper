@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Store } from 'src/app/models/store.model';
 
@@ -13,7 +13,7 @@ export class EditStoreComponent {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public store: Store,
-    private fb: FormBuilder
+    private fb: UntypedFormBuilder
   ) {
     this.storeForm = this.fb.group({
       id: [store.id],

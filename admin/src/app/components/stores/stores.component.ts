@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
@@ -42,7 +42,7 @@ export class StoresComponent implements OnInit {
     private dialog: MatDialog,
     private snack: MatSnackBar
   ) {
-    this.filter = new FormControl('');
+    this.filter = new UntypedFormControl('');
     this.filter.valueChanges.subscribe(() => this.applyFilter());
   }
 

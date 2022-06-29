@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Commute, CommuteList } from 'src/app/models/commute.model';
@@ -17,7 +17,7 @@ export class MemberDetailComponent implements OnInit {
   loading = true;
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private mem: MemberService,
     private route: ActivatedRoute,
     private router: Router,

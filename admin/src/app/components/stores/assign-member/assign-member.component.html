@@ -9,6 +9,7 @@
         <mat-list-item>
           <div class="left">状態</div>
           <div class="right">
+            <mat-icon inline>{{ store?.status | statusIcon }}</mat-icon>
             {{ store?.status }}
           </div>
         </mat-list-item>
@@ -70,6 +71,7 @@
           <mat-icon>arrow_back</mat-icon>
           戻る
         </a>
+        <button mat-button><mat-icon>history</mat-icon> 履歴</button>
         <button mat-raised-button color="primary" (click)="edit()">
           <mat-icon>edit</mat-icon> 編集
         </button>

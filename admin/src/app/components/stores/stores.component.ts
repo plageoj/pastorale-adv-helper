@@ -65,7 +65,7 @@ export class StoresComponent implements OnInit {
     this.stores.filter = this.filter.value?.trim();
   }
 
-  susupendNavigation(event: Event) {
+  suspendNavigation(event: Event) {
     event.stopPropagation();
   }
 

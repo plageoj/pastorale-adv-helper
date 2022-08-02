@@ -18,12 +18,17 @@ import { PipesModule } from 'src/app/pipes/pipes.module';
 import { UtilModule } from '../util/util.module';
 import { AssignMemberComponent } from './assign-member/assign-member.component';
 import { EditStoreComponent } from './edit-store/edit-store.component';
+import { StatusSelectorComponent } from './status-selector/status-selector.component';
 import { StoresRoutingModule } from './stores-routing.module';
 import { StoresComponent } from './stores.component';
-import { StatusSelectorComponent } from './status-selector/status-selector.component';
 
 @NgModule({
-  declarations: [StoresComponent, AssignMemberComponent, EditStoreComponent, StatusSelectorComponent],
+  declarations: [
+    StoresComponent,
+    AssignMemberComponent,
+    EditStoreComponent,
+    StatusSelectorComponent,
+  ],
   imports: [
     CommonModule,
     MatButtonModule,
@@ -35,14 +40,14 @@ import { StatusSelectorComponent } from './status-selector/status-selector.compo
     MatInputModule,
     MatListModule,
     MatSlideToggleModule,
+    MatSnackBarModule,
+    MatSortModule,
     MatTableModule,
+    MatTooltipModule,
+    PipesModule,
     ReactiveFormsModule,
     StoresRoutingModule,
-    MatSortModule,
-    MatSnackBarModule,
-    MatTooltipModule,
     UtilModule,
-    PipesModule,
   ],
 })
 export class StoresModule {}

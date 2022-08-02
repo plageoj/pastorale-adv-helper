@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { map, mergeMap, takeWhile } from 'rxjs';
 import { Member } from 'src/app/models/member.model';
@@ -37,7 +38,8 @@ export class AssignMemberComponent implements OnInit {
     private ss: StoreService,
     private mems: MemberService,
     private dialog: MatDialog,
-    private snack: MatSnackBar
+    private snack: MatSnackBar,
+    private title: Title
   ) {}
 
   ngOnInit(): void {
@@ -47,7 +49,10 @@ export class AssignMemberComponent implements OnInit {
         takeWhile((id) => id !== null),
         mergeMap((id) => this.ss.get(id!))
       )
-      .subscribe((store) => (this.store = store));
+      .subscribe((store) => {
+        this.store = store;
+        this.title.setTitle(`${store.name} - 協賛広告ヘルパー`);
+      });
 
     this.mems.getAll().subscribe((members) => {
       this.members.data = members;

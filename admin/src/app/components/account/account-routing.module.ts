@@ -14,12 +14,14 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: { authGuardPipe: () => redirectLoggedInTo('/') },
     component: LoginComponent,
+    title: 'ログイン',
   },
   {
     path: 'unauthorized',
     canActivate: [AuthGuard],
     data: { authGuardPipe: () => redirectUnauthorizedTo('/account/login') },
     component: UnauthorizedComponent,
+    title: '権限がありません',
   },
 ];
 

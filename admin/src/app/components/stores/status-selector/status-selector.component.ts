@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Status } from 'src/app/models/status.model';
 
 @Component({
@@ -7,6 +7,9 @@ import { Status } from 'src/app/models/status.model';
   styleUrls: ['./status-selector.component.scss'],
 })
 export class StatusSelectorComponent {
+  @Input() omit: Status[] = [];
+  @Output() choose = new EventEmitter<Status>();
+
   statusList: Status[] = [
     '担当者なし',
     '未着手',
@@ -18,8 +21,6 @@ export class StatusSelectorComponent {
     '領収書受取済み',
     '広告掲載NG',
   ];
-
-  @Output() choose = new EventEmitter<Status>();
 
   constructor() {}
 }

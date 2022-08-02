@@ -6,6 +6,7 @@
     matTooltipPosition="above"
     (click)="choose.emit(status)"
     color="primary"
+    [disabled]="omit.includes(status)"
   >
     <mat-icon>{{ status | statusIcon }}</mat-icon>
   </button>

@@ -12,6 +12,14 @@
             {{ store?.status }}
           </div>
         </mat-list-item>
+        <h3 matSubheader>状態を変更する</h3>
+        <mat-list-item>
+          <app-status-selector
+            *ngIf="store"
+            [omit]="['担当者なし', store.status]"
+            (choose)="setStatus($event)"
+          ></app-status-selector>
+        </mat-list-item>
         <mat-list-item>
           <div class="left">住所</div>
           <div class="right">
@@ -55,6 +63,7 @@
         </mat-list-item>
       </mat-list>
     </mat-card-content>
+
     <mat-card-actions>
       <div class="left">
         <a routerLink="/stores" mat-button>

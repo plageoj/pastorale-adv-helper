@@ -7,6 +7,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
 import { map, mergeMap, takeWhile } from 'rxjs';
 import { Member } from 'src/app/models/member.model';
+import { Status } from 'src/app/models/status.model';
 import { Store } from 'src/app/models/store.model';
 import { MemberService } from 'src/app/services/member.service';
 import { StoreService } from 'src/app/services/store.service';
@@ -105,6 +106,12 @@ export class AssignMemberComponent implements OnInit {
     const { stores, ...assignee } = member;
     this.store.assigned = assignee;
     this.store.status = '未着手';
+    await this.updateStore(this.store);
+  }
+
+  async setStatus(status: Status) {
+    if (!this.store) return;
+    this.store.status = status;
     await this.updateStore(this.store);
   }
 

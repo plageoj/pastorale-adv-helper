@@ -1,13 +1,18 @@
 <mat-tab-group>
   <mat-tab label="年度更新">
+    <mat-progress-bar
+      *ngIf="loading"
+      [mode]="progressMode"
+      [value]="progress"
+    ></mat-progress-bar>
     <mat-stepper orientation="vertical">
       <mat-step label="団員情報をリセット">
         すべての団員を非表示状態にして、アンケートの準備をします。
-        <button mat-button color="primary">実行</button>
+        <button mat-raised-button (click)="resetMembers()">実行</button>
       </mat-step>
       <mat-step label="広告先の年度更新">
         広告先の実績情報を履歴に移動して、今年分を記録できるようにします。
-        <button mat-button color="primary">実行</button>
+        <button mat-raised-button color="primary">実行</button>
       </mat-step>
     </mat-stepper>
   </mat-tab>

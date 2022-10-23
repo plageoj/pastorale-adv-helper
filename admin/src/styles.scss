@@ -32,6 +32,8 @@ $theme: mat.define-light-theme(
 @include mat.sidenav-theme($theme);
 @include mat.progress-bar-theme($theme);
 @include mat.tooltip-theme($theme);
+@include mat.tabs-theme($theme);
+@include mat.stepper-theme($theme);
 
 * {
   box-sizing: border-box;

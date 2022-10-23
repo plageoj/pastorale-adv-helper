@@ -71,7 +71,9 @@
           <mat-icon>arrow_back</mat-icon>
           戻る
         </a>
-        <button mat-button><mat-icon>history</mat-icon> 履歴</button>
+        <a routerLink="/stores/{{ store?.id }}/history" mat-button>
+          <mat-icon>history</mat-icon> 履歴
+        </a>
         <button mat-raised-button color="primary" (click)="edit()">
           <mat-icon>edit</mat-icon> 編集
         </button>

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AssignMemberComponent } from './assign-member/assign-member.component';
+import { HistoryComponent } from './history/history.component';
 import { StoresComponent } from './stores.component';
 
 const routes: Routes = [
@@ -12,6 +13,10 @@ const routes: Routes = [
   {
     path: ':id',
     component: AssignMemberComponent,
+  },
+  {
+    path: ':id/history',
+    component: HistoryComponent,
   },
 ];
 

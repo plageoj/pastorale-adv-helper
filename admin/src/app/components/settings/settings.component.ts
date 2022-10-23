@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { deleteField } from '@angular/fire/firestore';
 import { ProgressBarMode } from '@angular/material/progress-bar';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { filter, switchMap, take } from 'rxjs';
+import { filter, firstValueFrom, switchMap, take } from 'rxjs';
 import { HistoryService } from 'src/app/services/history.service';
 import { MemberService } from 'src/app/services/member.service';
 import { StoreService } from 'src/app/services/store.service';
@@ -40,7 +40,6 @@ export class SettingsComponent {
         try {
           for (const [index, member] of members.entries()) {
             this.progress = (index / total) * 100;
-            console.log(this.progress);
             await this.ms.update({ ...member, visible: false });
           }
           this.snack.open('完了しました。');
@@ -68,10 +67,11 @@ export class SettingsComponent {
         try {
           for (const [index, member] of members.entries()) {
             this.progress = (index / members.length) * 100;
-            console.log(this.progress);
-            for (const store of member.stores) {
+            for (const { id } of member.stores) {
+              const store = await firstValueFrom(this.ss.get(id));
+
               await this.ss.update({
-                id: store.id,
+                id,
                 last: {
                   name: member.name,
                   amount: store.amount,
@@ -86,7 +86,8 @@ export class SettingsComponent {
               await this.hs.update({
                 id: this.hs.id,
                 memberId: member.uid,
-                storeId: store.id,
+                memberName: member.name,
+                storeId: id,
                 amount: store.amount,
                 draft: store.draft,
                 notes: store.notes,

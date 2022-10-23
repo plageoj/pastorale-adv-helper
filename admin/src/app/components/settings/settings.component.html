@@ -25,6 +25,10 @@
           実行
         </button>
       </p>
+
+      <p *ngIf="loading">
+        完了するまでこのページを開いたままにしてください！
+      </p>
     </section>
   </mat-tab>
   <mat-tab label="モード切り替え"></mat-tab>

@@ -26,6 +26,10 @@ export class HistoryService implements IFirestore<History> {
     this.col = collection(this.db, 'history') as CollectionReference<History>;
   }
 
+  get id() {
+    return doc(this.col).id;
+  }
+
   getAll(storeId?: Store['id']): Observable<History[]> {
     const queries = [orderBy('year', 'desc')];
     if (storeId) {

@@ -1,0 +1,28 @@
+<section>
+  <h3>① モード切り替え</h3>
+  <p>
+    契約書モード（夏用）と、領収書モード（冬用）を切り替えます。<br />
+    アプリ上の表示が変わりますが、データには影響しません。
+  </p>
+  <mat-form-field>
+    <mat-label>動作モード</mat-label>
+    <mat-select [formControl]="mode">
+      <mat-option value="contract">契約書モード</mat-option>
+      <mat-option value="receipt">領収書モード</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="saveMode()"
+    [disabled]="loading"
+  >
+    <mat-icon>save</mat-icon>
+    保存
+  </button>
+
+  <h3>② 領収書回収準備</h3>
+  <p>
+    広告掲載OKで契約書受取済みになっている広告先を、全て未着手状態にします。
+  </p>
+</section>

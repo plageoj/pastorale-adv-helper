@@ -5,9 +5,17 @@
 
 <form [formGroup]="store" (ngSubmit)="saveStore()">
   <mat-radio-group formControlName="status" required>
-    <mat-radio-button value="契約書未確認">掲載OK</mat-radio-button>
-    <mat-radio-button value="広告掲載NG">掲載NG</mat-radio-button>
-    <mat-radio-button value="先方の返事待ち">返事待ち</mat-radio-button>
+    <ng-container *ngIf="mode === 'contract'">
+      <mat-radio-button value="契約書未確認">掲載OK</mat-radio-button>
+      <mat-radio-button value="広告掲載NG">掲載NG</mat-radio-button>
+      <mat-radio-button value="先方の返事待ち">返事待ち</mat-radio-button>
+    </ng-container>
+    <ng-container *ngIf="mode === 'receipt'">
+      <mat-radio-button value="先方の返事待ち">連絡待ち</mat-radio-button>
+      <mat-radio-button value="領収書未確認">
+        領収書受け渡し済み
+      </mat-radio-button>
+    </ng-container>
   </mat-radio-group>
 
   <ng-container *ngIf="store.value.status === '契約書未確認'">

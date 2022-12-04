@@ -22,3 +22,14 @@ export const elevateAsAdmin = https.onCall(
     return { ok: true, set: true, uid };
   }
 );
+
+export const setMode = https.onCall(async ({ mode }: { mode: string }, ctx) => {
+  if (ctx.auth?.token.admin !== true)
+    return new https.HttpsError("permission-denied", "Must be admin");
+
+  const config = admin.remoteConfig();
+  const template = await config.getTemplate();
+  template.parameters["mode"].defaultValue = { value: mode };
+  await config.publishTemplate(template);
+  return { ok: true, mode };
+});

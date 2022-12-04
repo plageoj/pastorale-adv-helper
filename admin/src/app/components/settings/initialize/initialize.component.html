@@ -1,0 +1,25 @@
+<mat-progress-bar *ngIf="loading" [mode]="progressMode" [value]="progress">
+</mat-progress-bar>
+<section>
+  <h3>① 団員情報をリセット</h3>
+  <p>
+    すべての団員を非表示状態にして、アンケートの準備をします。
+    <button mat-raised-button [disabled]="loading" (click)="resetMembers()">
+      実行
+    </button>
+  </p>
+  <h3>② 広告先の年度更新</h3>
+  <p>
+    広告先の実績情報を履歴に移動して、今年分を記録できるようにします。すべての担当設定が外れます。
+    <button
+      mat-raised-button
+      [disabled]="loading"
+      color="primary"
+      (click)="updateHistory()"
+    >
+      実行
+    </button>
+  </p>
+
+  <p *ngIf="loading">完了するまでこのページを開いたままにしてください！</p>
+</section>

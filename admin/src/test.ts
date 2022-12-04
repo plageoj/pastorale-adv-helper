@@ -11,17 +11,6 @@ import { provideFirestore } from '@angular/fire/firestore';
 import { getFirestore } from '@firebase/firestore';
 import { environment } from './environments/environment';
 
-declare const require: {
-  context(
-    path: string,
-    deep?: boolean,
-    filter?: RegExp
-  ): {
-    keys(): string[];
-    <T>(id: string): T;
-  };
-};
-
 // First, initialize the Angular testing environment.
 getTestBed().initTestEnvironment(
   BrowserDynamicTestingModule,
@@ -35,8 +24,3 @@ getTestBed().configureTestingModule({
     provideFirestore(() => getFirestore()),
   ],
 });
-
-// Then we find all the tests.
-const context = require.context('./', true, /\.spec\.ts$/);
-// And load the modules.
-context.keys().map(context);

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
   fetchAndActivate,
-  getString,
   getStringChanges,
   RemoteConfig,
 } from '@angular/fire/remote-config';

@@ -18,7 +18,7 @@ ul {
   }
 
   &.active {
-    background-color: map-get(mat.$deep-purple-palette, 50);
+    background-color: map-get(mat.$teal-palette, 50);
   }
 }
 

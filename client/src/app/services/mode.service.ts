@@ -4,6 +4,7 @@ import {
   getStringChanges,
   RemoteConfig,
 } from '@angular/fire/remote-config';
+import { Observable } from 'rxjs';
 
 export type Mode = 'contract' | 'receipt';
 
@@ -17,6 +18,6 @@ export class ModeService {
   }
 
   getMode() {
-    return getStringChanges(this.config, 'mode');
+    return getStringChanges(this.config, 'mode') as Observable<Mode>;
   }
 }

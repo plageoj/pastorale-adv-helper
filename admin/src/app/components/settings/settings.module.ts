@@ -14,9 +14,10 @@ import { InitializeComponent } from './initialize/initialize.component';
 import { ModeChangeComponent } from './mode-change/mode-change.component';
 import { SettingsRoutingModule } from './settings-routing.module';
 import { SettingsComponent } from './settings.component';
+import { ExportComponent } from './export/export.component';
 
 @NgModule({
-  declarations: [SettingsComponent, InitializeComponent, ModeChangeComponent],
+  declarations: [SettingsComponent, InitializeComponent, ModeChangeComponent, ExportComponent],
   imports: [
     CommonModule,
     SettingsRoutingModule,

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Auth, signOut, User } from '@angular/fire/auth';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -11,9 +11,17 @@ export class AppComponent {
   open = window.innerWidth > 1024;
   user: User | null = null;
 
+  segment = '';
+
   constructor(private auth: Auth, private router: Router) {
     this.auth.onAuthStateChanged((user) => {
       this.user = user;
+    });
+
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.segment = event.urlAfterRedirects.split('/')[1];
+      }
     });
   }
 

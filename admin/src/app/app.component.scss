@@ -1,3 +1,5 @@
+@use "@angular/material" as mat;
+
 mat-toolbar {
   position: fixed;
   top: 0;
@@ -17,6 +19,9 @@ mat-sidenav-container {
 
 mat-sidenav {
   min-width: 150px;
+  .active {
+    border-right: solid 4px map-get(mat.$teal-palette, 300);
+  }
 }
 
 mat-icon {

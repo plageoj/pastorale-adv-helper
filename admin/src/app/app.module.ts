@@ -18,6 +18,10 @@ import {
   provideFunctions,
 } from '@angular/fire/functions';
 import { getPerformance, providePerformance } from '@angular/fire/performance';
+import {
+  getRemoteConfig,
+  provideRemoteConfig,
+} from '@angular/fire/remote-config';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
@@ -65,6 +69,7 @@ import { AppComponent } from './app.component';
       return func;
     }),
     providePerformance(() => getPerformance()),
+    provideRemoteConfig(() => getRemoteConfig()),
     MatButtonModule,
     MatIconModule,
     MatListModule,

@@ -35,6 +35,7 @@ $theme: mat.define-light-theme(
 @include mat.tabs-theme($theme);
 @include mat.stepper-theme($theme);
 @include mat.expansion-theme($theme);
+@include mat.select-theme($theme);
 
 * {
   box-sizing: border-box;

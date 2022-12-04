@@ -13,6 +13,10 @@ import {
   provideFirestore,
 } from '@angular/fire/firestore';
 import { getPerformance, providePerformance } from '@angular/fire/performance';
+import {
+  getRemoteConfig,
+  provideRemoteConfig,
+} from '@angular/fire/remote-config';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
@@ -49,6 +53,7 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
       return fire;
     }),
     providePerformance(() => getPerformance()),
+    provideRemoteConfig(() => getRemoteConfig()),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       registrationStrategy: 'registerWhenStable:30000',

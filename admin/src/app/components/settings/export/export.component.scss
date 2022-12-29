@@ -1,1 +1,6 @@
 @use "../tab-content";
+
+span {
+  display: flex;
+  gap: 1rem;
+}

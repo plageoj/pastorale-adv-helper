@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
@@ -28,6 +29,7 @@ import { SettingsComponent } from './settings.component';
     SettingsRoutingModule,
     MatButtonModule,
     MatCardModule,
+    MatDividerModule,
     MatProgressBarModule,
     MatSnackBarModule,
     MatStepperModule,

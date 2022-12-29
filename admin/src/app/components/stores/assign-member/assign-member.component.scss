@@ -2,7 +2,7 @@
 
 #container {
   display: grid;
-  grid-template-columns: 2fr 3fr;
+  grid-template-columns: minmax(35vw, 500px) 1fr;
   grid-template-rows: calc(100vh - 64px - 2rem);
   grid-gap: 1rem;
   margin: 1rem;
@@ -15,12 +15,15 @@ mat-card-content {
 
 mat-card-actions {
   display: flex;
+  [mat-button] {
+    margin-right: 0.5rem;
+  }
   .left {
     flex-grow: 1;
   }
 }
 
-mat-list-item {
+[matListItemLine] {
   display: flex;
   .left {
     flex-grow: 1;

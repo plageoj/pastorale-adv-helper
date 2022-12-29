@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
-import { MatLegacyCheckboxChange as MatCheckboxChange } from '@angular/material/legacy-checkbox';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
-import { MatLegacySlideToggleChange as MatSlideToggleChange } from '@angular/material/legacy-slide-toggle';
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
+import { MatCheckboxChange as MatCheckboxChange } from '@angular/material/checkbox';
+import { MatDialog as MatDialog } from '@angular/material/dialog';
+import { MatSlideToggleChange as MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { MatSnackBar as MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
-import { MatLegacyTableDataSource as MatTableDataSource } from '@angular/material/legacy-table';
+import { MatTableDataSource as MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
 import { Store } from 'src/app/models/store.model';
 import { StoreService } from 'src/app/services/store.service';

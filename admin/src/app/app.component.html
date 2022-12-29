@@ -17,21 +17,21 @@
         routerLink="/members"
         [ngClass]="{ active: segment.includes('members') }"
       >
-        <mat-icon>people</mat-icon> 団員
+        <mat-icon matListItemIcon>people</mat-icon> 団員
       </a>
       <a
         mat-list-item
         routerLink="/stores"
         [ngClass]="{ active: segment.includes('stores') }"
       >
-        <mat-icon>store</mat-icon> 広告先
+        <mat-icon matListItemIcon>store</mat-icon> 広告先
       </a>
       <a
         mat-list-item
         routerLink="/settings"
         [ngClass]="{ active: segment.includes('settings') }"
       >
-        <mat-icon>settings</mat-icon> 設定
+        <mat-icon matListItemIcon>settings</mat-icon> 設定
       </a>
     </mat-nav-list>
   </mat-sidenav>

@@ -8,7 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
-import { MatRadioModule } from '@angular/material/radio';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { PipesModule } from 'src/app/pipes/pipes.module';
@@ -29,7 +29,7 @@ import { StoreRoutingModule } from './store-routing.module';
     MatIconModule,
     MatInputModule,
     MatListModule,
-    MatRadioModule,
+    MatButtonToggleModule,
     MatSnackBarModule,
     MatToolbarModule,
     PipesModule,

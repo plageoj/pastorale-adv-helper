@@ -5,6 +5,13 @@ h1 {
   line-height: 1.3rem;
 }
 
+mat-toolbar {
+  display: flex;
+  .left {
+    flex: 1;
+  }
+}
+
 p[matLine].wrap {
   white-space: pre-line;
 }

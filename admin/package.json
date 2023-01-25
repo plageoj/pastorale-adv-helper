@@ -8,6 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint",
+    "stats": "ng build --stats-json",
     "analyze": "ng build -c production --source-map && source-map-explorer dist/*.js"
   },
   "private": true,
@@ -51,7 +52,8 @@
     "karma-jasmine-html-reporter": "~2.0.0",
     "lint-staged": "^13.1.0",
     "source-map-explorer": "^2.5.3",
-    "typescript": "~4.8.4"
+    "typescript": "~4.8.4",
+    "webpack-bundle-analyzer": "^4.7.0"
   },
   "lint-staged": {
     "*.{ts,html}": [

@@ -4,8 +4,8 @@ import { CommonModule } from '@angular/common';
 import { AccountRoutingModule } from './account-routing.module';
 import { LoginComponent } from './login/login.component';
 import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatButtonModule as MatButtonModule } from '@angular/material/button';
+import { MatSnackBarModule as MatSnackBarModule } from '@angular/material/snack-bar';
 import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 
 @NgModule({

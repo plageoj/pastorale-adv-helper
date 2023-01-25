@@ -1,16 +1,20 @@
 <div id="container">
   <mat-card>
-    <h2 mat-card-title>
-      {{ store?.name }}
-    </h2>
+    <mat-card-header>
+      <h2 mat-card-title>
+        {{ store?.name }}
+      </h2>
+    </mat-card-header>
 
     <mat-card-content>
       <mat-list dense>
         <mat-list-item>
-          <div class="left">状態</div>
-          <div class="right">
-            <mat-icon inline>{{ store?.status | statusIcon }}</mat-icon>
-            {{ store?.status }}
+          <div matListItemLine>
+            <div class="left">状態</div>
+            <div class="right">
+              <mat-icon inline>{{ store?.status | statusIcon }}</mat-icon>
+              {{ store?.status }}
+            </div>
           </div>
         </mat-list-item>
         <h3 matSubheader>状態を変更する</h3>
@@ -22,44 +26,58 @@
           ></app-status-selector>
         </mat-list-item>
         <mat-list-item>
-          <div class="left">住所</div>
-          <div class="right">
-            {{ store?.address }}
+          <div matListItemLine>
+            <div class="left">住所</div>
+            <div class="right">
+              {{ store?.address }}
+            </div>
           </div>
         </mat-list-item>
         <mat-list-item>
-          <div class="left">電話番号</div>
-          <div class="right">
-            {{ store?.tel }}
-            <ng-container *ngIf="store?.altTel">
-              / {{ store?.altTel }}
-            </ng-container>
+          <div matListItemLine>
+            <div class="left">電話番号</div>
+            <div class="right">
+              {{ store?.tel }}
+              <ng-container *ngIf="store?.altTel">
+                / {{ store?.altTel }}
+              </ng-container>
+            </div>
           </div>
         </mat-list-item>
         <mat-list-item>
-          <div class="left">担当者</div>
-          <div class="right">
-            {{ store?.assigned?.name ?? "（なし）" }}
+          <div matListItemLine>
+            <div class="left">担当者</div>
+            <div class="right">
+              {{ store?.assigned?.name ?? "（なし）" }}
+            </div>
           </div>
         </mat-list-item>
         <mat-list-item>
-          <div class="left">原稿</div>
-          <div class="right">{{ store?.draft }}</div>
+          <div matListItemLine>
+            <div class="left">原稿</div>
+            <div class="right">{{ store?.draft }}</div>
+          </div>
         </mat-list-item>
         <mat-list-item>
-          <div class="left">昨年担当</div>
-          <div class="right">{{ store?.last?.name ?? "（なし）" }}</div>
+          <div matListItemLine>
+            <div class="left">昨年担当</div>
+            <div class="right">{{ store?.last?.name ?? "（なし）" }}</div>
+          </div>
         </mat-list-item>
         <mat-list-item>
-          <div class="left">昨年実績</div>
-          <div class="right">{{ store?.last?.amount | currency: "JPY" }}</div>
+          <div matListItemLine>
+            <div class="left">昨年実績</div>
+            <div class="right">
+              {{ store?.last?.amount | currency : "JPY" }}
+            </div>
+          </div>
         </mat-list-item>
-        <h3 matSubheader>備考</h3>
         <mat-list-item>
+          <p matListItemTitle>備考</p>
           {{ store?.comment }}
         </mat-list-item>
-        <h3 matSubheader>申し送り事項</h3>
         <mat-list-item>
+          <p matListItemTitle>申し送り事項</p>
           {{ store?.notes }}
         </mat-list-item>
       </mat-list>
@@ -87,12 +105,14 @@
   </mat-card>
 
   <mat-card>
-    <mat-card-content>
+    <mat-card-header>
       <mat-form-field>
         <mat-label>団員を検索</mat-label>
         <input type="search" matInput (input)="applyFilter($event)" />
       </mat-form-field>
+    </mat-card-header>
 
+    <mat-card-content>
       <table mat-table [dataSource]="members" matSort>
         <ng-container matColumnDef="studentNumber">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>割当</th>

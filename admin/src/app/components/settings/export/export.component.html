@@ -1,0 +1,25 @@
+<section>
+  <h3>広告先データ出力</h3>
+  <p>
+    広告先データを Excel ファイルに出力します。
+    <span>
+      <button mat-raised-button [disabled]="loading" (click)="export(false)">
+        <mat-icon>start</mat-icon>
+        全データ出力
+      </button>
+      <button
+        mat-raised-button
+        color="primary"
+        [disabled]="loading"
+        (click)="export(true)"
+      >
+        <mat-icon>start</mat-icon>
+        掲載OKのみ出力
+      </button>
+    </span>
+    <button mat-raised-button [disabled]="!ready" (click)="download()">
+      <mat-icon>download</mat-icon>
+      ダウンロード
+    </button>
+  </p>
+</section>

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Auth } from '@angular/fire/auth';
 import { UntypedFormBuilder } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 import { CommuteList } from 'src/app/models/commute.model';
 import { Member } from 'src/app/models/member.model';
 import { MemberService } from 'src/app/services/member.service';

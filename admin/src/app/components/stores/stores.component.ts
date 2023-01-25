@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { UntypedFormControl } from '@angular/forms';
-import { MatCheckboxChange } from '@angular/material/checkbox';
-import { MatDialog } from '@angular/material/dialog';
-import { MatSlideToggleChange } from '@angular/material/slide-toggle';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatCheckboxChange as MatCheckboxChange } from '@angular/material/checkbox';
+import { MatDialog as MatDialog } from '@angular/material/dialog';
+import { MatSlideToggleChange as MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { MatSnackBar as MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatTableDataSource as MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
 import { Store } from 'src/app/models/store.model';
 import { StoreService } from 'src/app/services/store.service';

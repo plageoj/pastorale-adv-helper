@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { deleteField } from '@angular/fire/firestore';
 import { ProgressBarMode } from '@angular/material/progress-bar';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSnackBar as MatSnackBar } from '@angular/material/snack-bar';
 import { filter, firstValueFrom, switchMap, take } from 'rxjs';
 import { HistoryService } from 'src/app/services/history.service';
 import { MemberService } from 'src/app/services/member.service';

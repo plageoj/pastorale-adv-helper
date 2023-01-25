@@ -10,7 +10,7 @@ import {
 import { getAuth, signInAnonymously, deleteUser } from '@angular/fire/auth';
 import { GoogleMapsModule, MapGeocoder } from '@angular/google-maps';
 import { MatIconModule } from '@angular/material/icon';
-import { MatListModule } from '@angular/material/list';
+import { MatLegacyListModule as MatListModule } from '@angular/material/legacy-list';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';

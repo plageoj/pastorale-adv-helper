@@ -3,8 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Member } from 'src/app/models/member.model';
 import { MemberService } from 'src/app/services/member.service';
 import { map } from 'rxjs/operators';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { MatTableDataSource as MatTableDataSource } from '@angular/material/table';
+import { MatSlideToggleChange as MatSlideToggleChange } from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'app-members',

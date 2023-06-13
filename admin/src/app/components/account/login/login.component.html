@@ -4,3 +4,22 @@
     広大アカウントでログイン
   </button>
 </main>
+
+<form [formGroup]="emailCredentials" (ngSubmit)="loginWithEmail()">
+  <h3>OB/OG用ログイン</h3>
+
+  <mat-form-field>
+    <mat-label>メールアドレス</mat-label>
+    <input type="email" matInput required formControlName="email" />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>パスワード</mat-label>
+    <input type="password" matInput required formControlName="password" />
+  </mat-form-field>
+
+  <button mat-raised-button color="primary">
+    <mat-icon>login</mat-icon>
+    メールアドレスでログイン
+  </button>
+</form>

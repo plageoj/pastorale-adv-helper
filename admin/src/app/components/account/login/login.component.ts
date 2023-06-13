@@ -2,13 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import {
   Auth,
   AuthError,
+  OAuthProvider,
   getRedirectResult,
   linkWithRedirect,
-  OAuthProvider,
   signInWithEmailAndPassword,
   signInWithPopup,
 } from '@angular/fire/auth';
-import { MatSnackBar as MatSnackBar } from '@angular/material/snack-bar';
+import { FormBuilder } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 
 @Component({
@@ -17,10 +18,16 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
+  emailCredentials = this.fb.group({
+    email: [''],
+    password: [''],
+  });
+
   constructor(
     private auth: Auth,
     private sb: MatSnackBar,
-    private router: Router
+    private router: Router,
+    private fb: FormBuilder
   ) {}
 
   async ngOnInit(): Promise<void> {
@@ -47,6 +54,27 @@ export class LoginComponent implements OnInit {
         return;
       }
     });
+    this.router.navigateByUrl('/');
+  }
+
+  async loginWithEmail() {
+    const { email, password } = this.emailCredentials.value;
+    if (!email || !password) {
+      this.sb.open('メールアドレスとパスワードを入力してください');
+      return;
+    }
+    await signInWithEmailAndPassword(this.auth, email, password).catch(
+      (e: AuthError) => {
+        if (
+          e.code === 'auth/wrong-password' ||
+          e.code === 'auth/user-not-found'
+        ) {
+          this.sb.open('メールアドレスかパスワードが間違っています');
+        } else {
+          this.sb.open('ログインできませんでした');
+        }
+      }
+    );
     this.router.navigateByUrl('/');
   }
 }

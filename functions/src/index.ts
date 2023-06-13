@@ -1,11 +1,12 @@
 import * as admin from "firebase-admin";
-import { https } from "firebase-functions";
+import { https } from "firebase-functions/v2";
 import "source-map-support/register";
 
 admin.initializeApp();
 
-export const elevateAsAdmin = https.onCall(
-  async ({ uid, isAdmin }: { uid: string; isAdmin: boolean }) => {
+export const elevateasadmin = https.onCall<{ uid: string; isAdmin: boolean }>(
+  async ({ data }) => {
+    const { uid, isAdmin } = data;
     const auth = admin.auth();
     const user = await auth.getUser(uid);
     if (!user) return new https.HttpsError("not-found", "User not found");
@@ -23,13 +24,16 @@ export const elevateAsAdmin = https.onCall(
   }
 );
 
-export const setMode = https.onCall(async ({ mode }: { mode: string }, ctx) => {
-  if (ctx.auth?.token.admin !== true)
-    return new https.HttpsError("permission-denied", "Must be admin");
+export const setmode = https.onCall<{ mode: string }>(
+  async ({ data, auth }) => {
+    const { mode } = data;
+    if (auth?.token.admin !== true)
+      return new https.HttpsError("permission-denied", "Must be admin");
 
-  const config = admin.remoteConfig();
-  const template = await config.getTemplate();
-  template.parameters["mode"].defaultValue = { value: mode };
-  await config.publishTemplate(template);
-  return { ok: true, mode };
-});
+    const config = admin.remoteConfig();
+    const template = await config.getTemplate();
+    template.parameters["mode"].defaultValue = { value: mode };
+    await config.publishTemplate(template);
+    return { ok: true, mode };
+  }
+);

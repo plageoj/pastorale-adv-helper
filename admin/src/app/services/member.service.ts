@@ -40,7 +40,7 @@ export class MemberService implements IFirestore<Member> {
   async update(data: Member) {
     await httpsCallable(
       this.func,
-      'elevateAsAdmin'
+      'elevateAsAdmin'.toLowerCase()
     )({ uid: data.uid, isAdmin: data.isAdmin });
     return setDoc(doc(this.col, data.uid), data, { merge: true });
   }

@@ -24,6 +24,9 @@ export class ModeService {
   }
 
   setMode(mode: Mode) {
-    return httpsCallable<{ mode: Mode }>(this.fn, 'setMode')({ mode });
+    return httpsCallable<{ mode: Mode }>(
+      this.fn,
+      'setMode'.toLowerCase()
+    )({ mode });
   }
 }

@@ -31,30 +31,30 @@
 <mat-list>
   <h2 matSubheader>情報</h2>
   <mat-list-item>
-    <mat-icon matListIcon>{{ store?.status | statusIcon }}</mat-icon>
-    <p matLine>{{ store?.status }}</p>
+    <mat-icon matListItemIcon>{{ store?.status | statusIcon }}</mat-icon>
+    <p matListItemTitle>{{ store?.status }}</p>
   </mat-list-item>
   <mat-list-item *ngIf="store?.comment">
-    <mat-icon matListIcon>info</mat-icon>
-    <p matLine>
+    <mat-icon matListItemIcon>info</mat-icon>
+    <p matListItemTitle>
       {{ store?.comment }}
     </p>
   </mat-list-item>
   <mat-list-item>
-    <mat-icon matListIcon>currency_yen</mat-icon>
-    <p matLine>
+    <mat-icon matListItemIcon>currency_yen</mat-icon>
+    <p matListItemTitle>
       {{ store?.amount | number }}
     </p>
   </mat-list-item>
   <mat-list-item *ngIf="store?.draft">
-    <mat-icon matListIcon>panorama</mat-icon>
-    <p matLine>
+    <mat-icon matListItemIcon>panorama</mat-icon>
+    <p matListItemTitle>
       {{ store?.draft }}
     </p>
   </mat-list-item>
   <mat-list-item>
-    <mat-icon matListIcon>notes</mat-icon>
-    <p matLine class="wrap" [ngClass]="{ empty: !store?.notes }">
+    <mat-icon matListItemIcon>notes</mat-icon>
+    <p matListItemTitle class="wrap" [ngClass]="{ empty: !store?.notes }">
       {{ store?.notes || "メモはありません" }}
     </p>
   </mat-list-item>
@@ -63,43 +63,51 @@
 <mat-list>
   <h2 matSubheader>アクション</h2>
   <mat-list-item>
-    <mat-icon matListIcon>phone</mat-icon>
-    <small matLine>{{ store?.tel }}</small>
-    <button mat-raised-button (click)="call(store?.tel)">
-      <mat-icon>call</mat-icon>
-      電話をかける
-    </button>
+    <mat-icon matListItemIcon>phone</mat-icon>
+    <div matListItemTitle>
+      <span>{{ store?.tel }}</span>
+      <button mat-raised-button (click)="call(store?.tel)">
+        <mat-icon>call</mat-icon>
+        電話をかける
+      </button>
+    </div>
   </mat-list-item>
   <mat-list-item *ngIf="store?.altTel">
-    <mat-icon matListIcon>phone</mat-icon>
-    <small matLine>{{ store?.altTel }}</small>
-    <button mat-raised-button (click)="call(store?.altTel)">
-      <mat-icon>call</mat-icon>
-      電話をかける
-    </button>
+    <mat-icon matListItemIcon>phone</mat-icon>
+    <div matListItemTitle>
+      <span>{{ store?.altTel }}</span>
+      <button mat-raised-button (click)="call(store?.altTel)">
+        <mat-icon>call</mat-icon>
+        電話をかける
+      </button>
+    </div>
   </mat-list-item>
   <mat-list-item *ngIf="store?.address">
-    <mat-icon matListIcon>pin_drop</mat-icon>
-    <small matLine>
-      {{ store?.address }}
-    </small>
-    <a
-      mat-raised-button
-      target="_blank"
-      href="https://www.google.com/maps/search/?api=1&query={{
-        store?.name
-      }}&query_place_id={{ placeId }}"
-    >
-      <mat-icon>map</mat-icon>
-      Googleマップ
-    </a>
+    <mat-icon matListItemIcon>pin_drop</mat-icon>
+    <div matListItemTitle>
+      <small>
+        {{ store?.address }}
+      </small>
+      <a
+        mat-raised-button
+        target="_blank"
+        href="https://www.google.com/maps/search/?api=1&query={{
+          store?.name
+        }}&query_place_id={{ placeId }}"
+      >
+        <mat-icon>map</mat-icon>
+        Googleマップ
+      </a>
+    </div>
   </mat-list-item>
   <mat-list-item>
-    <mat-icon matListIcon>edit</mat-icon>
-    <p matLine>情報を登録・編集する</p>
-    <button mat-raised-button routerLink="./report" color="primary">
-      <mat-icon>app_registration</mat-icon>
-      報告登録・更新
-    </button>
+    <mat-icon matListItemIcon>edit</mat-icon>
+    <div matListItemTitle>
+      <span>情報を登録・編集する</span>
+      <button mat-raised-button routerLink="./report" color="primary">
+        <mat-icon>app_registration</mat-icon>
+        報告登録・更新
+      </button>
+    </div>
   </mat-list-item>
 </mat-list>

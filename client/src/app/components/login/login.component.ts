@@ -2,13 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import {
   Auth,
   AuthError,
+  OAuthProvider,
   getRedirectResult,
   linkWithRedirect,
-  OAuthProvider,
   signInWithEmailAndPassword,
   signInWithPopup,
 } from '@angular/fire/auth';
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 
 @Component({

@@ -1,16 +1,10 @@
 import { HttpClientJsonpModule } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import {
-  ComponentFixture,
-  fakeAsync,
-  flush,
-  TestBed,
-  tick,
-} from '@angular/core/testing';
-import { getAuth, signInAnonymously, deleteUser } from '@angular/fire/auth';
+import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
+import { deleteUser, getAuth, signInAnonymously } from '@angular/fire/auth';
 import { GoogleMapsModule, MapGeocoder } from '@angular/google-maps';
 import { MatIconModule } from '@angular/material/icon';
-import { MatLegacyListModule as MatListModule } from '@angular/material/legacy-list';
+import { MatListModule } from '@angular/material/list';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';

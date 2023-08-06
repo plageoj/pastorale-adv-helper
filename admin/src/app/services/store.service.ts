@@ -8,6 +8,7 @@ import {
   Firestore,
   orderBy,
   query,
+  QueryConstraint,
   setDoc,
   where,
   WithFieldValue,
@@ -32,7 +33,7 @@ export class StoreService implements IFirestore<Store> {
   getAll(
     { includeHidden }: { includeHidden: boolean } = { includeHidden: false }
   ) {
-    const queries = [orderBy('needAttention', 'desc')];
+    const queries: QueryConstraint[] = [orderBy('needAttention', 'desc')];
     if (!includeHidden) queries.push(where('visible', '==', true));
     return collectionData(query(this.col, ...queries));
   }

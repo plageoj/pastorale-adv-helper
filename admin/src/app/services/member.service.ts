@@ -8,6 +8,7 @@ import {
   Firestore,
   orderBy,
   query,
+  QueryConstraint,
   setDoc,
   where,
 } from '@angular/fire/firestore';
@@ -26,7 +27,7 @@ export class MemberService implements IFirestore<Member> {
   }
 
   getAll(includeHidden = false) {
-    const queries = [orderBy('studentNumber', 'desc')];
+    const queries: QueryConstraint[] = [orderBy('studentNumber', 'desc')];
     if (!includeHidden) {
       queries.push(where('visible', '==', true));
     }

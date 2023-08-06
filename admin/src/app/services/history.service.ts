@@ -10,6 +10,7 @@ import {
   where,
   query,
   orderBy,
+  QueryConstraint,
 } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { History } from '../models/history.model';
@@ -31,7 +32,7 @@ export class HistoryService implements IFirestore<History> {
   }
 
   getAll(storeId?: Store['id']): Observable<History[]> {
-    const queries = [orderBy('year', 'desc')];
+    const queries: QueryConstraint[] = [orderBy('year', 'desc')];
     if (storeId) {
       queries.push(where('storeId', '==', storeId));
     }

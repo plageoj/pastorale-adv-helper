@@ -1,17 +1,16 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Auth } from '@angular/fire/auth';
 import {
   collection,
   collectionData,
-  CollectionReference,
   doc,
   docData,
   Firestore,
   query,
   setDoc,
-  updateDoc,
   where,
 } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
 import { Status } from '../models/status.model';
 import { Store } from '../models/store.model';
 
@@ -20,23 +19,21 @@ import { Store } from '../models/store.model';
 })
 export class StoreService {
   col;
+  firestore = inject(Firestore);
 
-  constructor(private db: Firestore, private auth: Auth) {
-    this.col = collection(this.db, 'stores') as CollectionReference<Store>;
+  constructor(private auth: Auth) {
+    this.col = collection(this.firestore, 'stores');
   }
 
-  list() {
+  list(): Observable<Store[]> {
     if (!this.auth.currentUser) throw new Error('User not logged in');
     return collectionData(
-      query<Store>(
-        this.col,
-        where('assigned.uid', '==', this.auth.currentUser.uid)
-      )
-    );
+      query(this.col, where('assigned.uid', '==', this.auth.currentUser.uid))
+    ) as Observable<Store[]>;
   }
 
-  get(id: string) {
-    return docData(doc(this.col, id));
+  get(id: string): Observable<Store> {
+    return docData(doc(this.col, id)) as Observable<Store>;
   }
 
   setStatus(id: string, status: Status) {

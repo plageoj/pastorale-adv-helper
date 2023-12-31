@@ -1,8 +1,7 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Auth } from '@angular/fire/auth';
 import {
   collection,
-  CollectionReference,
   doc,
   docData,
   Firestore,
@@ -17,9 +16,10 @@ import { Member } from '../models/member.model';
 })
 export class MemberService {
   col;
+  firestore = inject(Firestore);
 
-  constructor(private db: Firestore, private auth: Auth) {
-    this.col = collection(this.db, 'members') as CollectionReference<Member>;
+  constructor(private auth: Auth) {
+    this.col = collection(this.firestore, 'members');
   }
 
   me(): Observable<Member> {
@@ -38,7 +38,9 @@ export class MemberService {
         stores: [],
         visible: true,
       });
-    return docData(doc(this.col, this.auth.currentUser.uid));
+    return docData(
+      doc(this.col, this.auth.currentUser.uid)
+    ) as Observable<Member>;
   }
 
   update(data: WithFieldValue<Partial<Member>>) {

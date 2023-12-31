@@ -1,42 +1,38 @@
 import { HarnessLoader } from '@angular/cdk/testing';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { MatButtonModule as MatButtonModule } from '@angular/material/button';
-import { MatCardModule as MatCardModule } from '@angular/material/card';
-import { MatCheckboxModule as MatCheckboxModule } from '@angular/material/checkbox';
-import { MatCheckboxHarness as MatCheckboxHarness } from '@angular/material/checkbox/testing';
-import {
-  MatDialog as MatDialog,
-  MatDialogModule as MatDialogModule,
-} from '@angular/material/dialog';
-import { MatFormFieldModule as MatFormFieldModule } from '@angular/material/form-field';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatCheckboxHarness } from '@angular/material/checkbox/testing';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule as MatInputModule } from '@angular/material/input';
-import { MatSlideToggleModule as MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatSlideToggleHarness as MatSlideToggleHarness } from '@angular/material/slide-toggle/testing';
-import {
-  MatSnackBar as MatSnackBar,
-  MatSnackBarModule as MatSnackBarModule,
-} from '@angular/material/snack-bar';
+import { MatInputModule } from '@angular/material/input';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatSlideToggleHarness } from '@angular/material/slide-toggle/testing';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSortModule } from '@angular/material/sort';
-import { MatTableModule as MatTableModule } from '@angular/material/table';
+import { MatTableModule } from '@angular/material/table';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { cold, getTestScheduler } from 'jasmine-marbles';
 import { of } from 'rxjs';
+import { Member } from 'src/app/models/member.model';
 import { StoreService } from 'src/app/services/store.service';
 import { FirebaseTestingModule } from 'src/app/testing/firebase-testing.module';
 import { RouterLinkStubDirective } from 'src/app/testing/router-link-stub';
 import { waitUntil } from 'src/app/testing/utils/wait-until';
 import { StoresComponent } from './stores.component';
+import { StatusSelectorComponent } from './status-selector/status-selector.component';
 
 describe('StoresComponent', () => {
   let component: StoresComponent;
   let fixture: ComponentFixture<StoresComponent>;
   let loader: HarnessLoader;
 
-  const member = {
+  const member: Omit<Member, 'stores'> = {
     uid: 'assigned-uid',
     name: 'Assigned member',
     comment: '',
@@ -45,14 +41,18 @@ describe('StoresComponent', () => {
     isAdmin: false,
     isHomeInHiroshima: false,
     job: '',
-    stores: [],
     studentNumber: 0,
     commute: {},
+    visible: true,
   };
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [StoresComponent, RouterLinkStubDirective],
+      declarations: [
+        StoresComponent,
+        RouterLinkStubDirective,
+        StatusSelectorComponent,
+      ],
       imports: [
         FirebaseTestingModule,
         MatButtonModule,

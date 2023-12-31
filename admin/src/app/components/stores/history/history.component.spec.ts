@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HistoryComponent } from './history.component';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('HistoryComponent', () => {
   let component: HistoryComponent;
@@ -8,9 +9,9 @@ describe('HistoryComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ HistoryComponent ]
-    })
-    .compileComponents();
+      declarations: [HistoryComponent],
+      imports: [RouterTestingModule.withRoutes([])],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(HistoryComponent);
     component = fixture.componentInstance;

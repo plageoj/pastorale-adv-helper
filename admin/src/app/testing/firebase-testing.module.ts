@@ -8,8 +8,13 @@ import {
 } from '@angular/fire/firestore';
 import { environment } from 'src/environments/environment';
 import { connectAuthEmulator, getAuth, provideAuth } from '@angular/fire/auth';
+import {
+  connectFunctionsEmulator,
+  getFunctions,
+  provideFunctions,
+} from '@angular/fire/functions';
 
-const initialized = { firestore: false, auth: false };
+const initialized = { firestore: false, auth: false, functions: false };
 
 @NgModule({
   declarations: [],
@@ -31,6 +36,14 @@ const initialized = { firestore: false, auth: false };
         initialized.auth = true;
       }
       return auth;
+    }),
+    provideFunctions(() => {
+      const functions = getFunctions();
+      if (!initialized.functions) {
+        connectFunctionsEmulator(functions, 'localhost', 5001);
+        initialized.functions = true;
+      }
+      return functions;
     }),
   ],
 })

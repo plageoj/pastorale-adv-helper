@@ -1,12 +1,15 @@
 import { TestBed } from '@angular/core/testing';
 
 import { HistoryService } from './history.service';
+import { FirebaseTestingModule } from '../testing/firebase-testing.module';
 
 describe('HistoryService', () => {
   let service: HistoryService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      imports: [FirebaseTestingModule],
+    });
     service = TestBed.inject(HistoryService);
   });
 

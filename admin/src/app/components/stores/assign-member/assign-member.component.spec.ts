@@ -5,22 +5,16 @@ import {
   TestBed,
   tick,
 } from '@angular/core/testing';
-import { MatButtonModule as MatButtonModule } from '@angular/material/button';
-import { MatCardModule as MatCardModule } from '@angular/material/card';
-import {
-  MatDialog as MatDialog,
-  MatDialogModule as MatDialogModule,
-} from '@angular/material/dialog';
-import { MatFormFieldModule as MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule as MatInputModule } from '@angular/material/input';
-import { MatListModule as MatListModule } from '@angular/material/list';
-import {
-  MatSnackBar as MatSnackBar,
-  MatSnackBarModule as MatSnackBarModule,
-} from '@angular/material/snack-bar';
+import { MatInputModule } from '@angular/material/input';
+import { MatListModule } from '@angular/material/list';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSortModule } from '@angular/material/sort';
-import { MatTableModule as MatTableModule } from '@angular/material/table';
+import { MatTableModule } from '@angular/material/table';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -28,6 +22,7 @@ import { cold, getTestScheduler } from 'jasmine-marbles';
 import { of } from 'rxjs';
 import { Member } from 'src/app/models/member.model';
 import { Store } from 'src/app/models/store.model';
+import { PipesModule } from 'src/app/pipes/pipes.module';
 import { MemberService } from 'src/app/services/member.service';
 import { StoreService } from 'src/app/services/store.service';
 import { ActivatedRouteStub } from 'src/app/testing/activated-route-stub';
@@ -116,6 +111,7 @@ describe('AssignMemberComponent', () => {
         MatTableModule,
         NoopAnimationsModule,
         RouterTestingModule,
+        PipesModule,
       ],
       providers: [
         {

@@ -13,9 +13,10 @@ import { map } from 'rxjs/operators';
 const isAdmin = () =>
   pipe(
     customClaims,
-    map((claims?: { admin: boolean }) => {
+    map((claims) => {
       if (!claims) return ['account', 'login'];
-      if (!claims.admin) return ['account', 'unauthorized'];
+      if (!(claims as { admin: boolean }).admin)
+        return ['account', 'unauthorized'];
       return true;
     })
   );

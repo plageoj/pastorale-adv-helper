@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import {
   collection,
   collectionData,
@@ -22,8 +22,9 @@ import { IFirestore } from './firestore.interface';
 })
 export class HistoryService implements IFirestore<History> {
   private col;
+  private db = inject(Firestore);
 
-  constructor(private db: Firestore) {
+  constructor() {
     this.col = collection(this.db, 'history') as CollectionReference<History>;
   }
 
@@ -40,7 +41,7 @@ export class HistoryService implements IFirestore<History> {
   }
 
   get(id: string): Observable<History> {
-    return docData(doc(this.col, id));
+    return docData(doc(this.col, id)) as Observable<History>;
   }
 
   async update(data: History) {

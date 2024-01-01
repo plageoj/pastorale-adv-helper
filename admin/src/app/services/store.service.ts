@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import {
   collection,
   collectionData,
@@ -15,14 +15,16 @@ import {
 } from '@angular/fire/firestore';
 import { Store } from '../models/store.model';
 import { IFirestore } from './firestore.interface';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class StoreService implements IFirestore<Store> {
   private col;
+  private db = inject(Firestore);
 
-  constructor(private db: Firestore) {
+  constructor() {
     this.col = collection(this.db, 'stores') as CollectionReference<Store>;
   }
 
@@ -32,14 +34,14 @@ export class StoreService implements IFirestore<Store> {
 
   getAll(
     { includeHidden }: { includeHidden: boolean } = { includeHidden: false }
-  ) {
+  ): Observable<Store[]> {
     const queries: QueryConstraint[] = [orderBy('needAttention', 'desc')];
     if (!includeHidden) queries.push(where('visible', '==', true));
     return collectionData(query(this.col, ...queries));
   }
 
-  get(storeId: string) {
-    return docData(doc(this.col, storeId));
+  get(storeId: string): Observable<Store> {
+    return docData(doc(this.col, storeId)) as Observable<Store>;
   }
 
   update(data: WithFieldValue<Partial<Store>>): Promise<void> {

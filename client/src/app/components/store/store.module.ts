@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { HttpClientJsonpModule, HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi, withJsonpSupport } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { GoogleMapsModule } from '@angular/google-maps';
@@ -18,24 +18,17 @@ import { ListComponent } from './list/list.component';
 import { ReportComponent } from './report/report.component';
 import { StoreRoutingModule } from './store-routing.module';
 
-@NgModule({
-  declarations: [ListComponent, DetailComponent, ReportComponent],
-  imports: [
-    CommonModule,
-    GoogleMapsModule,
-    HttpClientJsonpModule,
-    HttpClientModule,
-    MatButtonModule,
-    MatButtonToggleModule,
-    MatFormFieldModule,
-    MatIconModule,
-    MatInputModule,
-    MatListModule,
-    MatSnackBarModule,
-    MatToolbarModule,
-    PipesModule,
-    ReactiveFormsModule,
-    StoreRoutingModule,
-  ],
-})
+@NgModule({ declarations: [ListComponent, DetailComponent, ReportComponent], imports: [CommonModule,
+        GoogleMapsModule,
+        MatButtonModule,
+        MatButtonToggleModule,
+        MatFormFieldModule,
+        MatIconModule,
+        MatInputModule,
+        MatListModule,
+        MatSnackBarModule,
+        MatToolbarModule,
+        PipesModule,
+        ReactiveFormsModule,
+        StoreRoutingModule], providers: [provideHttpClient(withInterceptorsFromDi(), withJsonpSupport())] })
 export class StoreModule {}

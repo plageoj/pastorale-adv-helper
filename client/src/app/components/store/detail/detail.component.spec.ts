@@ -1,5 +1,5 @@
-import { HttpClientJsonpModule } from '@angular/common/http';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { deleteUser, getAuth, signInAnonymously } from '@angular/fire/auth';
 import { GoogleMapsModule, MapGeocoder } from '@angular/google-maps';
@@ -70,31 +70,30 @@ describe('DetailComponent', () => {
     activatedRoute.setParamMap({ id: 'store-id' });
 
     await TestBed.configureTestingModule({
-      declarations: [DetailComponent, StatusIconPipe],
-      imports: [
-        FirebaseTestingModule,
+    declarations: [DetailComponent, StatusIconPipe],
+    imports: [FirebaseTestingModule,
         RouterTestingModule.withRoutes([
-          { path: 'stores/:id/report', component: ReportComponent },
+            { path: 'stores/:id/report', component: ReportComponent },
         ]),
-        HttpClientTestingModule,
         HttpClientJsonpModule,
         MatListModule,
         MatIconModule,
         MatToolbarModule,
-        GoogleMapsModule,
-      ],
-      providers: [
+        GoogleMapsModule],
+    providers: [
         { provide: ActivatedRoute, useValue: activatedRoute },
         {
-          provide: StoreService,
-          useValue: storeService,
+            provide: StoreService,
+            useValue: storeService,
         },
         {
-          provide: MapGeocoder,
-          useValue: mapGeocoder,
+            provide: MapGeocoder,
+            useValue: mapGeocoder,
         },
-      ],
-    }).compileComponents();
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting(),
+    ]
+}).compileComponents();
 
     await signInAnonymously(getAuth());
   });

@@ -2,8 +2,8 @@
 
 nav {
   display: flex;
-  border-top: 1px solid map-get(mat.$grey-palette, 300);
-  background-color: map-get(mat.$grey-palette, 50);
+  border-top: 1px solid map-get(mat.$m2-grey-palette, 300);
+  background-color: map-get(mat.$m2-grey-palette, 50);
 }
 
 a {
@@ -11,7 +11,7 @@ a {
   font-size: 0.8rem;
   flex-grow: 1;
   text-align: center;
-  color: map-get(mat.$grey-palette, 800);
+  color: map-get(mat.$m2-grey-palette, 800);
   height: 64px;
   padding-top: 0.6rem;
   box-sizing: border-box;

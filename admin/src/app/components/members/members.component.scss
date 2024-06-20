@@ -14,11 +14,11 @@ ul {
   cursor: pointer;
 
   &:hover {
-    background-color: map-get(mat.$grey-palette, 50);
+    background-color: map-get(mat.$m2-grey-palette, 50);
   }
 
   &.active {
-    background-color: map-get(mat.$teal-palette, 50);
+    background-color: map-get(mat.$m2-teal-palette, 50);
   }
 }
 

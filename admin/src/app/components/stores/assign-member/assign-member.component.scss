@@ -27,7 +27,7 @@ mat-card-actions {
   display: flex;
   .left {
     flex-grow: 1;
-    color: map-get(mat.$grey-palette, 700);
+    color: map-get(mat.$m2-grey-palette, 700);
   }
 }
 

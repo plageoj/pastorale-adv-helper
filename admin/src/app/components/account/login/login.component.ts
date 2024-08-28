@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import {
   Auth,
   AuthError,
-  OAuthProvider,
+  GoogleAuthProvider,
   getRedirectResult,
   linkWithRedirect,
   signInWithEmailAndPassword,
   signInWithPopup,
+  signOut,
 } from '@angular/fire/auth';
 import { FormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -36,25 +37,31 @@ export class LoginComponent implements OnInit {
   }
 
   async login() {
-    const provider = new OAuthProvider('microsoft.com');
-    await signInWithPopup(this.auth, provider).catch(async (e: AuthError) => {
-      if (e.code === 'auth/account-exists-with-different-credential') {
-        const { email } = e.customData;
-        if (!email) return;
-        const studentNumber = email.match(/b(\d+)@/)?.[1];
-        if (!studentNumber) return;
-        const result = await signInWithEmailAndPassword(
-          this.auth,
-          email,
-          studentNumber
-        );
-        await linkWithRedirect(result.user, provider);
-      } else {
-        this.sb.open('ログインできませんでした');
-        return;
+    const provider = new GoogleAuthProvider();
+    const credential = await signInWithPopup(this.auth, provider).catch(
+      async (e: AuthError) => {
+        if (e.code === 'auth/account-exists-with-different-credential') {
+          const { email } = e.customData;
+          if (!email) return;
+          const studentNumber = RegExp(/[bmd](\d+)@/).exec(email)?.[1];
+          if (!studentNumber) return;
+          const result = await signInWithEmailAndPassword(
+            this.auth,
+            email,
+            studentNumber
+          );
+          await linkWithRedirect(result.user, provider);
+        } else {
+          this.sb.open('ログインできませんでした');
+        }
       }
-    });
-    this.router.navigateByUrl('/');
+    );
+    if (credential?.user.email?.endsWith('@hiroshima-u.ac.jp')) {
+      this.router.navigateByUrl('/');
+    } else {
+      this.sb.open('広大アドレスでログインしてください。');
+      signOut(this.auth);
+    }
   }
 
   async loginWithEmail() {

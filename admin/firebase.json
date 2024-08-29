@@ -1,7 +1,7 @@
 {
   "hosting": {
     "target": "admin",
-    "public": "dist/admin",
+    "public": "dist/browser",
     "ignore": [
       "**/.*"
     ],

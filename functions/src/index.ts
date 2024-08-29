@@ -21,7 +21,7 @@ export const elevateasadmin = https.onCall<{ uid: string; isAdmin: boolean }>(
     }
 
     return { ok: true, set: true, uid };
-  }
+  },
 );
 
 export const setmode = https.onCall<{ mode: string }>(
@@ -32,8 +32,8 @@ export const setmode = https.onCall<{ mode: string }>(
 
     const config = admin.remoteConfig();
     const template = await config.getTemplate();
-    template.parameters["mode"].defaultValue = { value: mode };
+    template.parameters.mode.defaultValue = { value: mode };
     await config.publishTemplate(template);
     return { ok: true, mode };
-  }
+  },
 );

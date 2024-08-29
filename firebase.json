@@ -11,6 +11,10 @@
     },
     "ui": {
       "enabled": true
+    },
+    "hosting": {
+      "port": 5000,
+      "host": "0.0.0.0"
     }
   },
   "firestore": {
@@ -31,7 +35,7 @@
         "**/.*",
         "**/node_modules/**"
       ],
-      "public": "client/dist",
+      "public": "client/dist/browser",
       "rewrites": [
         {
           "destination": "/index.html",
@@ -46,7 +50,7 @@
         "**/.*",
         "**/node_modules/**"
       ],
-      "public": "admin/dist",
+      "public": "admin/dist/browser",
       "rewrites": [
         {
           "destination": "/index.html",

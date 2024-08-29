@@ -1,5 +1,5 @@
 import { auth, firestore } from "firebase-admin";
-import { initializeApp, applicationDefault } from "firebase-admin/app";
+import { applicationDefault, initializeApp } from "firebase-admin/app";
 
 (async () => {
   initializeApp({

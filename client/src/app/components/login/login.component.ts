@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import {
   Auth,
   AuthError,
-  OAuthProvider,
+  GoogleAuthProvider,
   getRedirectResult,
   linkWithRedirect,
   signInWithEmailAndPassword,
   signInWithPopup,
+  signOut,
 } from '@angular/fire/auth';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -29,24 +30,30 @@ export class LoginComponent implements OnInit {
   }
 
   async login() {
-    const provider = new OAuthProvider('microsoft.com');
-    await signInWithPopup(this.auth, provider).catch(async (e: AuthError) => {
-      if (e.code === 'auth/account-exists-with-different-credential') {
-        const { email } = e.customData;
-        if (!email) return;
-        const studentNumber = email.match(/b(\d+)@/)?.[1];
-        if (!studentNumber) return;
-        const result = await signInWithEmailAndPassword(
-          this.auth,
-          email,
-          studentNumber
-        );
-        await linkWithRedirect(result.user, provider);
-      } else {
-        this.sb.open('ログインできませんでした');
-        return;
+    const provider = new GoogleAuthProvider();
+    const credential = await signInWithPopup(this.auth, provider).catch(
+      async (e: AuthError) => {
+        if (e.code === 'auth/account-exists-with-different-credential') {
+          const { email } = e.customData;
+          if (!email) return;
+          const studentNumber = RegExp(/[bmd](\d+)@/).exec(email)?.[1];
+          if (!studentNumber) return;
+          const result = await signInWithEmailAndPassword(
+            this.auth,
+            email,
+            studentNumber
+          );
+          await linkWithRedirect(result.user, provider);
+        } else {
+          this.sb.open('ログインできませんでした');
+        }
       }
-    });
+    );
+    if (!credential?.user.email?.endsWith('@hiroshima-u.ac.jp')) {
+      this.sb.open('このメールアドレスではログインできません');
+      await signOut(this.auth);
+      return;
+    }
     this.router.navigateByUrl('/');
   }
 }

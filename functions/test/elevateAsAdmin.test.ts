@@ -1,37 +1,26 @@
-import {
-  afterAll,
-  afterEach,
-  beforeAll,
-  beforeEach,
-  describe,
-  expect,
-  it,
-} from "@jest/globals";
+import { afterAll, beforeAll, describe, expect, it } from "@jest/globals";
 import * as admin from "firebase-admin";
 import * as functionsTest from "firebase-functions-test";
 import * as sinon from "sinon";
+import { elevateAsAdmin } from "../src/index";
 
 const test = functionsTest();
-let index: any;
-let adminStub: sinon.SinonStub;
-let authStub: sinon.SinonStub;
 type Response = { ok: boolean; set: boolean; uid: string };
 
 describe("elevateAsAdmin", () => {
+  let adminStub: sinon.SinonStub;
+  let authStub: sinon.SinonStub;
+
   beforeAll(() => {
     adminStub = sinon.stub(admin, "initializeApp");
     authStub = sinon.stub(admin, "auth");
-  });
-
-  beforeEach(() => {
-    index = require("../src/index");
   });
 
   it("does nothing for empty user", async () => {
     authStub.get(() => () => ({
       getUser: sinon.fake.resolves(false),
     }));
-    const wrapped = test.wrap(index.elevateAsAdmin);
+    const wrapped = test.wrap(elevateAsAdmin);
     const res: Error = await wrapped({
       data: { uid: "", isAdmin: false },
     });
@@ -44,7 +33,7 @@ describe("elevateAsAdmin", () => {
         uid: "test-uid",
       }),
     }));
-    const wrapped = test.wrap(index.elevateAsAdmin);
+    const wrapped = test.wrap(elevateAsAdmin);
     const res: Error = await wrapped({
       data: { uid: "test-uid", isAdmin: true },
     });
@@ -58,7 +47,7 @@ describe("elevateAsAdmin", () => {
         customClaims: { admin: false },
       }),
     }));
-    const wrapped = test.wrap(index.elevateAsAdmin);
+    const wrapped = test.wrap(elevateAsAdmin);
     const res: Response = await wrapped({
       data: { uid: "test-uid", isAdmin: false },
     });
@@ -74,7 +63,7 @@ describe("elevateAsAdmin", () => {
       }),
       setCustomUserClaims: sinon.fake.resolves(true),
     }));
-    const wrapped = test.wrap(index.elevateAsAdmin);
+    const wrapped = test.wrap(elevateAsAdmin);
     const res: Response = await wrapped({
       data: { uid: "test-uid", isAdmin: true },
     });
@@ -90,7 +79,7 @@ describe("elevateAsAdmin", () => {
       }),
       setCustomUserClaims: sinon.fake.rejects(true),
     }));
-    const wrapped = test.wrap(index.elevateAsAdmin);
+    const wrapped = test.wrap(elevateAsAdmin);
     const res: Error = await wrapped({
       data: { uid: "test-uid", isAdmin: true },
     });
@@ -100,9 +89,6 @@ describe("elevateAsAdmin", () => {
   afterAll(() => {
     authStub.restore();
     adminStub.restore();
+    test.cleanup();
   });
-});
-
-afterEach(() => {
-  test.cleanup();
 });

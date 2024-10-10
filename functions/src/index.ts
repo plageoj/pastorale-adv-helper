@@ -4,7 +4,7 @@ import "source-map-support/register";
 
 admin.initializeApp();
 
-export const elevateasadmin = https.onCall<{ uid: string; isAdmin: boolean }>(
+export const elevateAsAdmin = https.onCall<{ uid: string; isAdmin: boolean }>(
   async ({ data }) => {
     const { uid, isAdmin } = data;
     const auth = admin.auth();
@@ -21,10 +21,10 @@ export const elevateasadmin = https.onCall<{ uid: string; isAdmin: boolean }>(
     }
 
     return { ok: true, set: true, uid };
-  },
+  }
 );
 
-export const setmode = https.onCall<{ mode: string }>(
+export const setMode = https.onCall<{ mode: string }>(
   async ({ data, auth }) => {
     const { mode } = data;
     if (auth?.token.admin !== true)
@@ -35,5 +35,5 @@ export const setmode = https.onCall<{ mode: string }>(
     template.parameters.mode.defaultValue = { value: mode };
     await config.publishTemplate(template);
     return { ok: true, mode };
-  },
+  }
 );

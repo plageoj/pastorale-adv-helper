@@ -29,7 +29,8 @@ jobs:
           restore-keys: |
             npm-
 
-      - run: npm run test -- --coverage
+      - run: npm ci && npm run test -- --coverage
+        working-directory: functions/
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master

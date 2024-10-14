@@ -42,15 +42,15 @@ jobs:
         working-directory: client/
 
       - name: Store credentials
-        run: echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT_KOUKOKUTORI }}" > credentials.json
+        run: echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT_KOUKOKUTORI }}' > credentials.json
 
-      - uses: luchihoratiu/debug-via-ssh@v1.2
-        with:
-          NGROK_REGION: jp
-          NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
-          SSH_PASS: ${{ secrets.SSH_PASS }}
-        env:
-          GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/credentials.json
+      # - uses: luchihoratiu/debug-via-ssh@v1.2
+      #   with:
+      #     NGROK_REGION: jp
+      #     NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
+      #     SSH_PASS: ${{ secrets.SSH_PASS }}
+      #   env:
+      #     GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/credentials.json
 
       - name: Test and coverage
         run: firebase emulators:exec --project koukokutori "npm run test:ci --prefix client"

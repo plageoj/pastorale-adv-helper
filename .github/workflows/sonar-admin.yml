@@ -42,7 +42,7 @@ jobs:
         working-directory: admin/
 
       - name: Store credentials
-        run: echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT_KOUKOKUTORI }}" > credentials.json
+        run: echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT_KOUKOKUTORI }}' > credentials.json
 
       - name: Test and coverage
         run: firebase emulators:exec --project koukokutori "npm run test:ci --prefix admin"

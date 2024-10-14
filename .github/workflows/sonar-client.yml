@@ -44,6 +44,10 @@ jobs:
       - name: Store credentials
         run: echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT_KOUKOKUTORI }}" > credentials.json
 
+      - uses: lhotari/action-upterm@v1
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/credentials.json
+
       - name: Test and coverage
         run: firebase emulators:exec --project koukokutori "npm run test:ci --prefix client"
         env:

@@ -11,8 +11,8 @@ let initialized = { db: false, auth: false };
 
 @NgModule({
   declarations: [],
-  imports: [
-    CommonModule,
+  imports: [CommonModule],
+  providers: [
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => {
       const db = getFirestore();

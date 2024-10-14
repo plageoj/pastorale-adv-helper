@@ -1,4 +1,8 @@
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import {
+  HttpClientJsonpModule,
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { deleteUser, getAuth, signInAnonymously } from '@angular/fire/auth';
@@ -70,30 +74,32 @@ describe('DetailComponent', () => {
     activatedRoute.setParamMap({ id: 'store-id' });
 
     await TestBed.configureTestingModule({
-    declarations: [DetailComponent, StatusIconPipe],
-    imports: [FirebaseTestingModule,
+      declarations: [DetailComponent, StatusIconPipe],
+      imports: [
+        FirebaseTestingModule,
         RouterTestingModule.withRoutes([
-            { path: 'stores/:id/report', component: ReportComponent },
+          { path: 'stores/:id/report', component: ReportComponent },
         ]),
         HttpClientJsonpModule,
         MatListModule,
         MatIconModule,
         MatToolbarModule,
-        GoogleMapsModule],
-    providers: [
+        GoogleMapsModule,
+      ],
+      providers: [
         { provide: ActivatedRoute, useValue: activatedRoute },
         {
-            provide: StoreService,
-            useValue: storeService,
+          provide: StoreService,
+          useValue: storeService,
         },
         {
-            provide: MapGeocoder,
-            useValue: mapGeocoder,
+          provide: MapGeocoder,
+          useValue: mapGeocoder,
         },
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting(),
-    ]
-}).compileComponents();
+      ],
+    }).compileComponents();
 
     await signInAnonymously(getAuth());
   });

@@ -13,6 +13,10 @@ import {
   getFunctions,
   provideFunctions,
 } from '@angular/fire/functions';
+import {
+  getRemoteConfig,
+  provideRemoteConfig,
+} from '@angular/fire/remote-config';
 
 const initialized = { firestore: false, auth: false, functions: false };
 
@@ -45,6 +49,7 @@ const initialized = { firestore: false, auth: false, functions: false };
       }
       return functions;
     }),
+    provideRemoteConfig(() => getRemoteConfig()),
   ],
 })
 export class FirebaseTestingModule {}

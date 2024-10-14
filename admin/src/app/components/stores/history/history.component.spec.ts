@@ -1,7 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { provideRouter } from '@angular/router';
+import { FirebaseTestingModule } from 'src/app/testing/firebase-testing.module';
 import { HistoryComponent } from './history.component';
-import { RouterTestingModule } from '@angular/router/testing';
 
 describe('HistoryComponent', () => {
   let component: HistoryComponent;
@@ -10,7 +11,8 @@ describe('HistoryComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [HistoryComponent],
-      imports: [RouterTestingModule.withRoutes([])],
+      imports: [FirebaseTestingModule],
+      providers: [provideRouter([])],
     }).compileComponents();
 
     fixture = TestBed.createComponent(HistoryComponent);

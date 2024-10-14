@@ -1,30 +1,33 @@
-import { fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { MatIconModule } from '@angular/material/icon';
-import { MatListModule as MatListModule } from '@angular/material/list';
+import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Router } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
+import { provideRouter, Router } from '@angular/router';
 import { AppComponent } from './app.component';
 import { FirebaseTestingModule } from './testing/firebase-testing.module';
+import { BrowserTestingModule } from '@angular/platform-browser/testing';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule.withRoutes([
+        MatToolbarModule,
+        MatSidenavModule,
+        MatIconModule,
+        MatListModule,
+        BrowserTestingModule,
+        NoopAnimationsModule,
+        FirebaseTestingModule,
+      ],
+      providers: [
+        provideRouter([
           {
             path: 'account/login',
             component: AppComponent,
           },
         ]),
-        MatToolbarModule,
-        MatSidenavModule,
-        MatIconModule,
-        MatListModule,
-        NoopAnimationsModule,
-        FirebaseTestingModule,
       ],
       declarations: [AppComponent],
     }).compileComponents();

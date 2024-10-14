@@ -16,19 +16,18 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ActivatedRoute } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
+import { ActivatedRoute, provideRouter } from '@angular/router';
 import { cold, getTestScheduler } from 'jasmine-marbles';
 import { of } from 'rxjs';
 import { Member } from 'src/app/models/member.model';
 import { Store } from 'src/app/models/store.model';
-import { PipesModule } from 'src/app/pipes/pipes.module';
 import { MemberService } from 'src/app/services/member.service';
 import { StoreService } from 'src/app/services/store.service';
 import { ActivatedRouteStub } from 'src/app/testing/activated-route-stub';
 import { FirebaseTestingModule } from 'src/app/testing/firebase-testing.module';
 import { CommuteComponent } from '../../util/commute/commute.component';
 import { AssignMemberComponent } from './assign-member.component';
+import { StatusIconPipe } from 'src/app/pipes/status-icon.pipe';
 
 describe('AssignMemberComponent', () => {
   let component: AssignMemberComponent;
@@ -110,10 +109,10 @@ describe('AssignMemberComponent', () => {
         MatSortModule,
         MatTableModule,
         NoopAnimationsModule,
-        RouterTestingModule,
-        PipesModule,
+        StatusIconPipe,
       ],
       providers: [
+        provideRouter([]),
         {
           provide: ActivatedRoute,
           useValue: activatedRoute,

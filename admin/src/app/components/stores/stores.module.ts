@@ -15,7 +15,6 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { PipesModule } from 'src/app/pipes/pipes.module';
 import { UtilModule } from '../util/util.module';
 import { AssignMemberComponent } from './assign-member/assign-member.component';
 import { EditStoreComponent } from './edit-store/edit-store.component';
@@ -23,6 +22,7 @@ import { HistoryComponent } from './history/history.component';
 import { StatusSelectorComponent } from './status-selector/status-selector.component';
 import { StoresRoutingModule } from './stores-routing.module';
 import { StoresComponent } from './stores.component';
+import { StatusIconPipe } from 'src/app/pipes/status-icon.pipe';
 
 @NgModule({
   declarations: [
@@ -48,10 +48,10 @@ import { StoresComponent } from './stores.component';
     MatSortModule,
     MatTableModule,
     MatTooltipModule,
-    PipesModule,
     ReactiveFormsModule,
     StoresRoutingModule,
     UtilModule,
+    StatusIconPipe,
   ],
 })
 export class StoresModule {}

@@ -4,6 +4,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { FirebaseTestingModule } from 'src/app/testing/firebase-testing.module';
 
 import { LoginComponent } from './login.component';
+import { provideRouter } from '@angular/router';
+import { BrowserTestingModule } from '@angular/platform-browser/testing';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -12,10 +14,9 @@ describe('LoginComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [LoginComponent],
-      imports: [
-        FirebaseTestingModule,
-        MatSnackBarModule,
-        RouterTestingModule.withRoutes([
+      imports: [FirebaseTestingModule, MatSnackBarModule, BrowserTestingModule],
+      providers: [
+        provideRouter([
           {
             path: '',
             component: LoginComponent,

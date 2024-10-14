@@ -15,8 +15,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ActivatedRoute, Router } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
+import { ActivatedRoute, provideRouter, Router } from '@angular/router';
 import { cold, getTestScheduler } from 'jasmine-marbles';
 import { Member } from 'src/app/models/member.model';
 import { MemberService } from 'src/app/services/member.service';
@@ -24,6 +23,7 @@ import { ActivatedRouteStub } from 'src/app/testing/activated-route-stub';
 import { FirebaseTestingModule } from 'src/app/testing/firebase-testing.module';
 import { RouterLinkStubDirective } from 'src/app/testing/router-link-stub';
 import { MemberDetailComponent } from './member-detail.component';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 describe('MemberDetailComponent', () => {
   let component: MemberDetailComponent;
@@ -69,18 +69,19 @@ describe('MemberDetailComponent', () => {
         MatIconModule,
         MatInputModule,
         MatProgressBarModule,
+        MatSlideToggleModule,
         MatSnackBarModule,
         NoopAnimationsModule,
         ReactiveFormsModule,
-        RouterTestingModule.withRoutes([
+      ],
+      declarations: [MemberDetailComponent, RouterLinkStubDirective],
+      providers: [
+        provideRouter([
           {
             path: 'members',
             component: MemberDetailComponent,
           },
         ]),
-      ],
-      declarations: [MemberDetailComponent, RouterLinkStubDirective],
-      providers: [
         {
           provide: ActivatedRoute,
           useValue: activatedRoute,
@@ -131,7 +132,9 @@ describe('MemberDetailComponent', () => {
 
   it('should display error on saving fails', fakeAsync(() => {
     const memberService = TestBed.inject(MemberService);
-    (memberService.update as jasmine.Spy).and.returnValue(Promise.reject());
+    (memberService.update as jasmine.Spy).and.returnValue(
+      Promise.reject(new Error("can't update"))
+    );
 
     component.save();
     expect(component.loading).toBeTrue();

@@ -28,6 +28,8 @@ import { FirebaseTestingModule } from 'src/app/testing/firebase-testing.module';
 import { CommuteComponent } from '../../util/commute/commute.component';
 import { AssignMemberComponent } from './assign-member.component';
 import { StatusIconPipe } from 'src/app/pipes/status-icon.pipe';
+import { StatusSelectorComponent } from '../status-selector/status-selector.component';
+import { RouterLinkStubDirective } from 'src/app/testing/router-link-stub';
 
 describe('AssignMemberComponent', () => {
   let component: AssignMemberComponent;
@@ -95,7 +97,12 @@ describe('AssignMemberComponent', () => {
     activatedRoute = new ActivatedRouteStub({ id: 'store-id' });
 
     await TestBed.configureTestingModule({
-      declarations: [AssignMemberComponent, CommuteComponent],
+      declarations: [
+        AssignMemberComponent,
+        CommuteComponent,
+        StatusSelectorComponent,
+        RouterLinkStubDirective,
+      ],
       imports: [
         FirebaseTestingModule,
         MatButtonModule,

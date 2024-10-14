@@ -1,11 +1,11 @@
 import { Directive, HostListener, Input } from '@angular/core';
 
 @Directive({
-  // eslint-disable-next-line @angular-eslint/directive-selector
-  selector: 'routerLink',
+  selector: 'a, button',
 })
 export class RouterLinkStubDirective {
   @Input('routerLink') linkParams: any;
+  @Input('queryParam') queryParams: any;
   navigatedTo: any = null;
 
   @HostListener('click')

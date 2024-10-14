@@ -49,9 +49,9 @@ import { StatusIconPipe } from 'src/app/pipes/status-icon.pipe';
     MatTableModule,
     MatTooltipModule,
     ReactiveFormsModule,
+    StatusIconPipe,
     StoresRoutingModule,
     UtilModule,
-    StatusIconPipe,
   ],
 })
 export class StoresModule {}

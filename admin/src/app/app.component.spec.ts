@@ -4,7 +4,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { provideRouter, Router } from '@angular/router';
+import { provideRouter, Router, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { FirebaseTestingModule } from './testing/firebase-testing.module';
 import { BrowserTestingModule } from '@angular/platform-browser/testing';
@@ -20,15 +20,14 @@ describe('AppComponent', () => {
         BrowserTestingModule,
         NoopAnimationsModule,
         FirebaseTestingModule,
-      ],
-      providers: [
-        provideRouter([
+        RouterModule.forRoot([
           {
             path: 'account/login',
             component: AppComponent,
           },
         ]),
       ],
+      providers: [],
       declarations: [AppComponent],
     }).compileComponents();
   });

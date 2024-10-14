@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UnauthorizedComponent } from './unauthorized.component';
+import { MatIconModule } from '@angular/material/icon';
 
 describe('UnauthorizedComponent', () => {
   let component: UnauthorizedComponent;
@@ -8,9 +9,9 @@ describe('UnauthorizedComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ UnauthorizedComponent ]
-    })
-    .compileComponents();
+      declarations: [UnauthorizedComponent],
+      imports: [MatIconModule],
+    }).compileComponents();
   });
 
   beforeEach(() => {

@@ -1,7 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { StatusSelectorComponent } from './status-selector.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { StatusIconPipe } from 'src/app/pipes/status-icon.pipe';
+import { StatusSelectorComponent } from './status-selector.component';
 
 describe('StatusSelectorComponent', () => {
   let component: StatusSelectorComponent;
@@ -10,7 +13,12 @@ describe('StatusSelectorComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [StatusSelectorComponent],
-      imports: [StatusIconPipe],
+      imports: [
+        MatButtonModule,
+        MatIconModule,
+        MatTooltipModule,
+        StatusIconPipe,
+      ],
     }).compileComponents();
   });
 

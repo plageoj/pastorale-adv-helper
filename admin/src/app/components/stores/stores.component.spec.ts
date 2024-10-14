@@ -28,6 +28,8 @@ import { RouterLinkStubDirective } from 'src/app/testing/router-link-stub';
 import { waitUntil } from 'src/app/testing/utils/wait-until';
 import { StatusSelectorComponent } from './status-selector/status-selector.component';
 import { StoresComponent } from './stores.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 describe('StoresComponent', () => {
   let component: StoresComponent;
@@ -70,6 +72,9 @@ describe('StoresComponent', () => {
         MatTableModule,
         NoopAnimationsModule,
         StatusIconPipe,
+        MatTooltipModule,
+        FormsModule,
+        ReactiveFormsModule,
       ],
       providers: [provideRouter([])],
     }).compileComponents();

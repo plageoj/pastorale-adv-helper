@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { FirebaseTestingModule } from 'src/app/testing/firebase-testing.module';
 import { ExportComponent } from './export.component';
+import { MatIconModule } from '@angular/material/icon';
 
 describe('ExportComponent', () => {
   let component: ExportComponent;
@@ -11,7 +12,7 @@ describe('ExportComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ExportComponent],
-      imports: [MatSnackBarModule, FirebaseTestingModule],
+      imports: [MatSnackBarModule, FirebaseTestingModule, MatIconModule],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ExportComponent);

@@ -41,10 +41,13 @@ jobs:
         run: npm i && npm i -g firebase-tools
         working-directory: admin/
 
+      - name: Store credentials
+        run: echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT_KOUKOKUTORI }}" > credentials.json
+
       - name: Test and coverage
         run: firebase emulators:exec --project koukokutori "npm run test:ci --prefix admin"
         env:
-          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_KOUKOKUTORI }}
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/credentials.json
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master

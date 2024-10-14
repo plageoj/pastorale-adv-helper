@@ -42,14 +42,12 @@ jobs:
         working-directory: client/
 
       - name: Store credentials
-        run: echo $GOOGLE_APPLCATION_CREDENTIALS > credentials.json
-        env:
-          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_KOUKOKUTORI }}
+        run: echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT_KOUKOKUTORI }}" > credentials.json
 
       - name: Test and coverage
         run: firebase emulators:exec --project koukokutori "npm run test:ci --prefix client"
         env:
-          GOOGLE_APPLICATION_CREDENTIALS: ./credentials.json
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/credentials.json
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master

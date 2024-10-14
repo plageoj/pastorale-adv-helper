@@ -5,7 +5,7 @@ import {
   TestBed,
   tick,
 } from '@angular/core/testing';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -13,10 +13,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ActivatedRoute, Router } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
+import { ActivatedRoute, provideRouter, Router } from '@angular/router';
 import { cold, getTestScheduler } from 'jasmine-marbles';
 import { Member } from 'src/app/models/member.model';
 import { MemberService } from 'src/app/services/member.service';
@@ -65,22 +65,26 @@ describe('MemberDetailComponent', () => {
         MatButtonModule,
         MatCardModule,
         MatCheckboxModule,
+        MatCheckboxModule,
         MatFormFieldModule,
+        FormsModule,
+        ReactiveFormsModule,
         MatIconModule,
         MatInputModule,
         MatProgressBarModule,
+        MatSlideToggleModule,
         MatSnackBarModule,
         NoopAnimationsModule,
         ReactiveFormsModule,
-        RouterTestingModule.withRoutes([
+      ],
+      declarations: [MemberDetailComponent, RouterLinkStubDirective],
+      providers: [
+        provideRouter([
           {
             path: 'members',
             component: MemberDetailComponent,
           },
         ]),
-      ],
-      declarations: [MemberDetailComponent, RouterLinkStubDirective],
-      providers: [
         {
           provide: ActivatedRoute,
           useValue: activatedRoute,
@@ -131,7 +135,7 @@ describe('MemberDetailComponent', () => {
 
   it('should display error on saving fails', fakeAsync(() => {
     const memberService = TestBed.inject(MemberService);
-    (memberService.update as jasmine.Spy).and.returnValue(Promise.reject());
+    (memberService.update as jasmine.Spy).and.rejectWith();
 
     component.save();
     expect(component.loading).toBeTrue();

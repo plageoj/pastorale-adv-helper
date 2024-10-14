@@ -3,6 +3,10 @@ import { NgModule } from '@angular/core';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { provideAuth } from '@angular/fire/auth';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import {
+  getRemoteConfig,
+  provideRemoteConfig,
+} from '@angular/fire/remote-config';
 import { connectAuthEmulator, getAuth } from '@firebase/auth';
 import { connectFirestoreEmulator } from '@firebase/firestore';
 import { environment } from 'src/environments/environment';
@@ -11,8 +15,8 @@ let initialized = { db: false, auth: false };
 
 @NgModule({
   declarations: [],
-  imports: [
-    CommonModule,
+  imports: [CommonModule],
+  providers: [
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => {
       const db = getFirestore();
@@ -30,6 +34,7 @@ let initialized = { db: false, auth: false };
       }
       return auth;
     }),
+    provideRemoteConfig(() => getRemoteConfig()),
   ],
 })
 export class FirebaseTestingModule {}

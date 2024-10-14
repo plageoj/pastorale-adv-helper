@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ModeService } from './mode.service';
 import { FirebaseTestingModule } from '../testing/firebase-testing.module';
+import { ModeService } from './mode.service';
 
 describe('ModeService', () => {
   let service: ModeService;

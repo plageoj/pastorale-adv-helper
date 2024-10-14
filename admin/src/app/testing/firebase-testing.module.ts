@@ -13,13 +13,17 @@ import {
   getFunctions,
   provideFunctions,
 } from '@angular/fire/functions';
+import {
+  getRemoteConfig,
+  provideRemoteConfig,
+} from '@angular/fire/remote-config';
 
 const initialized = { firestore: false, auth: false, functions: false };
 
 @NgModule({
   declarations: [],
-  imports: [
-    CommonModule,
+  imports: [CommonModule],
+  providers: [
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => {
       const db = getFirestore();
@@ -45,6 +49,7 @@ const initialized = { firestore: false, auth: false, functions: false };
       }
       return functions;
     }),
+    provideRemoteConfig(() => getRemoteConfig()),
   ],
 })
 export class FirebaseTestingModule {}

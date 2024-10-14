@@ -1,13 +1,24 @@
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
-import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
+import {
+  provideHttpClient,
+  withInterceptorsFromDi,
+  withJsonpSupport,
+} from '@angular/common/http';
+import {
+  HttpTestingController,
+  provideHttpClientTesting,
+} from '@angular/common/http/testing';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+} from '@angular/core/testing';
 import { deleteUser, getAuth, signInAnonymously } from '@angular/fire/auth';
 import { GoogleMapsModule, MapGeocoder } from '@angular/google-maps';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { ActivatedRoute } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
+import { ActivatedRoute, provideRouter } from '@angular/router';
 import { cold, getTestScheduler } from 'jasmine-marbles';
 import { Store } from 'src/app/models/store.model';
 import { StatusIconPipe } from 'src/app/pipes/status-icon.pipe';
@@ -21,6 +32,7 @@ describe('DetailComponent', () => {
   let component: DetailComponent;
   let fixture: ComponentFixture<DetailComponent>;
   let activatedRoute: ActivatedRouteStub;
+  let httpTesting: HttpTestingController;
 
   beforeEach(async () => {
     activatedRoute = new ActivatedRouteStub();
@@ -29,28 +41,15 @@ describe('DetailComponent', () => {
       'setStatus',
     ]);
     storeService.get.and.returnValue(
-      cold('-s|', {
-        s: {
-          id: 'store-id',
-          address: 'store-address',
-          tel: 'store-tel',
-          name: 'store-name',
-          altTel: 'store-altTel',
-          status: '担当者なし',
-          amount: 0,
-          comment: 'store-comment',
-          draft: 'store-draft',
-          needAttention: false,
-          notes: 'store-notes',
-          visible: true,
-        } as Store,
+      cold('s|', {
+        s: {},
       })
     );
     storeService.setStatus.and.callThrough();
 
     const mapGeocoder = jasmine.createSpyObj('MapGeocoder', ['geocode']);
     mapGeocoder.geocode.and.returnValue(
-      cold('-g|', {
+      cold('g|', {
         g: {
           results: [
             {
@@ -70,36 +69,40 @@ describe('DetailComponent', () => {
     activatedRoute.setParamMap({ id: 'store-id' });
 
     await TestBed.configureTestingModule({
-    declarations: [DetailComponent, StatusIconPipe],
-    imports: [FirebaseTestingModule,
-        RouterTestingModule.withRoutes([
-            { path: 'stores/:id/report', component: ReportComponent },
-        ]),
-        HttpClientJsonpModule,
+      declarations: [DetailComponent, StatusIconPipe],
+
+      imports: [
+        FirebaseTestingModule,
         MatListModule,
         MatIconModule,
         MatToolbarModule,
-        GoogleMapsModule],
-    providers: [
+        GoogleMapsModule,
+      ],
+      providers: [
+        provideRouter([
+          { path: 'stores/:id/report', component: ReportComponent },
+        ]),
         { provide: ActivatedRoute, useValue: activatedRoute },
         {
-            provide: StoreService,
-            useValue: storeService,
+          provide: StoreService,
+          useValue: storeService,
         },
         {
-            provide: MapGeocoder,
-            useValue: mapGeocoder,
+          provide: MapGeocoder,
+          useValue: mapGeocoder,
         },
-        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClient(withInterceptorsFromDi(), withJsonpSupport()),
         provideHttpClientTesting(),
-    ]
-}).compileComponents();
+      ],
+    }).compileComponents();
 
     await signInAnonymously(getAuth());
   });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(DetailComponent);
+    httpTesting = TestBed.inject(HttpTestingController);
+    httpTesting.match({ method: 'get' });
     component = fixture.componentInstance;
     fixture.detectChanges();
     getTestScheduler().flush();
@@ -116,6 +119,20 @@ describe('DetailComponent', () => {
     expect(call).not.toHaveBeenCalled();
     fixture.detectChanges();
 
+    component.store = {
+      id: 'store-id',
+      address: 'store-address',
+      tel: 'store-tel',
+      name: 'store-name',
+      altTel: 'store-altTel',
+      status: '未着手',
+      amount: 0,
+      comment: 'store-comment',
+      draft: 'store-draft',
+      needAttention: false,
+      notes: 'store-notes',
+      visible: true,
+    };
     component.call('store-tel');
     expect(call).toHaveBeenCalledWith(`tel:store-tel`);
   }));

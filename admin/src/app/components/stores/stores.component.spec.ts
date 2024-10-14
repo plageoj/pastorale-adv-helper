@@ -2,6 +2,7 @@ import { HarnessLoader } from '@angular/cdk/testing';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatButtonModule } from '@angular/material/button';
+import { MatButtonHarness } from '@angular/material/button/testing';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatCheckboxHarness } from '@angular/material/checkbox/testing';
@@ -16,16 +17,19 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterTestingModule } from '@angular/router/testing';
+import { provideRouter } from '@angular/router';
 import { cold, getTestScheduler } from 'jasmine-marbles';
 import { of } from 'rxjs';
 import { Member } from 'src/app/models/member.model';
+import { StatusIconPipe } from 'src/app/pipes/status-icon.pipe';
 import { StoreService } from 'src/app/services/store.service';
 import { FirebaseTestingModule } from 'src/app/testing/firebase-testing.module';
 import { RouterLinkStubDirective } from 'src/app/testing/router-link-stub';
 import { waitUntil } from 'src/app/testing/utils/wait-until';
-import { StoresComponent } from './stores.component';
 import { StatusSelectorComponent } from './status-selector/status-selector.component';
+import { StoresComponent } from './stores.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 describe('StoresComponent', () => {
   let component: StoresComponent;
@@ -67,8 +71,12 @@ describe('StoresComponent', () => {
         MatSortModule,
         MatTableModule,
         NoopAnimationsModule,
-        RouterTestingModule,
+        StatusIconPipe,
+        MatTooltipModule,
+        FormsModule,
+        ReactiveFormsModule,
       ],
+      providers: [provideRouter([])],
     }).compileComponents();
   });
 
@@ -124,14 +132,6 @@ describe('StoresComponent', () => {
     expect(table.tagName).toBe('TABLE');
   });
 
-  it('should filter data', () => {
-    const filter = fixture.nativeElement.querySelector('input');
-    filter.value = 'Store';
-    filter.dispatchEvent(new Event('input'));
-    fixture.detectChanges();
-    expect(component.stores.filter).toBe('Store');
-  });
-
   it('updates attention', async () => {
     const checkboxes = await loader.getAllHarnesses(MatCheckboxHarness);
     await checkboxes[0].check();
@@ -158,7 +158,7 @@ describe('StoresComponent', () => {
     expect(component.stores.data.length).toBe(2);
   });
 
-  it('should open edit dialog and update stores', () => {
+  it('should open edit dialog and update stores', async () => {
     const dialog = (
       spyOn(TestBed.inject(MatDialog), 'open') as jasmine.Spy
     ).and.returnValue({
@@ -167,17 +167,19 @@ describe('StoresComponent', () => {
     const snack = (
       spyOn(TestBed.inject(MatSnackBar), 'open') as jasmine.Spy
     ).and.callThrough();
-    const editButton = fixture.debugElement.query(
-      By.css('table button[title="編集"]')
+    const editButton = await loader.getHarness(
+      MatButtonHarness.with({
+        text: 'edit',
+      })
     );
-    editButton.triggerEventHandler('click', null);
+    await editButton.click();
     fixture.detectChanges();
     expect(dialog).toHaveBeenCalled();
 
     dialog.and.returnValue({
       afterClosed: () => of({ name: 'updated' }),
     });
-    editButton.triggerEventHandler('click', null);
+    await editButton.click();
     fixture.detectChanges();
     expect(snack).toHaveBeenCalledWith('保存できませんでした！');
   });

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { formatDate } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { filter, map, mergeMap, take } from 'rxjs';
@@ -16,7 +16,10 @@ export class ExportComponent {
 
   private workbook?: WorkBook;
 
-  constructor(private snack: MatSnackBar, private ss: StoreService) {}
+  private readonly snack = inject(MatSnackBar);
+  private readonly ss = inject(StoreService);
+
+  constructor() {}
 
   export(purchasedOnly: boolean) {
     this.loading = true;

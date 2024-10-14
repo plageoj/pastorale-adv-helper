@@ -17,10 +17,10 @@ export class RegisterComponent implements OnInit {
   commuteOptions = CommuteList;
 
   constructor(
-    private fb: UntypedFormBuilder,
-    private mems: MemberService,
-    private auth: Auth,
-    private sb: MatSnackBar
+    private readonly fb: UntypedFormBuilder,
+    private readonly mems: MemberService,
+    private readonly auth: Auth,
+    private readonly sb: MatSnackBar
   ) {
     this.profile = this.fb.group({
       uid: [''],

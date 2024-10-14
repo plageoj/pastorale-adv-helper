@@ -10,9 +10,8 @@
     "logs": "firebase functions:log",
     "test": "jest"
   },
-  "type": "module",
   "engines": {
-    "node": "20"
+    "node": "22"
   },
   "main": "lib/index.js",
   "dependencies": {

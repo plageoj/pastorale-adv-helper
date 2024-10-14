@@ -20,8 +20,9 @@ import { Store } from '../models/store.model';
 export class StoreService {
   col;
   firestore = inject(Firestore);
+  auth = inject(Auth);
 
-  constructor(private auth: Auth) {
+  constructor() {
     this.col = collection(this.firestore, 'stores');
   }
 

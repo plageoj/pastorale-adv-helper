@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Mode, ModeService } from 'src/app/services/mode.service';
@@ -11,7 +11,10 @@ import { Mode, ModeService } from 'src/app/services/mode.service';
 export class ModeChangeComponent {
   mode;
   loading = false;
-  constructor(private ms: ModeService, private snack: MatSnackBar) {
+  private readonly ms = inject(ModeService);
+  private readonly snack = inject(MatSnackBar);
+
+  constructor() {
     this.mode = new FormControl('', Validators.required);
 
     this.ms.getMode().subscribe((mode) => {

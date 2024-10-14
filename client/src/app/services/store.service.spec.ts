@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { Auth, deleteUser, signInAnonymously } from '@angular/fire/auth';
-import { firstValueFrom, lastValueFrom } from 'rxjs';
+import { firstValueFrom } from 'rxjs';
 import { FirebaseTestingModule } from '../testing/firebase-testing.module';
 import { StoreService } from './store.service';
 

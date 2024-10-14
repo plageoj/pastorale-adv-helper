@@ -19,10 +19,10 @@ export class DetailComponent {
   placeId = '';
 
   constructor(
-    private ss: StoreService,
-    private route: ActivatedRoute,
-    private http: HttpClient,
-    private geo: MapGeocoder
+    private readonly ss: StoreService,
+    private readonly route: ActivatedRoute,
+    private readonly http: HttpClient,
+    private readonly geo: MapGeocoder
   ) {
     if (typeof google === 'undefined') {
       this.loading = true;

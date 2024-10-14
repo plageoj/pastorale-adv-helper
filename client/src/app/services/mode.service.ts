@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import {
   fetchAndActivate,
   getStringChanges,
@@ -12,7 +12,9 @@ export type Mode = 'contract' | 'receipt';
   providedIn: 'root',
 })
 export class ModeService {
-  constructor(private config: RemoteConfig) {
+  private readonly config = inject(RemoteConfig);
+
+  constructor() {
     this.config.settings.minimumFetchIntervalMillis = 60 * 1000;
     fetchAndActivate(this.config);
   }

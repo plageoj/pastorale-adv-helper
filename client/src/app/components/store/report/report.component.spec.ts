@@ -1,5 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { provideRouter } from '@angular/router';
+import { FirebaseTestingModule } from 'src/app/testing/firebase-testing.module';
 import { ReportComponent } from './report.component';
 
 describe('ReportComponent', () => {
@@ -8,9 +10,10 @@ describe('ReportComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ReportComponent ]
-    })
-    .compileComponents();
+      imports: [FirebaseTestingModule],
+      providers: [provideRouter([])],
+      declarations: [ReportComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

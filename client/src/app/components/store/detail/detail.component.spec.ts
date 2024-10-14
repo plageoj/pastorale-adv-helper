@@ -7,7 +7,12 @@ import {
   HttpTestingController,
   provideHttpClientTesting,
 } from '@angular/common/http/testing';
-import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+} from '@angular/core/testing';
 import { deleteUser, getAuth, signInAnonymously } from '@angular/fire/auth';
 import { GoogleMapsModule, MapGeocoder } from '@angular/google-maps';
 import { MatIconModule } from '@angular/material/icon';
@@ -37,20 +42,7 @@ describe('DetailComponent', () => {
     ]);
     storeService.get.and.returnValue(
       cold('s|', {
-        s: {
-          id: 'store-id',
-          address: 'store-address',
-          tel: 'store-tel',
-          name: 'store-name',
-          altTel: 'store-altTel',
-          status: '未着手',
-          amount: 0,
-          comment: 'store-comment',
-          draft: 'store-draft',
-          needAttention: false,
-          notes: 'store-notes',
-          visible: true,
-        } as Store,
+        s: {},
       })
     );
     storeService.setStatus.and.callThrough();
@@ -127,6 +119,20 @@ describe('DetailComponent', () => {
     expect(call).not.toHaveBeenCalled();
     fixture.detectChanges();
 
+    component.store = {
+      id: 'store-id',
+      address: 'store-address',
+      tel: 'store-tel',
+      name: 'store-name',
+      altTel: 'store-altTel',
+      status: '未着手',
+      amount: 0,
+      comment: 'store-comment',
+      draft: 'store-draft',
+      needAttention: false,
+      notes: 'store-notes',
+      visible: true,
+    };
     component.call('store-tel');
     expect(call).toHaveBeenCalledWith(`tel:store-tel`);
   }));

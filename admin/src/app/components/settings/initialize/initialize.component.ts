@@ -8,9 +8,10 @@ import { MemberService } from 'src/app/services/member.service';
 import { StoreService } from 'src/app/services/store.service';
 
 @Component({
-  selector: 'app-initialize',
-  templateUrl: './initialize.component.html',
-  styleUrls: ['./initialize.component.scss'],
+    selector: 'app-initialize',
+    templateUrl: './initialize.component.html',
+    styleUrls: ['./initialize.component.scss'],
+    standalone: false
 })
 export class InitializeComponent {
   loading = false;

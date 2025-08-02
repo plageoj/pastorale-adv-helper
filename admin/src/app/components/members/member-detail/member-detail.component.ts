@@ -7,9 +7,10 @@ import { Member } from 'src/app/models/member.model';
 import { MemberService } from 'src/app/services/member.service';
 
 @Component({
-  selector: 'app-member-detail',
-  templateUrl: './member-detail.component.html',
-  styleUrls: ['./member-detail.component.scss'],
+    selector: 'app-member-detail',
+    templateUrl: './member-detail.component.html',
+    styleUrls: ['./member-detail.component.scss'],
+    standalone: false
 })
 export class MemberDetailComponent implements OnInit {
   memberForm;

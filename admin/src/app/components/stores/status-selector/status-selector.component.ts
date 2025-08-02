@@ -2,9 +2,10 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Status } from 'src/app/models/status.model';
 
 @Component({
-  selector: 'app-status-selector',
-  templateUrl: './status-selector.component.html',
-  styleUrls: ['./status-selector.component.scss'],
+    selector: 'app-status-selector',
+    templateUrl: './status-selector.component.html',
+    styleUrls: ['./status-selector.component.scss'],
+    standalone: false
 })
 export class StatusSelectorComponent {
   @Input() omit: Status[] = [];

@@ -6,9 +6,10 @@ import { Store } from 'src/app/models/store.model';
 import { StoreService } from 'src/app/services/store.service';
 
 @Component({
-  selector: 'app-list',
-  templateUrl: './list.component.html',
-  styleUrls: ['./list.component.scss'],
+    selector: 'app-list',
+    templateUrl: './list.component.html',
+    styleUrls: ['./list.component.scss'],
+    standalone: false
 })
 export class ListComponent implements OnInit {
   stores?: Observable<Store[]>;

@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { Status } from '../models/status.model';
 
 @Pipe({
-  name: 'statusIcon',
+    name: 'statusIcon',
+    standalone: false
 })
 export class StatusIconPipe implements PipeTransform {
   transform(value?: Status): string {

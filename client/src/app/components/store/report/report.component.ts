@@ -7,9 +7,10 @@ import { ModeService } from 'src/app/services/mode.service';
 import { StoreService } from 'src/app/services/store.service';
 
 @Component({
-  selector: 'app-report',
-  templateUrl: './report.component.html',
-  styleUrls: ['./report.component.scss'],
+    selector: 'app-report',
+    templateUrl: './report.component.html',
+    styleUrls: ['./report.component.scss'],
+    standalone: false
 })
 export class ReportComponent {
   store;

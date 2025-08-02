@@ -1,10 +1,11 @@
 import { afterAll, beforeAll, describe, expect, it } from "@jest/globals";
 import * as admin from "firebase-admin";
-import * as functionsTest from "firebase-functions-test";
+import functionsTest from "firebase-functions-test";
 import * as sinon from "sinon";
 import { elevateAsAdmin } from "../src/index";
+import { Request } from "firebase-functions/https";
 
-const test = functionsTest();
+const { wrap, cleanup } = functionsTest();
 type Response = { ok: boolean; set: boolean; uid: string };
 
 describe("elevateAsAdmin", () => {
@@ -20,9 +21,11 @@ describe("elevateAsAdmin", () => {
     authStub.get(() => () => ({
       getUser: sinon.fake.resolves(false),
     }));
-    const wrapped = test.wrap(elevateAsAdmin);
+    const wrapped = wrap(elevateAsAdmin);
     const res: Error = await wrapped({
       data: { uid: "", isAdmin: false },
+      acceptsStreaming: false,
+      rawRequest: {} as unknown as Request, // TODO: Remove this cast when upgrading firebase-functions-test
     });
     expect(res.message).toBe("User not found");
   });
@@ -33,11 +36,15 @@ describe("elevateAsAdmin", () => {
         uid: "test-uid",
       }),
     }));
-    const wrapped = test.wrap(elevateAsAdmin);
+    const wrapped = wrap(elevateAsAdmin);
     const res: Error = await wrapped({
       data: { uid: "test-uid", isAdmin: true },
+      acceptsStreaming: false,
+      rawRequest: {} as unknown as Request, // TODO: Remove this cast when upgrading firebase-functions-test
     });
-    expect(res.message).toBe("Role set error");
+    expect(res.message).toBe(
+      "Role set error - auth.setCustomUserClaims is not a function"
+    );
   });
 
   it("skips setting claim if not need", async () => {
@@ -47,9 +54,11 @@ describe("elevateAsAdmin", () => {
         customClaims: { admin: false },
       }),
     }));
-    const wrapped = test.wrap(elevateAsAdmin);
+    const wrapped = wrap(elevateAsAdmin);
     const res: Response = await wrapped({
       data: { uid: "test-uid", isAdmin: false },
+      acceptsStreaming: false,
+      rawRequest: {} as unknown as Request, // TODO: Remove this cast when upgrading firebase-functions-test
     });
     expect(res.ok).toBeTruthy();
     expect(res.set).toBeFalsy();
@@ -63,9 +72,11 @@ describe("elevateAsAdmin", () => {
       }),
       setCustomUserClaims: sinon.fake.resolves(true),
     }));
-    const wrapped = test.wrap(elevateAsAdmin);
+    const wrapped = wrap(elevateAsAdmin);
     const res: Response = await wrapped({
       data: { uid: "test-uid", isAdmin: true },
+      acceptsStreaming: false,
+      rawRequest: {} as unknown as Request, // TODO: Remove this cast when upgrading firebase-functions-test
     });
     expect(res.ok).toBeTruthy();
     expect(res.set).toBeTruthy();
@@ -79,16 +90,18 @@ describe("elevateAsAdmin", () => {
       }),
       setCustomUserClaims: sinon.fake.rejects(true),
     }));
-    const wrapped = test.wrap(elevateAsAdmin);
+    const wrapped = wrap(elevateAsAdmin);
     const res: Error = await wrapped({
       data: { uid: "test-uid", isAdmin: true },
+      acceptsStreaming: false,
+      rawRequest: {} as unknown as Request, // TODO: Remove this cast when upgrading firebase-functions-test
     });
-    expect(res.message).toBe("Role set error");
+    expect(res.message).toBe("Role set error - true");
   });
 
   afterAll(() => {
     authStub.restore();
     adminStub.restore();
-    test.cleanup();
+    cleanup();
   });
 });

@@ -1,11 +1,12 @@
 import { afterAll, beforeAll, describe, expect, it } from "@jest/globals";
 import * as admin from "firebase-admin";
-import * as functionsTest from "firebase-functions-test";
-import { wrap } from "firebase-functions-test/lib/main";
+import functionsTest from "firebase-functions-test";
+import { Request } from "firebase-functions/https";
+import { AuthData } from "firebase-functions/tasks";
 import * as sinon from "sinon";
 import { setMode } from "../src/index";
 
-const test = functionsTest();
+const { wrap, cleanup } = functionsTest();
 
 describe("setMode", () => {
   let adminStub: sinon.SinonStub;
@@ -20,6 +21,8 @@ describe("setMode", () => {
     const wrapped = wrap(setMode);
     const res: Error = await wrapped({
       data: { mode: "mode" },
+      acceptsStreaming: false,
+      rawRequest: {} as unknown as Request, // TODO: Remove this cast when upgrading firebase-functions-test
     });
     expect(res.message).toBe("Must be admin");
   });
@@ -28,7 +31,9 @@ describe("setMode", () => {
     const wrapped = wrap(setMode);
     const res: Error = await wrapped({
       data: { mode: "mode" },
-      auth: { token: { admin: false } },
+      auth: { token: { admin: false } } as unknown as AuthData,
+      acceptsStreaming: false,
+      rawRequest: {} as unknown as Request, // TODO: Remove this cast when upgrading firebase-functions-test
     });
     expect(res.message).toBe("Must be admin");
   });
@@ -44,7 +49,9 @@ describe("setMode", () => {
     const wrapped = wrap(setMode);
     const res = await wrapped({
       data: { mode: "mode" },
-      auth: { token: { admin: true } },
+      auth: { token: { admin: true } } as unknown as AuthData,
+      acceptsStreaming: false,
+      rawRequest: {} as unknown as Request, // TODO: Remove this cast when upgrading firebase-functions-test
     });
     expect(publishTemplate.calledOnce).toBeTruthy();
     expect(res.ok).toBeTruthy();
@@ -54,6 +61,6 @@ describe("setMode", () => {
   afterAll(() => {
     configStub.restore();
     adminStub.restore();
-    test.cleanup();
+    cleanup();
   });
 });

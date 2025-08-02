@@ -1,4 +1,5 @@
 import * as admin from "firebase-admin";
+import { FirebaseError } from "firebase-admin/lib/utils/error";
 import { https } from "firebase-functions/v2";
 import "source-map-support/register";
 
@@ -17,7 +18,10 @@ export const elevateAsAdmin = https.onCall<{ uid: string; isAdmin: boolean }>(
     try {
       await auth.setCustomUserClaims(uid, { admin: isAdmin });
     } catch (e) {
-      return new https.HttpsError("internal", "Role set error");
+      return new https.HttpsError(
+        "internal",
+        `Role set error - ${(e as FirebaseError).message}`
+      );
     }
 
     return { ok: true, set: true, uid };

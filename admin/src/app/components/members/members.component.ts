@@ -7,9 +7,10 @@ import { MatTableDataSource as MatTableDataSource } from '@angular/material/tabl
 import { MatSlideToggleChange as MatSlideToggleChange } from '@angular/material/slide-toggle';
 
 @Component({
-  selector: 'app-members',
-  templateUrl: './members.component.html',
-  styleUrls: ['./members.component.scss'],
+    selector: 'app-members',
+    templateUrl: './members.component.html',
+    styleUrls: ['./members.component.scss'],
+    standalone: false
 })
 export class MembersComponent implements OnInit {
   members: MatTableDataSource<Member> = new MatTableDataSource();

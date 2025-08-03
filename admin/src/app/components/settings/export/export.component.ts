@@ -6,9 +6,10 @@ import { StoreService } from 'src/app/services/store.service';
 import { utils, WorkBook, writeFile } from 'xlsx';
 
 @Component({
-  selector: 'app-export',
-  templateUrl: './export.component.html',
-  styleUrls: ['./export.component.scss'],
+    selector: 'app-export',
+    templateUrl: './export.component.html',
+    styleUrls: ['./export.component.scss'],
+    standalone: false
 })
 export class ExportComponent {
   loading = false;

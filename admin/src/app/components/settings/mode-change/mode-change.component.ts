@@ -4,9 +4,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Mode, ModeService } from 'src/app/services/mode.service';
 
 @Component({
-  selector: 'app-mode-change',
-  templateUrl: './mode-change.component.html',
-  styleUrls: ['./mode-change.component.scss'],
+    selector: 'app-mode-change',
+    templateUrl: './mode-change.component.html',
+    styleUrls: ['./mode-change.component.scss'],
+    standalone: false
 })
 export class ModeChangeComponent {
   mode;

@@ -7,9 +7,10 @@ import { HistoryService } from 'src/app/services/history.service';
 import { StoreService } from 'src/app/services/store.service';
 
 @Component({
-  selector: 'app-history',
-  templateUrl: './history.component.html',
-  styleUrls: ['./history.component.scss'],
+    selector: 'app-history',
+    templateUrl: './history.component.html',
+    styleUrls: ['./history.component.scss'],
+    standalone: false
 })
 export class HistoryComponent {
   store?: Store;

@@ -15,9 +15,10 @@ import { StoreService } from 'src/app/services/store.service';
 import { EditStoreComponent } from '../edit-store/edit-store.component';
 
 @Component({
-  selector: 'app-assign-member',
-  templateUrl: './assign-member.component.html',
-  styleUrls: ['./assign-member.component.scss'],
+    selector: 'app-assign-member',
+    templateUrl: './assign-member.component.html',
+    styleUrls: ['./assign-member.component.scss'],
+    standalone: false
 })
 export class AssignMemberComponent implements OnInit {
   store?: Store;

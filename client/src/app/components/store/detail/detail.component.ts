@@ -8,9 +8,10 @@ import { StoreService } from 'src/app/services/store.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-detail',
-  templateUrl: './detail.component.html',
-  styleUrls: ['./detail.component.scss'],
+    selector: 'app-detail',
+    templateUrl: './detail.component.html',
+    styleUrls: ['./detail.component.scss'],
+    standalone: false
 })
 export class DetailComponent {
   store?: Store;

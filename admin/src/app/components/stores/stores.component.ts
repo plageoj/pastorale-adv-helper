@@ -12,9 +12,10 @@ import { StoreService } from 'src/app/services/store.service';
 import { EditStoreComponent } from './edit-store/edit-store.component';
 
 @Component({
-  selector: 'app-stores',
-  templateUrl: './stores.component.html',
-  styleUrls: ['./stores.component.scss'],
+    selector: 'app-stores',
+    templateUrl: './stores.component.html',
+    styleUrls: ['./stores.component.scss'],
+    standalone: false
 })
 export class StoresComponent implements OnInit {
   stores: MatTableDataSource<Store> = new MatTableDataSource();

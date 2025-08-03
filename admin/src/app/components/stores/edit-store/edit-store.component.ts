@@ -4,9 +4,10 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Store } from 'src/app/models/store.model';
 
 @Component({
-  selector: 'app-edit-store',
-  templateUrl: './edit-store.component.html',
-  styleUrls: ['./edit-store.component.scss'],
+    selector: 'app-edit-store',
+    templateUrl: './edit-store.component.html',
+    styleUrls: ['./edit-store.component.scss'],
+    standalone: false
 })
 export class EditStoreComponent {
   storeForm;

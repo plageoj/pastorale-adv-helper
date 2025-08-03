@@ -16,17 +16,19 @@ import { Router } from '@angular/router';
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
+  standalone: false,
 })
 export class LoginComponent implements OnInit {
   constructor(
-    private auth: Auth,
-    private sb: MatSnackBar,
-    private router: Router
+    private readonly auth: Auth,
+    private readonly sb: MatSnackBar,
+    private readonly router: Router
   ) {}
 
-  async ngOnInit(): Promise<void> {
-    await getRedirectResult(this.auth);
-    this.router.navigateByUrl('/');
+  ngOnInit() {
+    getRedirectResult(this.auth).then(() => {
+      this.router.navigateByUrl('/');
+    });
   }
 
   async login() {

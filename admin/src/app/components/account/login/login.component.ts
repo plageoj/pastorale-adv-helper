@@ -14,10 +14,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 
 @Component({
-    selector: 'app-login',
-    templateUrl: './login.component.html',
-    styleUrls: ['./login.component.scss'],
-    standalone: false
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss'],
+  standalone: false,
 })
 export class LoginComponent implements OnInit {
   emailCredentials = this.fb.group({
@@ -26,15 +26,16 @@ export class LoginComponent implements OnInit {
   });
 
   constructor(
-    private auth: Auth,
-    private sb: MatSnackBar,
-    private router: Router,
-    private fb: FormBuilder
+    private readonly auth: Auth,
+    private readonly sb: MatSnackBar,
+    private readonly router: Router,
+    private readonly fb: FormBuilder
   ) {}
 
-  async ngOnInit(): Promise<void> {
-    await getRedirectResult(this.auth);
-    this.router.navigateByUrl('/');
+  ngOnInit() {
+    getRedirectResult(this.auth).then(() => {
+      this.router.navigateByUrl('/');
+    });
   }
 
   async login() {

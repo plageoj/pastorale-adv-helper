@@ -1,6 +1,7 @@
 import { HarnessLoader } from '@angular/cdk/testing';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonHarness } from '@angular/material/button/testing';
 import { MatCardModule } from '@angular/material/card';
@@ -15,6 +16,7 @@ import { MatSlideToggleHarness } from '@angular/material/slide-toggle/testing';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { provideRouter } from '@angular/router';
@@ -28,8 +30,6 @@ import { RouterLinkStubDirective } from 'src/app/testing/router-link-stub';
 import { waitUntil } from 'src/app/testing/utils/wait-until';
 import { StatusSelectorComponent } from './status-selector/status-selector.component';
 import { StoresComponent } from './stores.component';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 describe('StoresComponent', () => {
   let component: StoresComponent;
@@ -152,7 +152,7 @@ describe('StoresComponent', () => {
     const toggles = await loader.getAllHarnesses(MatSlideToggleHarness);
     expect(toggles.length).toBe(1);
     expect(component.stores.data.length).toBe(1);
-    await toggles[0].check();
+    toggles[0].check();
     await waitUntil(() => component.stores.data.length === 2);
     fixture.detectChanges();
     expect(component.stores.data.length).toBe(2);

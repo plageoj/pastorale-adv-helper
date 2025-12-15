@@ -1,6 +1,8 @@
 <mat-drawer-container>
   <mat-drawer mode="side" position="end" [opened]="!!uid">
-    <app-member-detail *ngIf="uid"></app-member-detail>
+    @if (uid) {
+      <app-member-detail></app-member-detail>
+    }
   </mat-drawer>
 
   <mat-drawer-content>
@@ -14,7 +16,7 @@
         <mat-slide-toggle
           matTooltip="昨年以前に参加し、今年はまだアンケートに回答していない団員も表示します"
           (change)="changeShowInvisible($event)"
-        >
+          >
           過去の団員も見る
         </mat-slide-toggle>
       </mat-card-content>
@@ -25,14 +27,15 @@
         <th mat-header-cell *matHeaderCellDef>名前</th>
         <td mat-cell *matCellDef="let member">
           {{ member.name }}
-          <mat-icon
-            *ngIf="member.isAdmin"
-            color="primary"
-            inline
-            matTooltip="宣伝局員"
-          >
-            verified
-          </mat-icon>
+          @if (member.isAdmin) {
+            <mat-icon
+              color="primary"
+              inline
+              matTooltip="宣伝局員"
+              >
+              verified
+            </mat-icon>
+          }
         </td>
       </ng-container>
 
@@ -52,14 +55,15 @@
         <th mat-header-cell *matHeaderCellDef>担当</th>
         <td mat-cell *matCellDef="let member">
           <ul>
-            <li
-              *ngFor="let store of member.stores"
-              (click)="stopPropagation($event)"
-            >
-              <a routerLink="/stores/{{ store.id }}">
-                {{ store.name }}
-              </a>
-            </li>
+            @for (store of member.stores; track store) {
+              <li
+                (click)="stopPropagation($event)"
+                >
+                <a routerLink="/stores/{{ store.id }}">
+                  {{ store.name }}
+                </a>
+              </li>
+            }
           </ul>
         </td>
       </ng-container>

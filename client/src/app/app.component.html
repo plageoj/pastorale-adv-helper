@@ -3,6 +3,8 @@
     <router-outlet></router-outlet>
   </main>
   <div id="navbar">
-    <app-nav-bar *ngIf="signedIn"></app-nav-bar>
+    @if (signedIn) {
+      <app-nav-bar></app-nav-bar>
+    }
   </div>
 </div>

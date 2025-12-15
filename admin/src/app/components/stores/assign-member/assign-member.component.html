@@ -19,11 +19,12 @@
         </mat-list-item>
         <h3 matSubheader>状態を変更する</h3>
         <mat-list-item>
-          <app-status-selector
-            *ngIf="store"
-            [omit]="['担当者なし', store.status]"
-            (choose)="setStatus($event)"
-          ></app-status-selector>
+          @if (store) {
+            <app-status-selector
+              [omit]="['担当者なし', store.status]"
+              (choose)="setStatus($event)"
+            ></app-status-selector>
+          }
         </mat-list-item>
         <mat-list-item>
           <div matListItemLine>
@@ -38,9 +39,9 @@
             <div class="left">電話番号</div>
             <div class="right">
               {{ store?.tel }}
-              <ng-container *ngIf="store?.altTel">
+              @if (store?.altTel) {
                 / {{ store?.altTel }}
-              </ng-container>
+              }
             </div>
           </div>
         </mat-list-item>
@@ -147,13 +148,14 @@
         <ng-container matColumnDef="stores">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>担当</th>
           <td mat-cell *matCellDef="let member">
-            <a
-              *ngFor="let store of member.stores"
-              routerLink="/stores/{{ store.id }}"
-              class="store-link"
-            >
-              {{ store.name }}
-            </a>
+            @for (store of member.stores; track store) {
+              <a
+                routerLink="/stores/{{ store.id }}"
+                class="store-link"
+                >
+                {{ store.name }}
+              </a>
+            }
           </td>
         </ng-container>
 

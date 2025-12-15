@@ -1,13 +1,14 @@
 <div>
-  <button
-    *ngFor="let status of statusList"
-    mat-icon-button
-    matTooltip="状態: {{ status }}"
-    matTooltipPosition="above"
-    color="primary"
-    (click)="choose.emit(status)"
-    [disabled]="omit.includes(status)"
-  >
-    <mat-icon>{{ status | statusIcon }}</mat-icon>
-  </button>
+  @for (status of statusList; track status) {
+    <button
+      mat-icon-button
+      matTooltip="状態: {{ status }}"
+      matTooltipPosition="above"
+      color="primary"
+      (click)="choose.emit(status)"
+      [disabled]="omit.includes(status)"
+      >
+      <mat-icon>{{ status | statusIcon }}</mat-icon>
+    </button>
+  }
 </div>

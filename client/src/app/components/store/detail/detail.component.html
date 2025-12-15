@@ -14,19 +14,20 @@
   </div>
 </mat-toolbar>
 
-<google-map
-  *ngIf="store?.address && !loading && location"
-  width="100%"
-  height="25vh"
-  [center]="location"
+@if (store?.address && !loading && location) {
+  <google-map
+    width="100%"
+    height="25vh"
+    [center]="location"
   [options]="{
     clickableIcons: false,
     mapTypeControl: false,
     streetViewControl: false
   }"
->
-  <map-marker [position]="location"></map-marker>
-</google-map>
+    >
+    <map-marker [position]="location"></map-marker>
+  </google-map>
+}
 
 <mat-list>
   <h2 matSubheader>情報</h2>
@@ -34,24 +35,28 @@
     <mat-icon matListItemIcon>{{ store?.status | statusIcon }}</mat-icon>
     <p matListItemTitle>{{ store?.status }}</p>
   </mat-list-item>
-  <mat-list-item *ngIf="store?.comment">
-    <mat-icon matListItemIcon>info</mat-icon>
-    <p matListItemTitle>
-      {{ store?.comment }}
-    </p>
-  </mat-list-item>
+  @if (store?.comment) {
+    <mat-list-item>
+      <mat-icon matListItemIcon>info</mat-icon>
+      <p matListItemTitle>
+        {{ store?.comment }}
+      </p>
+    </mat-list-item>
+  }
   <mat-list-item>
     <mat-icon matListItemIcon>currency_yen</mat-icon>
     <p matListItemTitle>
       {{ store?.amount | number }}
     </p>
   </mat-list-item>
-  <mat-list-item *ngIf="store?.draft">
-    <mat-icon matListItemIcon>panorama</mat-icon>
-    <p matListItemTitle>
-      {{ store?.draft }}
-    </p>
-  </mat-list-item>
+  @if (store?.draft) {
+    <mat-list-item>
+      <mat-icon matListItemIcon>panorama</mat-icon>
+      <p matListItemTitle>
+        {{ store?.draft }}
+      </p>
+    </mat-list-item>
+  }
   <mat-list-item>
     <mat-icon matListItemIcon>notes</mat-icon>
     <p matListItemTitle class="wrap" [ngClass]="{ empty: !store?.notes }">
@@ -72,34 +77,38 @@
       </button>
     </div>
   </mat-list-item>
-  <mat-list-item *ngIf="store?.altTel">
-    <mat-icon matListItemIcon>phone</mat-icon>
-    <div matListItemTitle>
-      <span>{{ store?.altTel }}</span>
-      <button mat-raised-button (click)="call(store?.altTel)">
-        <mat-icon>call</mat-icon>
-        電話をかける
-      </button>
-    </div>
-  </mat-list-item>
-  <mat-list-item *ngIf="store?.address">
-    <mat-icon matListItemIcon>pin_drop</mat-icon>
-    <div matListItemTitle>
-      <small>
-        {{ store?.address }}
-      </small>
-      <a
-        mat-raised-button
-        target="_blank"
+  @if (store?.altTel) {
+    <mat-list-item>
+      <mat-icon matListItemIcon>phone</mat-icon>
+      <div matListItemTitle>
+        <span>{{ store?.altTel }}</span>
+        <button mat-raised-button (click)="call(store?.altTel)">
+          <mat-icon>call</mat-icon>
+          電話をかける
+        </button>
+      </div>
+    </mat-list-item>
+  }
+  @if (store?.address) {
+    <mat-list-item>
+      <mat-icon matListItemIcon>pin_drop</mat-icon>
+      <div matListItemTitle>
+        <small>
+          {{ store?.address }}
+        </small>
+        <a
+          mat-raised-button
+          target="_blank"
         href="https://www.google.com/maps/search/?api=1&query={{
           store?.name
         }}&query_place_id={{ placeId }}"
-      >
-        <mat-icon>map</mat-icon>
-        Googleマップ
-      </a>
-    </div>
-  </mat-list-item>
+          >
+          <mat-icon>map</mat-icon>
+          Googleマップ
+        </a>
+      </div>
+    </mat-list-item>
+  }
   <mat-list-item>
     <mat-icon matListItemIcon>edit</mat-icon>
     <div matListItemTitle>

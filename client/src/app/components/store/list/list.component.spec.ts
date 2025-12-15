@@ -7,6 +7,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { getTestScheduler } from 'jasmine-marbles';
+import { StatusIconPipe } from 'src/app/pipes/status-icon.pipe';
 import { FirebaseTestingModule } from 'src/app/testing/firebase-testing.module';
 import { NavBarComponent } from '../../nav-bar/nav-bar.component';
 import { ListComponent } from './list.component';
@@ -17,11 +18,13 @@ describe('ListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ListComponent, NavBarComponent],
+      declarations: [ListComponent, NavBarComponent, StatusIconPipe],
       imports: [
         FirebaseTestingModule,
         RouterTestingModule.withRoutes([
           { path: 'login', component: ListComponent },
+          { path: 'member/register', component: ListComponent },
+          { path: 'stores', component: ListComponent },
         ]),
         MatIconModule,
         MatButtonModule,

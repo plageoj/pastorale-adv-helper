@@ -1,0 +1,85 @@
+name: SonarCloud
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - "admin/**"
+      - "client/**"
+      - "functions/**"
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+
+jobs:
+  scan:
+    name: ${{ matrix.project }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - project: admin
+            use-firebase: true
+          - project: client
+            use-firebase: true
+          - project: functions
+            use-firebase: false
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: .node-version
+          cache: npm
+          cache-dependency-path: ${{ matrix.project }}/package-lock.json
+
+      - name: Cache firebase emulators
+        if: matrix.use-firebase
+        uses: actions/cache@v5
+        with:
+          path: ~/.cache/firebase/emulators
+          key: ${{ runner.os }}-firebase-emulators-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-firebase-emulators-
+
+      - name: Switch to Java 25
+        if: matrix.use-firebase
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 25
+
+      - name: Install dependencies
+        run: npm i && npm i -g firebase-tools
+        working-directory: ${{ matrix.project }}/
+
+      - name: Setup Functions for emulator
+        run: npm i && npm run build
+        working-directory: functions/
+
+      - name: Store credentials
+        if: matrix.use-firebase
+        run: echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT_KOUKOKUTORI }}' > credentials.json
+
+      - name: Test and coverage (with Firebase)
+        if: matrix.use-firebase
+        run: firebase emulators:exec --project koukokutori "npm run test:ci --prefix ${{ matrix.project }}"
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/credentials.json
+
+      - name: Test and coverage (without Firebase)
+        if: ${{ !matrix.use-firebase }}
+        run: npm run test -- --coverage
+        working-directory: ${{ matrix.project }}/
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarqube-scan-action@v7
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          projectBaseDir: ${{ matrix.project }}/

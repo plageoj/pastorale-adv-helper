@@ -1,7 +1,8 @@
 <mat-card>
   <h2 mat-card-title>
-    団員を編集
-    <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+    団員を編集 @if (loading) {
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    }
   </h2>
 
   <mat-card-content>
@@ -32,13 +33,11 @@
       </mat-form-field>
 
       <div formGroupName="commute" id="commute-list">
-        <mat-checkbox
-          *ngFor="let option of commuteOptions"
-          [formControlName]="option"
-          ngDefaultControl
-        >
+        @for (option of commuteOptions; track option) {
+        <mat-checkbox [formControlName]="option">
           {{ option }}
         </mat-checkbox>
+        }
       </div>
 
       <mat-form-field>

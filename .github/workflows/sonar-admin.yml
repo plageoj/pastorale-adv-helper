@@ -14,31 +14,34 @@ jobs:
     name: Admin
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
           node-version-file: .node-version
-
-      - uses: actions/cache@v4
-        with:
-          path: ~/.npm
-          key: npm-admin-${{ hashFiles('admin/**/package-lock.json') }}
-          restore-keys: |
-            npm-admin-
+          cache: npm
 
       - name: Cache firebase emulators
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ~/.cache/firebase/emulators
           key: ${{ runner.os }}-firebase-emulators-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-firebase-emulators-
 
+      - name: Setup Firebase CLI
+        run: curl -sL https://firebase.tools | bash
+
+      - name: Switch to Java 25
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 25
+
       - name: Install dependencies
-        run: npm i && npm i -g firebase-tools
+        run: npm i
         working-directory: admin/
 
       - name: Store credentials
@@ -50,9 +53,8 @@ jobs:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ github.workspace }}/credentials.json
 
       - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@master
+        uses: SonarSource/sonarqube-scan-action@v7
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           projectBaseDir: admin/

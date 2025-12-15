@@ -1,4 +1,4 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, Injector, runInInjectionContext } from '@angular/core';
 import {
   collection,
   collectionData,
@@ -21,11 +21,12 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class MemberService implements IFirestore<Member> {
-  private col;
-  private db = inject(Firestore);
+  private readonly db = inject(Firestore);
+  private readonly func = inject(Functions);
+  private readonly injector = inject(Injector);
 
-  constructor(private func: Functions) {
-    this.col = collection(this.db, 'members') as CollectionReference<Member>;
+  private get col() {
+    return collection(this.db, 'members') as CollectionReference<Member>;
   }
 
   getAll(includeHidden = false): Observable<Member[]> {
@@ -33,11 +34,15 @@ export class MemberService implements IFirestore<Member> {
     if (!includeHidden) {
       queries.push(where('visible', '==', true));
     }
-    return collectionData(query(this.col, ...queries));
+    return runInInjectionContext(this.injector, () =>
+      collectionData(query(this.col, ...queries))
+    );
   }
 
   get(uid: string): Observable<Member> {
-    return docData(doc(this.col, uid)) as Observable<Member>;
+    return runInInjectionContext(this.injector, () =>
+      docData(doc(this.col, uid))
+    ) as Observable<Member>;
   }
 
   async update(data: Member) {

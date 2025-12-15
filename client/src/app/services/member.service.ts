@@ -1,4 +1,4 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, Injector, runInInjectionContext } from '@angular/core';
 import { Auth } from '@angular/fire/auth';
 import {
   collection,
@@ -15,11 +15,12 @@ import { Member } from '../models/member.model';
   providedIn: 'root',
 })
 export class MemberService {
-  col;
-  firestore = inject(Firestore);
+  private readonly firestore = inject(Firestore);
+  private readonly auth = inject(Auth);
+  private readonly injector = inject(Injector);
 
-  constructor(private auth: Auth) {
-    this.col = collection(this.firestore, 'members');
+  private get col() {
+    return collection(this.firestore, 'members');
   }
 
   me(): Observable<Member> {
@@ -38,8 +39,8 @@ export class MemberService {
         stores: [],
         visible: true,
       });
-    return docData(
-      doc(this.col, this.auth.currentUser.uid)
+    return runInInjectionContext(this.injector, () =>
+      docData(doc(this.col, this.auth.currentUser!.uid))
     ) as Observable<Member>;
   }
 

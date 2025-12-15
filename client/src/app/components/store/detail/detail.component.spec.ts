@@ -13,7 +13,7 @@ import {
   TestBed,
   tick,
 } from '@angular/core/testing';
-import { deleteUser, getAuth, signInAnonymously } from '@angular/fire/auth';
+import { Auth, deleteUser, signInAnonymously } from '@angular/fire/auth';
 import { GoogleMapsModule, MapGeocoder } from '@angular/google-maps';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
@@ -96,7 +96,7 @@ describe('DetailComponent', () => {
       ],
     }).compileComponents();
 
-    await signInAnonymously(getAuth());
+    await signInAnonymously(TestBed.inject(Auth));
   });
 
   beforeEach(() => {
@@ -138,7 +138,7 @@ describe('DetailComponent', () => {
   }));
 
   afterEach(async () => {
-    const user = getAuth().currentUser;
-    if (user) await deleteUser(user);
+    const auth = TestBed.inject(Auth);
+    if (auth.currentUser) await deleteUser(auth.currentUser);
   });
 });

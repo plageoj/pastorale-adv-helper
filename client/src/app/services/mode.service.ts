@@ -1,4 +1,4 @@
-import { Injectable, Injector } from '@angular/core';
+import { Injectable, Injector, runInInjectionContext } from '@angular/core';
 import {
   fetchAndActivate,
   getStringChanges,
@@ -21,13 +21,15 @@ export class ModeService {
         this.config = inj.get(RemoteConfig);
 
         this.config.settings.minimumFetchIntervalMillis = 60 * 1000;
-        fetchAndActivate(this.config);
+        runInInjectionContext(this.inj, () => fetchAndActivate(this.config!));
       }
     });
   }
 
   getMode(): Observable<Mode> {
     if (!this.config) return of('contract');
-    return getStringChanges(this.config, 'mode') as Observable<Mode>;
+    return runInInjectionContext(this.inj, () =>
+      getStringChanges(this.config!, 'mode')
+    ) as Observable<Mode>;
   }
 }

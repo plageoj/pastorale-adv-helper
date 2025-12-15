@@ -1,8 +1,7 @@
 <mat-card>
   <h2 mat-card-title>
-    団員を編集
-    @if (loading) {
-      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    団員を編集 @if (loading) {
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
     }
   </h2>
 
@@ -35,12 +34,9 @@
 
       <div formGroupName="commute" id="commute-list">
         @for (option of commuteOptions; track option) {
-          <mat-checkbox
-            [formControlName]="option"
-            ngDefaultControl
-            >
-            {{ option }}
-          </mat-checkbox>
+        <mat-checkbox [formControlName]="option">
+          {{ option }}
+        </mat-checkbox>
         }
       </div>
 
@@ -53,7 +49,7 @@
         matTooltipPosition="above"
         matTooltip="ONにするとこの管理画面にアクセスできるようになります"
         formControlName="isAdmin"
-        >
+      >
         宣伝局員 <mat-icon color="primary" inline>verified</mat-icon>
       </mat-slide-toggle>
     </form>
@@ -70,7 +66,7 @@
       type="submit"
       form="member-editor"
       [disabled]="!memberForm.valid || loading"
-      >
+    >
       <mat-icon>save</mat-icon>
       保存
     </button>

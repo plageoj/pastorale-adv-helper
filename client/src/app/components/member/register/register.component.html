@@ -27,18 +27,15 @@
       matInput
       formControlName="homeAddress"
       placeholder="実家生は空のままでOKです"
-      />
+    />
   </mat-form-field>
 
   <h4 matSubheader>交通手段</h4>
   <div formGroupName="commute" id="commute-list">
     @for (option of commuteOptions; track option) {
-      <mat-checkbox
-        [formControlName]="option"
-        ngDefaultControl
-        >
-        {{ option }}
-      </mat-checkbox>
+    <mat-checkbox [formControlName]="option">
+      {{ option }}
+    </mat-checkbox>
     }
   </div>
 
@@ -52,7 +49,7 @@
     color="primary"
     type="submit"
     [disabled]="loading || !profile.valid"
-    >
+  >
     <mat-icon>send</mat-icon>
     送信
   </button>

@@ -1,5 +1,7 @@
-<mat-progress-bar *ngIf="loading" [mode]="progressMode" [value]="progress">
-</mat-progress-bar>
+@if (loading) {
+  <mat-progress-bar [mode]="progressMode" [value]="progress">
+  </mat-progress-bar>
+}
 <section>
   <h3>① 団員情報をリセット</h3>
   <p>
@@ -16,10 +18,12 @@
       [disabled]="loading"
       color="primary"
       (click)="updateHistory()"
-    >
+      >
       実行
     </button>
   </p>
 
-  <p *ngIf="loading">完了するまでこのページを開いたままにしてください！</p>
+  @if (loading) {
+    <p>完了するまでこのページを開いたままにしてください！</p>
+  }
 </section>

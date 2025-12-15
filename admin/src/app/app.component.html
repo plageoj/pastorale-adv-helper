@@ -1,12 +1,16 @@
 <mat-toolbar color="primary">
-  <button mat-icon-button (click)="open = !open" *ngIf="user">
-    <mat-icon>menu</mat-icon>
-  </button>
+  @if (user) {
+    <button mat-icon-button (click)="open = !open">
+      <mat-icon>menu</mat-icon>
+    </button>
+  }
   <span> 協賛広告ヘルパー </span>
-  <button mat-button (click)="logout()" *ngIf="user">
-    <mat-icon>logout</mat-icon>
-    ログアウト
-  </button>
+  @if (user) {
+    <button mat-button (click)="logout()">
+      <mat-icon>logout</mat-icon>
+      ログアウト
+    </button>
+  }
 </mat-toolbar>
 
 <mat-sidenav-container>
@@ -16,21 +20,21 @@
         mat-list-item
         routerLink="/members"
         [ngClass]="{ active: segment.includes('members') }"
-      >
+        >
         <mat-icon matListItemIcon>people</mat-icon> 団員
       </a>
       <a
         mat-list-item
         routerLink="/stores"
         [ngClass]="{ active: segment.includes('stores') }"
-      >
+        >
         <mat-icon matListItemIcon>store</mat-icon> 広告先
       </a>
       <a
         mat-list-item
         routerLink="/settings"
         [ngClass]="{ active: segment.includes('settings') }"
-      >
+        >
         <mat-icon matListItemIcon>settings</mat-icon> 設定
       </a>
     </mat-nav-list>

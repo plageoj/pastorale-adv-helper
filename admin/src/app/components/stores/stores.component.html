@@ -3,15 +3,16 @@
     <mat-form-field>
       <mat-label>検索</mat-label>
       <input matInput type="search" autocomplete="off" [formControl]="filter" />
-      <button
-        *ngIf="filter.value"
-        matSuffix
-        mat-icon-button
-        (click)="filter.reset()"
-        matTooltip="クリア"
-      >
-        <mat-icon>close</mat-icon>
-      </button>
+      @if (filter.value) {
+        <button
+          matSuffix
+          mat-icon-button
+          (click)="filter.reset()"
+          matTooltip="クリア"
+          >
+          <mat-icon>close</mat-icon>
+        </button>
+      }
     </mat-form-field>
 
     <app-status-selector
@@ -27,7 +28,7 @@
       color="primary"
       title="広告先を追加"
       (click)="add()"
-    >
+      >
       <mat-icon>add</mat-icon>
       追加
     </button>
@@ -96,7 +97,7 @@
         (click)="edit(store)"
         matTooltip="編集"
         matTooltipPosition="after"
-      >
+        >
         <mat-icon>edit</mat-icon>
       </button>
     </td>

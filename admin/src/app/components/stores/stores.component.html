@@ -4,14 +4,14 @@
       <mat-label>検索</mat-label>
       <input matInput type="search" autocomplete="off" [formControl]="filter" />
       @if (filter.value) {
-        <button
-          matSuffix
-          mat-icon-button
-          (click)="filter.reset()"
-          matTooltip="クリア"
-          >
-          <mat-icon>close</mat-icon>
-        </button>
+      <button
+        matSuffix
+        mat-icon-button
+        (click)="filter.reset()"
+        matTooltip="クリア"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
       }
     </mat-form-field>
 
@@ -28,7 +28,7 @@
       color="primary"
       title="広告先を追加"
       (click)="add()"
-      >
+    >
       <mat-icon>add</mat-icon>
       追加
     </button>
@@ -69,7 +69,7 @@
   <ng-container matColumnDef="amount">
     <th mat-header-cell *matHeaderCellDef mat-sort-header>金額</th>
     <td mat-cell *matCellDef="let store">
-      {{ store.amount | currency: "JPY" }}
+      {{ store.amount | currency : "JPY" }}
     </td>
   </ng-container>
   <ng-container matColumnDef="last">
@@ -79,7 +79,7 @@
         {{ store.last?.name }}
       </a>
       <br />
-      {{ store.last?.amount | currency: "JPY" }}
+      {{ store.last?.amount | currency : "JPY" }}
     </td>
   </ng-container>
   <ng-container matColumnDef="draft">
@@ -97,7 +97,7 @@
         (click)="edit(store)"
         matTooltip="編集"
         matTooltipPosition="after"
-        >
+      >
         <mat-icon>edit</mat-icon>
       </button>
     </td>

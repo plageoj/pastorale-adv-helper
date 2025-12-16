@@ -8,9 +8,8 @@ describe('CommuteComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CommuteComponent ]
-    })
-    .compileComponents();
+      imports: [CommuteComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

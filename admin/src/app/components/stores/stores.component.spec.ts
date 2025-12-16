@@ -52,12 +52,10 @@ describe('StoresComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [
-        StoresComponent,
-        RouterLinkStubDirective,
-        StatusSelectorComponent,
-      ],
+      declarations: [RouterLinkStubDirective],
       imports: [
+        StoresComponent,
+        StatusSelectorComponent,
         FirebaseTestingModule,
         MatButtonModule,
         MatCardModule,
@@ -160,12 +158,12 @@ describe('StoresComponent', () => {
 
   it('should open edit dialog and update stores', async () => {
     const dialog = (
-      spyOn(TestBed.inject(MatDialog), 'open') as jasmine.Spy
+      spyOn(fixture.debugElement.injector.get(MatDialog), 'open') as jasmine.Spy
     ).and.returnValue({
       afterClosed: () => of(undefined),
     });
     const snack = (
-      spyOn(TestBed.inject(MatSnackBar), 'open') as jasmine.Spy
+      spyOn(fixture.debugElement.injector.get(MatSnackBar), 'open') as jasmine.Spy
     ).and.callThrough();
     const editButton = await loader.getHarness(
       MatButtonHarness.with({
@@ -186,11 +184,11 @@ describe('StoresComponent', () => {
 
   it('should add store', () => {
     const update = spyOn(
-      TestBed.inject(StoreService),
+      fixture.debugElement.injector.get(StoreService),
       'update'
     ).and.returnValue(Promise.resolve());
     const dialog = (
-      spyOn(TestBed.inject(MatDialog), 'open') as jasmine.Spy
+      spyOn(fixture.debugElement.injector.get(MatDialog), 'open') as jasmine.Spy
     ).and.callFake((data) => ({
       afterClosed: () => cold('--d|', { d: data }),
     }));

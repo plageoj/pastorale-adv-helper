@@ -98,13 +98,11 @@ describe('AssignMemberComponent', () => {
     activatedRoute = new ActivatedRouteStub({ id: 'store-id' });
 
     await TestBed.configureTestingModule({
-      declarations: [
-        AssignMemberComponent,
-        CommuteComponent,
-        StatusSelectorComponent,
-        RouterLinkStubDirective,
-      ],
+      declarations: [RouterLinkStubDirective],
       imports: [
+        AssignMemberComponent,
+        StatusSelectorComponent,
+        CommuteComponent,
         FirebaseTestingModule,
         MatButtonModule,
         MatCardModule,
@@ -160,7 +158,7 @@ describe('AssignMemberComponent', () => {
 
   it('should open edit dialog', () => {
     const dialog = spyOn<any>(
-      TestBed.inject(MatDialog),
+      fixture.debugElement.injector.get(MatDialog),
       'open'
     ).and.returnValue({
       afterClosed: () => of(undefined),

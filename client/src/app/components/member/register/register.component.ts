@@ -1,16 +1,31 @@
 import { Component, OnInit } from '@angular/core';
 import { Auth } from '@angular/fire/auth';
-import { UntypedFormBuilder } from '@angular/forms';
+import { ReactiveFormsModule, UntypedFormBuilder } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { CommuteList } from 'src/app/models/commute.model';
 import { Member } from 'src/app/models/member.model';
 import { MemberService } from 'src/app/services/member.service';
 
 @Component({
-    selector: 'app-register',
-    templateUrl: './register.component.html',
-    styleUrls: ['./register.component.scss'],
-    standalone: false
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.scss'],
+  standalone: true,
+  imports: [
+    MatButtonModule,
+    MatCheckboxModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    MatToolbarModule,
+    ReactiveFormsModule,
+  ],
 })
 export class RegisterComponent implements OnInit {
   profile;

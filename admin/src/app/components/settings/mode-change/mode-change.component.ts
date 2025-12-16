@@ -1,5 +1,9 @@
 import { Component, inject } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Mode, ModeService } from 'src/app/services/mode.service';
 
@@ -7,7 +11,14 @@ import { Mode, ModeService } from 'src/app/services/mode.service';
     selector: 'app-mode-change',
     templateUrl: './mode-change.component.html',
     styleUrls: ['./mode-change.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [
+      ReactiveFormsModule,
+      MatButtonModule,
+      MatFormFieldModule,
+      MatIconModule,
+      MatSelectModule,
+    ]
 })
 export class ModeChangeComponent {
   mode;

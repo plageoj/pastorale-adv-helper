@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { deleteField } from '@angular/fire/firestore';
-import { ProgressBarMode } from '@angular/material/progress-bar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatProgressBarModule, ProgressBarMode } from '@angular/material/progress-bar';
 import { MatSnackBar as MatSnackBar } from '@angular/material/snack-bar';
 import { filter, firstValueFrom, switchMap, take } from 'rxjs';
 import { HistoryService } from 'src/app/services/history.service';
@@ -11,7 +12,8 @@ import { StoreService } from 'src/app/services/store.service';
     selector: 'app-initialize',
     templateUrl: './initialize.component.html',
     styleUrls: ['./initialize.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [MatButtonModule, MatProgressBarModule]
 })
 export class InitializeComponent {
   loading = false;

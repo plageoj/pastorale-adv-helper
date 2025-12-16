@@ -1,35 +1,33 @@
-import { Injectable, NgModule } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { AuthGuard, customClaims } from '@angular/fire/auth-guard';
 import { Title } from '@angular/platform-browser';
-import {
-  RouterModule,
-  RouterStateSnapshot,
-  Routes,
-  TitleStrategy,
-} from '@angular/router';
+import { RouterStateSnapshot, Routes, TitleStrategy } from '@angular/router';
 import { pipe } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-const isAdmin = () =>
+export const mapClaimsToAccess = (
+  claims: { admin?: boolean } | null | undefined
+): true | string[] => {
+  if (!claims) return ['account', 'login'];
+  if (!claims.admin) return ['account', 'unauthorized'];
+  return true;
+};
+
+export const isAdmin = () =>
   pipe(
     customClaims,
-    map((claims) => {
-      if (!claims) return ['account', 'login'];
-      if (!(claims as { admin: boolean }).admin)
-        return ['account', 'unauthorized'];
-      return true;
-    })
+    map((claims) => mapClaimsToAccess(claims as { admin?: boolean } | null))
   );
 
-const routes: Routes = [
+export const APP_ROUTES: Routes = [
   { path: '', redirectTo: '/members', pathMatch: 'full' },
   {
     path: 'members',
     canActivate: [AuthGuard],
     data: { authGuardPipe: isAdmin },
     loadChildren: () =>
-      import('./components/members/members.module').then(
-        (m) => m.MembersModule
+      import('./components/members/members.routes').then(
+        (m) => m.MEMBERS_ROUTES
       ),
   },
   {
@@ -37,22 +35,22 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: { authGuardPipe: isAdmin },
     loadChildren: () =>
-      import('./components/stores/stores.module').then((m) => m.StoresModule),
+      import('./components/stores/stores.routes').then((m) => m.STORES_ROUTES),
   },
   {
     path: 'settings',
     canActivate: [AuthGuard],
     data: { authGuardPipe: isAdmin },
     loadChildren: () =>
-      import('./components/settings/settings.module').then(
-        (m) => m.SettingsModule
+      import('./components/settings/settings.routes').then(
+        (m) => m.SETTINGS_ROUTES
       ),
   },
   {
     path: 'account',
     loadChildren: () =>
-      import('./components/account/account.module').then(
-        (m) => m.AccountModule
+      import('./components/account/account.routes').then(
+        (m) => m.ACCOUNT_ROUTES
       ),
   },
 ];
@@ -70,15 +68,3 @@ export class TemplatePageTitleStrategy extends TitleStrategy {
     }
   }
 }
-
-@NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule],
-  providers: [
-    {
-      provide: TitleStrategy,
-      useClass: TemplatePageTitleStrategy,
-    },
-  ],
-})
-export class AppRoutingModule {}

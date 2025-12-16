@@ -1,14 +1,13 @@
-import { NgModule } from '@angular/core';
 import {
   AuthGuard,
   redirectLoggedInTo,
   redirectUnauthorizedTo,
 } from '@angular/fire/auth-guard';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes } from '@angular/router';
 
 const loggedIn = () => redirectUnauthorizedTo('/login');
 
-const routes: Routes = [
+export const APP_ROUTES: Routes = [
   {
     path: '',
     canActivate: [AuthGuard],
@@ -22,13 +21,13 @@ const routes: Routes = [
       {
         path: 'stores',
         loadChildren: () =>
-          import('./components/store/store.module').then((m) => m.StoreModule),
+          import('./components/store/store.routes').then((m) => m.STORE_ROUTES),
       },
       {
         path: 'member',
         loadChildren: () =>
-          import('./components/member/member.module').then(
-            (m) => m.MemberModule
+          import('./components/member/member.routes').then(
+            (m) => m.MEMBER_ROUTES
           ),
       },
     ],
@@ -36,14 +35,8 @@ const routes: Routes = [
   {
     path: 'login',
     loadChildren: () =>
-      import('./components/login/login.module').then((m) => m.LoginModule),
+      import('./components/login/login.routes').then((m) => m.LOGIN_ROUTES),
     canActivate: [AuthGuard],
     data: { authGuardPipe: () => redirectLoggedInTo('/') },
   },
 ];
-
-@NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule],
-})
-export class AppRoutingModule {}

@@ -1,5 +1,7 @@
-import { Component, inject } from '@angular/core';
 import { formatDate } from '@angular/common';
+import { Component, inject } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { filter, map, mergeMap, take } from 'rxjs';
 import { StoreService } from 'src/app/services/store.service';
@@ -9,7 +11,8 @@ import { utils, WorkBook, writeFile } from 'xlsx';
     selector: 'app-export',
     templateUrl: './export.component.html',
     styleUrls: ['./export.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [MatButtonModule, MatIconModule]
 })
 export class ExportComponent {
   loading = false;

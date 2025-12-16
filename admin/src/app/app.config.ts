@@ -1,4 +1,6 @@
-import { NgModule } from '@angular/core';
+import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { provideRouter, TitleStrategy } from '@angular/router';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import {
   getAnalytics,
   provideAnalytics,
@@ -12,44 +14,34 @@ import {
   getFirestore,
   provideFirestore,
 } from '@angular/fire/firestore';
+import {
+  connectFunctionsEmulator,
+  getFunctions,
+  provideFunctions,
+} from '@angular/fire/functions';
 import { getPerformance, providePerformance } from '@angular/fire/performance';
 import {
   getRemoteConfig,
   provideRemoteConfig,
 } from '@angular/fire/remote-config';
-import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { NavBarComponent } from './components/nav-bar/nav-bar.component';
+import { APP_ROUTES, TemplatePageTitleStrategy } from './app.routes';
 
-@NgModule({
-  declarations: [AppComponent, NavBarComponent],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MatIconModule,
-    ServiceWorkerModule.register('ngsw-worker.js', {
-      enabled: environment.production,
-      registrationStrategy: 'registerWhenStable:30000',
-    }),
-  ],
+export const appConfig: ApplicationConfig = {
   providers: [
+    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideRouter(APP_ROUTES),
+    provideAnimationsAsync(),
     ScreenTrackingService,
     UserTrackingService,
     {
       provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
-      useValue: { duration: 2000 },
+      useValue: { duration: 2500 },
     },
     {
-      provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
-      useValue: { appearance: 'outline' },
+      provide: TitleStrategy,
+      useClass: TemplatePageTitleStrategy,
     },
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAnalytics(() => getAnalytics()),
@@ -69,9 +61,17 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
         );
       return fire;
     }),
+    provideFunctions(() => {
+      const func = getFunctions();
+      environment.useEmulator &&
+        connectFunctionsEmulator(
+          func,
+          environment.emulator.functions.host,
+          environment.emulator.functions.port
+        );
+      return func;
+    }),
     providePerformance(() => getPerformance()),
     provideRemoteConfig(() => getRemoteConfig()),
   ],
-  bootstrap: [AppComponent],
-})
-export class AppModule {}
+};

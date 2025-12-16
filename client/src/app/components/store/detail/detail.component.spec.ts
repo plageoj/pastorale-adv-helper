@@ -11,17 +11,11 @@ import {
   ComponentFixture,
   fakeAsync,
   TestBed,
-  tick,
 } from '@angular/core/testing';
 import { Auth, deleteUser, signInAnonymously } from '@angular/fire/auth';
-import { GoogleMapsModule, MapGeocoder } from '@angular/google-maps';
-import { MatIconModule } from '@angular/material/icon';
-import { MatListModule } from '@angular/material/list';
-import { MatToolbarModule } from '@angular/material/toolbar';
+import { MapGeocoder } from '@angular/google-maps';
 import { ActivatedRoute, provideRouter } from '@angular/router';
 import { cold, getTestScheduler } from 'jasmine-marbles';
-import { Store } from 'src/app/models/store.model';
-import { StatusIconPipe } from 'src/app/pipes/status-icon.pipe';
 import { StoreService } from 'src/app/services/store.service';
 import { ActivatedRouteStub } from 'src/app/testing/activated-route-stub';
 import { FirebaseTestingModule } from 'src/app/testing/firebase-testing.module';
@@ -69,15 +63,7 @@ describe('DetailComponent', () => {
     activatedRoute.setParamMap({ id: 'store-id' });
 
     await TestBed.configureTestingModule({
-      declarations: [DetailComponent, StatusIconPipe],
-
-      imports: [
-        FirebaseTestingModule,
-        MatListModule,
-        MatIconModule,
-        MatToolbarModule,
-        GoogleMapsModule,
-      ],
+      imports: [FirebaseTestingModule, DetailComponent],
       providers: [
         provideRouter([
           { path: 'stores/:id/report', component: ReportComponent },

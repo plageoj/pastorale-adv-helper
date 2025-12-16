@@ -1,16 +1,32 @@
 import { Component } from '@angular/core';
-import { UntypedFormBuilder } from '@angular/forms';
+import { ReactiveFormsModule, UntypedFormBuilder } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute, Router } from '@angular/router';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { mergeMap } from 'rxjs';
 import { ModeService } from 'src/app/services/mode.service';
 import { StoreService } from 'src/app/services/store.service';
 
 @Component({
-    selector: 'app-report',
-    templateUrl: './report.component.html',
-    styleUrls: ['./report.component.scss'],
-    standalone: false
+  selector: 'app-report',
+  templateUrl: './report.component.html',
+  styleUrls: ['./report.component.scss'],
+  standalone: true,
+  imports: [
+    MatButtonModule,
+    MatButtonToggleModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    MatToolbarModule,
+    ReactiveFormsModule,
+    RouterLink,
+  ],
 })
 export class ReportComponent {
   store;

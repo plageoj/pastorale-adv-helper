@@ -12,8 +12,8 @@ describe('StatusSelectorComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [StatusSelectorComponent],
       imports: [
+        StatusSelectorComponent,
         MatButtonModule,
         MatIconModule,
         MatTooltipModule,

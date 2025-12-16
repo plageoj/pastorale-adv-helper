@@ -1,12 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { Firestore, deleteDoc, doc, setDoc } from '@angular/fire/firestore';
-import { ReactiveFormsModule } from '@angular/forms';
-import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatToolbarModule } from '@angular/material/toolbar';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute, provideRouter } from '@angular/router';
 import { of } from 'rxjs';
@@ -24,13 +19,9 @@ describe('ReportComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         FirebaseTestingModule,
-        ReactiveFormsModule,
-        MatToolbarModule,
-        MatIconModule,
-        MatInputModule,
-        MatButtonToggleModule,
         NoopAnimationsModule,
         MatSnackBarModule,
+        ReportComponent,
       ],
       providers: [
         provideRouter([]),
@@ -41,7 +32,6 @@ describe('ReportComponent', () => {
           },
         },
       ],
-      declarations: [ReportComponent],
     }).compileComponents();
 
     // Insert test data into Firestore emulator

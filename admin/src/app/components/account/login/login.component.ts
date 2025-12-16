@@ -9,7 +9,11 @@ import {
   signInWithPopup,
   signOut,
 } from '@angular/fire/auth';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 
@@ -17,7 +21,14 @@ import { Router } from '@angular/router';
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
-  standalone: false,
+  standalone: true,
+  imports: [
+    ReactiveFormsModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+  ],
 })
 export class LoginComponent implements OnInit {
   private readonly injector = inject(Injector);

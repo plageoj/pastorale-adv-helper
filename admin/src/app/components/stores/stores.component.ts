@@ -1,21 +1,50 @@
+import { CommonModule, CurrencyPipe } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { UntypedFormControl } from '@angular/forms';
-import { MatCheckboxChange } from '@angular/material/checkbox';
-import { MatDialog } from '@angular/material/dialog';
-import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { ReactiveFormsModule, UntypedFormControl } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxChange, MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatSlideToggleChange, MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatSort, MatSortModule } from '@angular/material/sort';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { RouterLink } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { StatusIconPipe } from 'src/app/pipes/status-icon.pipe';
 import { Store } from 'src/app/models/store.model';
 import { StoreService } from 'src/app/services/store.service';
 import { EditStoreComponent } from './edit-store/edit-store.component';
+import { StatusSelectorComponent } from './status-selector/status-selector.component';
 
 @Component({
     selector: 'app-stores',
     templateUrl: './stores.component.html',
     styleUrls: ['./stores.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [
+      CommonModule,
+      CurrencyPipe,
+      ReactiveFormsModule,
+      RouterLink,
+      MatButtonModule,
+      MatCardModule,
+      MatCheckboxModule,
+      MatDialogModule,
+      MatFormFieldModule,
+      MatIconModule,
+      MatInputModule,
+      MatSlideToggleModule,
+      MatSortModule,
+      MatTableModule,
+      MatTooltipModule,
+      StatusIconPipe,
+      StatusSelectorComponent,
+    ]
 })
 export class StoresComponent implements OnInit {
   stores: MatTableDataSource<Store> = new MatTableDataSource();

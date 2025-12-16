@@ -1,4 +1,11 @@
-import { NgModule } from '@angular/core';
+import {
+  ApplicationConfig,
+  provideZoneChangeDetection,
+} from '@angular/core';
+import { provideRouter } from '@angular/router';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { provideServiceWorker } from '@angular/service-worker';
+import { provideHttpClient, withJsonpSupport } from '@angular/common/http';
 import {
   getAnalytics,
   provideAnalytics,
@@ -6,52 +13,45 @@ import {
   UserTrackingService,
 } from '@angular/fire/analytics';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
-import { connectAuthEmulator, getAuth, provideAuth } from '@angular/fire/auth';
+import {
+  connectAuthEmulator,
+  getAuth,
+  provideAuth,
+} from '@angular/fire/auth';
 import {
   connectFirestoreEmulator,
   getFirestore,
   provideFirestore,
 } from '@angular/fire/firestore';
-import {
-  connectFunctionsEmulator,
-  getFunctions,
-  provideFunctions,
-} from '@angular/fire/functions';
 import { getPerformance, providePerformance } from '@angular/fire/performance';
 import {
   getRemoteConfig,
   provideRemoteConfig,
 } from '@angular/fire/remote-config';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatListModule } from '@angular/material/list';
-import { MatSidenavModule } from '@angular/material/sidenav';
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { environment } from '../environments/environment';
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import { APP_ROUTES } from './app.routes';
 
-@NgModule({
-  declarations: [AppComponent],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MatButtonModule,
-    MatIconModule,
-    MatListModule,
-    MatSidenavModule,
-    MatToolbarModule,
-  ],
+export const appConfig: ApplicationConfig = {
   providers: [
+    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideRouter(APP_ROUTES),
+    provideAnimationsAsync(),
+    provideHttpClient(withJsonpSupport()),
+    provideServiceWorker('ngsw-worker.js', {
+      enabled: environment.production,
+      registrationStrategy: 'registerWhenStable:30000',
+    }),
     ScreenTrackingService,
     UserTrackingService,
     {
       provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
-      useValue: { duration: 2500 },
+      useValue: { duration: 2000 },
+    },
+    {
+      provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
+      useValue: { appearance: 'outline' },
     },
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAnalytics(() => getAnalytics()),
@@ -71,19 +71,7 @@ import { AppComponent } from './app.component';
         );
       return fire;
     }),
-    provideFunctions(() => {
-      const func = getFunctions();
-      environment.useEmulator &&
-        connectFunctionsEmulator(
-          func,
-          environment.emulator.functions.host,
-          environment.emulator.functions.port
-        );
-      return func;
-    }),
     providePerformance(() => getPerformance()),
     provideRemoteConfig(() => getRemoteConfig()),
   ],
-  bootstrap: [AppComponent],
-})
-export class AppModule {}
+};

@@ -1,24 +1,50 @@
+import { CurrencyPipe } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { deleteField, WithFieldValue } from '@angular/fire/firestore';
-import { MatDialog } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatListModule } from '@angular/material/list';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatSort, MatSortModule } from '@angular/material/sort';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { Title } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { map, mergeMap, takeWhile } from 'rxjs';
 import { Member } from 'src/app/models/member.model';
+import { StatusIconPipe } from 'src/app/pipes/status-icon.pipe';
 import { Status } from 'src/app/models/status.model';
 import { Store } from 'src/app/models/store.model';
 import { MemberService } from 'src/app/services/member.service';
 import { StoreService } from 'src/app/services/store.service';
+import { CommuteComponent } from '../../util/commute/commute.component';
 import { EditStoreComponent } from '../edit-store/edit-store.component';
+import { StatusSelectorComponent } from '../status-selector/status-selector.component';
 
 @Component({
     selector: 'app-assign-member',
     templateUrl: './assign-member.component.html',
     styleUrls: ['./assign-member.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [
+      CurrencyPipe,
+      RouterLink,
+      MatButtonModule,
+      MatCardModule,
+      MatDialogModule,
+      MatFormFieldModule,
+      MatIconModule,
+      MatInputModule,
+      MatListModule,
+      MatSortModule,
+      MatTableModule,
+      StatusIconPipe,
+      CommuteComponent,
+      StatusSelectorComponent,
+    ]
 })
 export class AssignMemberComponent implements OnInit {
   store?: Store;

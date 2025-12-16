@@ -32,9 +32,8 @@ export class StoreService implements IFirestore<Store> {
     return doc(this.col).id;
   }
 
-  getAll(
-    { includeHidden }: { includeHidden: boolean } = { includeHidden: false }
-  ): Observable<Store[]> {
+  getAll(options?: { includeHidden: boolean }): Observable<Store[]> {
+    const { includeHidden = false } = options ?? {};
     const queries: QueryConstraint[] = [orderBy('needAttention', 'desc')];
     if (!includeHidden) queries.push(where('visible', '==', true));
     return runInInjectionContext(this.injector, () =>

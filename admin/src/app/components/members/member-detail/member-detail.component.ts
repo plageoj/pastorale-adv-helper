@@ -8,7 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatSnackBar as MatSnackBar } from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Commute, CommuteList } from 'src/app/models/commute.model';
@@ -40,11 +40,11 @@ export class MemberDetailComponent implements OnInit {
   loading = true;
 
   constructor(
-    private fb: UntypedFormBuilder,
-    private mem: MemberService,
-    private route: ActivatedRoute,
-    private router: Router,
-    private sb: MatSnackBar
+    private readonly fb: UntypedFormBuilder,
+    private readonly mem: MemberService,
+    private readonly route: ActivatedRoute,
+    private readonly router: Router,
+    private readonly sb: MatSnackBar
   ) {
     this.memberForm = this.fb.group({
       uid: [''],
@@ -75,7 +75,7 @@ export class MemberDetailComponent implements OnInit {
       this.mem.get(uid).subscribe((member) => {
         this.memberForm.patchValue(member);
         if (
-          typeof member === 'undefined' ||
+          member === undefined ||
           Object.keys(member.commute).length === 0
         ) {
           this.memberForm.get('commute')?.patchValue({

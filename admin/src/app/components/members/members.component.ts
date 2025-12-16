@@ -5,8 +5,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatSlideToggleChange as MatSlideToggleChange, MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatTableDataSource as MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatSlideToggleChange, MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { map } from 'rxjs/operators';
@@ -42,9 +42,9 @@ export class MembersComponent implements OnInit {
   private memberSubscription;
 
   constructor(
-    private mems: MemberService,
-    private route: ActivatedRoute,
-    private router: Router
+    private readonly mems: MemberService,
+    private readonly route: ActivatedRoute,
+    private readonly router: Router
   ) {
     this.memberSubscription = this.mems.getAll().subscribe((mems) => {
       this.members.data = mems;
@@ -69,7 +69,7 @@ export class MembersComponent implements OnInit {
 
   applyFilter(event: Event) {
     const value = (event.target as HTMLInputElement).value.trim();
-    this.members.filter = value ? value : '';
+    this.members.filter = value;
   }
 
   changeShowInvisible(event: MatSlideToggleChange) {

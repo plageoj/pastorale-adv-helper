@@ -68,9 +68,9 @@ export class StoresComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(
-    private store: StoreService,
-    private dialog: MatDialog,
-    private snack: MatSnackBar
+    private readonly store: StoreService,
+    private readonly dialog: MatDialog,
+    private readonly snack: MatSnackBar
   ) {
     this.filter = new UntypedFormControl('');
     this.filter.valueChanges.subscribe(() => this.applyFilter());

@@ -28,7 +28,7 @@ export class EditStoreComponent {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public store: Store,
-    private fb: UntypedFormBuilder
+    private readonly fb: UntypedFormBuilder
   ) {
     this.storeForm = this.fb.group({
       id: [store.id],

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { deleteField } from '@angular/fire/firestore';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressBarModule, ProgressBarMode } from '@angular/material/progress-bar';
-import { MatSnackBar as MatSnackBar } from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { filter, firstValueFrom, switchMap, take } from 'rxjs';
 import { HistoryService } from 'src/app/services/history.service';
 import { MemberService } from 'src/app/services/member.service';
@@ -21,10 +21,10 @@ export class InitializeComponent {
   progress = 0;
 
   constructor(
-    private ms: MemberService,
-    private snack: MatSnackBar,
-    private hs: HistoryService,
-    private ss: StoreService
+    private readonly ms: MemberService,
+    private readonly snack: MatSnackBar,
+    private readonly hs: HistoryService,
+    private readonly ss: StoreService
   ) {}
 
   resetMembers() {

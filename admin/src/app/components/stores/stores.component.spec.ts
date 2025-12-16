@@ -52,8 +52,8 @@ describe('StoresComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [RouterLinkStubDirective],
       imports: [
+        RouterLinkStubDirective,
         StoresComponent,
         StatusSelectorComponent,
         FirebaseTestingModule,

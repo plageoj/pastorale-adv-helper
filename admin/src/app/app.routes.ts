@@ -1,12 +1,7 @@
-import { Injectable, NgModule } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { AuthGuard, customClaims } from '@angular/fire/auth-guard';
 import { Title } from '@angular/platform-browser';
-import {
-  RouterModule,
-  RouterStateSnapshot,
-  Routes,
-  TitleStrategy,
-} from '@angular/router';
+import { RouterStateSnapshot, Routes, TitleStrategy } from '@angular/router';
 import { pipe } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -21,7 +16,7 @@ const isAdmin = () =>
     })
   );
 
-const routes: Routes = [
+export const APP_ROUTES: Routes = [
   { path: '', redirectTo: '/members', pathMatch: 'full' },
   {
     path: 'members',
@@ -70,15 +65,3 @@ export class TemplatePageTitleStrategy extends TitleStrategy {
     }
   }
 }
-
-@NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule],
-  providers: [
-    {
-      provide: TitleStrategy,
-      useClass: TemplatePageTitleStrategy,
-    },
-  ],
-})
-export class AppRoutingModule {}

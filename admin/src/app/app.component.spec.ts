@@ -3,22 +3,20 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { provideRouter, Router, RouterModule } from '@angular/router';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { Router, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { FirebaseTestingModule } from './testing/firebase-testing.module';
-import { BrowserTestingModule } from '@angular/platform-browser/testing';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
+        AppComponent,
         MatToolbarModule,
         MatSidenavModule,
         MatIconModule,
         MatListModule,
-        BrowserTestingModule,
-        NoopAnimationsModule,
         FirebaseTestingModule,
         RouterModule.forRoot([
           {
@@ -27,8 +25,7 @@ describe('AppComponent', () => {
           },
         ]),
       ],
-      providers: [],
-      declarations: [AppComponent],
+      providers: [provideAnimationsAsync()],
     }).compileComponents();
   });
 

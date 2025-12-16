@@ -5,7 +5,7 @@ import "source-map-support/register";
 
 admin.initializeApp();
 
-export const elevateAsAdmin = https.onCall<{ uid: string; isAdmin: boolean }>(
+export const elevateasadmin = https.onCall<{ uid: string; isAdmin: boolean }>(
   async ({ data }) => {
     const { uid, isAdmin } = data;
     const auth = admin.auth();
@@ -28,7 +28,7 @@ export const elevateAsAdmin = https.onCall<{ uid: string; isAdmin: boolean }>(
   }
 );
 
-export const setMode = https.onCall<{ mode: string }>(
+export const setmode = https.onCall<{ mode: string }>(
   async ({ data, auth }) => {
     const { mode } = data;
     if (auth?.token.admin !== true)

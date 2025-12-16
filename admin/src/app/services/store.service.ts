@@ -1,4 +1,4 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, Injector, runInInjectionContext } from '@angular/core';
 import {
   collection,
   collectionData,
@@ -21,11 +21,11 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class StoreService implements IFirestore<Store> {
-  private col;
-  private db = inject(Firestore);
+  private readonly db = inject(Firestore);
+  private readonly injector = inject(Injector);
 
-  constructor() {
-    this.col = collection(this.db, 'stores') as CollectionReference<Store>;
+  private get col() {
+    return collection(this.db, 'stores') as CollectionReference<Store>;
   }
 
   get id(): string {
@@ -37,11 +37,15 @@ export class StoreService implements IFirestore<Store> {
   ): Observable<Store[]> {
     const queries: QueryConstraint[] = [orderBy('needAttention', 'desc')];
     if (!includeHidden) queries.push(where('visible', '==', true));
-    return collectionData(query(this.col, ...queries));
+    return runInInjectionContext(this.injector, () =>
+      collectionData(query(this.col, ...queries))
+    );
   }
 
   get(storeId: string): Observable<Store> {
-    return docData(doc(this.col, storeId)) as Observable<Store>;
+    return runInInjectionContext(this.injector, () =>
+      docData(doc(this.col, storeId))
+    ) as Observable<Store>;
   }
 
   update(data: WithFieldValue<Partial<Store>>): Promise<void> {

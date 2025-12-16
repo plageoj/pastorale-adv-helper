@@ -1,4 +1,9 @@
-import { Injectable, Injector } from '@angular/core';
+import {
+  inject,
+  Injectable,
+  Injector,
+  runInInjectionContext,
+} from '@angular/core';
 import { Functions, httpsCallable } from '@angular/fire/functions';
 import {
   fetchAndActivate,
@@ -6,7 +11,7 @@ import {
   isSupported,
   RemoteConfig,
 } from '@angular/fire/remote-config';
-import { Observable, of } from 'rxjs';
+import { map, Observable, of } from 'rxjs';
 
 export type Mode = 'contract' | 'receipt';
 
@@ -15,21 +20,29 @@ export type Mode = 'contract' | 'receipt';
 })
 export class ModeService {
   private config?: RemoteConfig;
+  private readonly inj = inject(Injector);
+  private readonly fn = inject(Functions);
 
-  constructor(private readonly inj: Injector, private readonly fn: Functions) {
-    isSupported().then((supported: any) => {
-      if (supported) {
-        this.config = inj.get(RemoteConfig);
+  readonly ready = this.initializeConfig();
 
-        this.config.settings.minimumFetchIntervalMillis = 3600000;
-        fetchAndActivate(this.config);
-      }
-    });
+  constructor() {}
+
+  private async initializeConfig(): Promise<void> {
+    const supported = await isSupported();
+    if (!supported) return;
+
+    this.config = this.inj.get(RemoteConfig);
+    this.config.settings.minimumFetchIntervalMillis = 3600000;
+    await runInInjectionContext(this.inj, () => fetchAndActivate(this.config!));
   }
 
   getMode(): Observable<Mode> {
     if (!this.config) return of('contract');
-    return getStringChanges(this.config, 'mode') as Observable<Mode>;
+    return runInInjectionContext(this.inj, () =>
+      getStringChanges(this.config!, 'mode').pipe(
+        map((mode) => (mode === 'receipt' ? 'receipt' : 'contract'))
+      )
+    );
   }
 
   setMode(mode: Mode) {

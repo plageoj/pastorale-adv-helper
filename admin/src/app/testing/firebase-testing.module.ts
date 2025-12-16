@@ -1,13 +1,12 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { connectAuthEmulator, getAuth, provideAuth } from '@angular/fire/auth';
 import {
+  connectFirestoreEmulator,
   getFirestore,
   provideFirestore,
-  connectFirestoreEmulator,
 } from '@angular/fire/firestore';
-import { environment } from 'src/environments/environment';
-import { connectAuthEmulator, getAuth, provideAuth } from '@angular/fire/auth';
 import {
   connectFunctionsEmulator,
   getFunctions,
@@ -17,6 +16,7 @@ import {
   getRemoteConfig,
   provideRemoteConfig,
 } from '@angular/fire/remote-config';
+import { environment } from 'src/environments/environment';
 
 const initialized = { firestore: false, auth: false, functions: false };
 
@@ -44,7 +44,7 @@ const initialized = { firestore: false, auth: false, functions: false };
     provideFunctions(() => {
       const functions = getFunctions();
       if (!initialized.functions) {
-        connectFunctionsEmulator(functions, 'localhost', 5001);
+        connectFunctionsEmulator(functions, 'localhost', 9000);
         initialized.functions = true;
       }
       return functions;

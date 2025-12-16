@@ -1,12 +1,12 @@
 import { Directive, HostListener, Input } from '@angular/core';
 
 @Directive({
-    selector: 'a, button',
+    selector: '[routerLink]',
     standalone: false
 })
 export class RouterLinkStubDirective {
   @Input('routerLink') linkParams: any;
-  @Input('queryParam') queryParams: any;
+  @Input('queryParams') queryParams: any;
   navigatedTo: any = null;
 
   @HostListener('click')

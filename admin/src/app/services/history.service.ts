@@ -1,4 +1,4 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, inject, Injector, runInInjectionContext } from '@angular/core';
 import {
   collection,
   collectionData,
@@ -21,11 +21,11 @@ import { IFirestore } from './firestore.interface';
   providedIn: 'root',
 })
 export class HistoryService implements IFirestore<History> {
-  private col;
-  private db = inject(Firestore);
+  private readonly db = inject(Firestore);
+  private readonly injector = inject(Injector);
 
-  constructor() {
-    this.col = collection(this.db, 'history') as CollectionReference<History>;
+  private get col() {
+    return collection(this.db, 'history') as CollectionReference<History>;
   }
 
   get id() {
@@ -37,11 +37,15 @@ export class HistoryService implements IFirestore<History> {
     if (storeId) {
       queries.push(where('storeId', '==', storeId));
     }
-    return collectionData(query(this.col, ...queries));
+    return runInInjectionContext(this.injector, () =>
+      collectionData(query(this.col, ...queries))
+    );
   }
 
   get(id: string): Observable<History> {
-    return docData(doc(this.col, id)) as Observable<History>;
+    return runInInjectionContext(this.injector, () =>
+      docData(doc(this.col, id))
+    ) as Observable<History>;
   }
 
   async update(data: History) {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, Injector, OnInit, runInInjectionContext } from '@angular/core';
 import {
   Auth,
   AuthError,
@@ -19,6 +19,8 @@ import { Router } from '@angular/router';
   standalone: false,
 })
 export class LoginComponent implements OnInit {
+  private readonly injector = inject(Injector);
+
   constructor(
     private readonly auth: Auth,
     private readonly sb: MatSnackBar,
@@ -26,7 +28,9 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    getRedirectResult(this.auth).then(() => {
+    runInInjectionContext(this.injector, () =>
+      getRedirectResult(this.auth)
+    ).then(() => {
       this.router.navigateByUrl('/');
     });
   }

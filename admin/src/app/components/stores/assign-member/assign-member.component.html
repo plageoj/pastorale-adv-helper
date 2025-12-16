@@ -9,7 +9,7 @@
     <mat-card-content>
       <mat-list dense>
         <mat-list-item>
-          <div matListItemLine>
+          <div class="item-row">
             <div class="left">状態</div>
             <div class="right">
               <mat-icon inline>{{ store?.status | statusIcon }}</mat-icon>
@@ -27,7 +27,7 @@
           }
         </mat-list-item>
         <mat-list-item>
-          <div matListItemLine>
+          <div class="item-row">
             <div class="left">住所</div>
             <div class="right">
               {{ store?.address }}
@@ -35,7 +35,7 @@
           </div>
         </mat-list-item>
         <mat-list-item>
-          <div matListItemLine>
+          <div class="item-row">
             <div class="left">電話番号</div>
             <div class="right">
               {{ store?.tel }}
@@ -46,7 +46,7 @@
           </div>
         </mat-list-item>
         <mat-list-item>
-          <div matListItemLine>
+          <div class="item-row">
             <div class="left">担当者</div>
             <div class="right">
               {{ store?.assigned?.name ?? "（なし）" }}
@@ -54,19 +54,19 @@
           </div>
         </mat-list-item>
         <mat-list-item>
-          <div matListItemLine>
+          <div class="item-row">
             <div class="left">原稿</div>
             <div class="right">{{ store?.draft }}</div>
           </div>
         </mat-list-item>
         <mat-list-item>
-          <div matListItemLine>
+          <div class="item-row">
             <div class="left">昨年担当</div>
             <div class="right">{{ store?.last?.name ?? "（なし）" }}</div>
           </div>
         </mat-list-item>
         <mat-list-item>
-          <div matListItemLine>
+          <div class="item-row">
             <div class="left">昨年実績</div>
             <div class="right">
               {{ store?.last?.amount | currency : "JPY" }}

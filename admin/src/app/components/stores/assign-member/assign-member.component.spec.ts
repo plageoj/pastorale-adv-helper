@@ -100,7 +100,6 @@ describe('AssignMemberComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [
         AssignMemberComponent,
-        CommuteComponent,
         StatusSelectorComponent,
         RouterLinkStubDirective,
       ],
@@ -119,6 +118,7 @@ describe('AssignMemberComponent', () => {
         MatTooltipModule,
         NoopAnimationsModule,
         StatusIconPipe,
+        CommuteComponent,
       ],
       providers: [
         provideRouter([]),

@@ -1,6 +1,4 @@
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
-import { provideRouter, TitleStrategy } from '@angular/router';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import {
   getAnalytics,
   provideAnalytics,
@@ -25,6 +23,8 @@ import {
   provideRemoteConfig,
 } from '@angular/fire/remote-config';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { provideRouter, TitleStrategy } from '@angular/router';
 import { environment } from '../environments/environment';
 import { APP_ROUTES, TemplatePageTitleStrategy } from './app.routes';
 

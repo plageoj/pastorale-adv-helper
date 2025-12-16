@@ -1,9 +1,9 @@
 import { afterAll, beforeAll, describe, expect, it } from "@jest/globals";
 import * as admin from "firebase-admin";
 import functionsTest from "firebase-functions-test";
-import * as sinon from "sinon";
-import { elevateAsAdmin } from "../src/index";
 import { Request } from "firebase-functions/https";
+import * as sinon from "sinon";
+import { elevateasadmin } from "../src/index";
 
 const { wrap, cleanup } = functionsTest();
 type Response = { ok: boolean; set: boolean; uid: string };
@@ -21,7 +21,7 @@ describe("elevateAsAdmin", () => {
     authStub.get(() => () => ({
       getUser: sinon.fake.resolves(false),
     }));
-    const wrapped = wrap(elevateAsAdmin);
+    const wrapped = wrap(elevateasadmin);
     const res: Error = await wrapped({
       data: { uid: "", isAdmin: false },
       acceptsStreaming: false,
@@ -36,7 +36,7 @@ describe("elevateAsAdmin", () => {
         uid: "test-uid",
       }),
     }));
-    const wrapped = wrap(elevateAsAdmin);
+    const wrapped = wrap(elevateasadmin);
     const res: Error = await wrapped({
       data: { uid: "test-uid", isAdmin: true },
       acceptsStreaming: false,
@@ -54,7 +54,7 @@ describe("elevateAsAdmin", () => {
         customClaims: { admin: false },
       }),
     }));
-    const wrapped = wrap(elevateAsAdmin);
+    const wrapped = wrap(elevateasadmin);
     const res: Response = await wrapped({
       data: { uid: "test-uid", isAdmin: false },
       acceptsStreaming: false,
@@ -72,7 +72,7 @@ describe("elevateAsAdmin", () => {
       }),
       setCustomUserClaims: sinon.fake.resolves(true),
     }));
-    const wrapped = wrap(elevateAsAdmin);
+    const wrapped = wrap(elevateasadmin);
     const res: Response = await wrapped({
       data: { uid: "test-uid", isAdmin: true },
       acceptsStreaming: false,
@@ -90,7 +90,7 @@ describe("elevateAsAdmin", () => {
       }),
       setCustomUserClaims: sinon.fake.rejects(true),
     }));
-    const wrapped = wrap(elevateAsAdmin);
+    const wrapped = wrap(elevateasadmin);
     const res: Error = await wrapped({
       data: { uid: "test-uid", isAdmin: true },
       acceptsStreaming: false,

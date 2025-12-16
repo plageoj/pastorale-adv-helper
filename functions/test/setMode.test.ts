@@ -4,7 +4,7 @@ import functionsTest from "firebase-functions-test";
 import { Request } from "firebase-functions/https";
 import { AuthData } from "firebase-functions/tasks";
 import * as sinon from "sinon";
-import { setMode } from "../src/index";
+import { setmode } from "../src/index";
 
 const { wrap, cleanup } = functionsTest();
 
@@ -18,7 +18,7 @@ describe("setMode", () => {
   });
 
   it("does nothing if no auth provided", async () => {
-    const wrapped = wrap(setMode);
+    const wrapped = wrap(setmode);
     const res: Error = await wrapped({
       data: { mode: "mode" },
       acceptsStreaming: false,
@@ -28,7 +28,7 @@ describe("setMode", () => {
   });
 
   it("returns error if the user is not admin", async () => {
-    const wrapped = wrap(setMode);
+    const wrapped = wrap(setmode);
     const res: Error = await wrapped({
       data: { mode: "mode" },
       auth: { token: { admin: false } } as unknown as AuthData,
@@ -46,7 +46,7 @@ describe("setMode", () => {
       }),
       publishTemplate,
     }));
-    const wrapped = wrap(setMode);
+    const wrapped = wrap(setmode);
     const res = await wrapped({
       data: { mode: "mode" },
       auth: { token: { admin: true } } as unknown as AuthData,

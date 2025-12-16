@@ -5,15 +5,18 @@ import { RouterStateSnapshot, Routes, TitleStrategy } from '@angular/router';
 import { pipe } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-const isAdmin = () =>
+export const mapClaimsToAccess = (
+  claims: { admin?: boolean } | null | undefined
+): true | string[] => {
+  if (!claims) return ['account', 'login'];
+  if (!claims.admin) return ['account', 'unauthorized'];
+  return true;
+};
+
+export const isAdmin = () =>
   pipe(
     customClaims,
-    map((claims) => {
-      if (!claims) return ['account', 'login'];
-      if (!(claims as { admin: boolean }).admin)
-        return ['account', 'unauthorized'];
-      return true;
-    })
+    map((claims) => mapClaimsToAccess(claims as { admin?: boolean } | null))
   );
 
 export const APP_ROUTES: Routes = [

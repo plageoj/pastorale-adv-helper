@@ -1,16 +1,37 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSlideToggleChange as MatSlideToggleChange, MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatTableDataSource as MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { map } from 'rxjs/operators';
 import { Member } from 'src/app/models/member.model';
 import { MemberService } from 'src/app/services/member.service';
-import { map } from 'rxjs/operators';
-import { MatTableDataSource as MatTableDataSource } from '@angular/material/table';
-import { MatSlideToggleChange as MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { MemberDetailComponent } from './member-detail/member-detail.component';
 
 @Component({
     selector: 'app-members',
     templateUrl: './members.component.html',
     styleUrls: ['./members.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [
+      CommonModule,
+      RouterLink,
+      MatCardModule,
+      MatFormFieldModule,
+      MatIconModule,
+      MatInputModule,
+      MatSidenavModule,
+      MatSlideToggleModule,
+      MatTableModule,
+      MatTooltipModule,
+      MemberDetailComponent,
+    ]
 })
 export class MembersComponent implements OnInit {
   members: MatTableDataSource<Member> = new MatTableDataSource();

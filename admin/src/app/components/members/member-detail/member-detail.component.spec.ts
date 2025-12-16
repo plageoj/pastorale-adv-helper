@@ -5,15 +5,6 @@ import {
   TestBed,
   tick,
 } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute, provideRouter, Router } from '@angular/router';
@@ -22,7 +13,6 @@ import { Member } from 'src/app/models/member.model';
 import { MemberService } from 'src/app/services/member.service';
 import { ActivatedRouteStub } from 'src/app/testing/activated-route-stub';
 import { FirebaseTestingModule } from 'src/app/testing/firebase-testing.module';
-import { RouterLinkStubDirective } from 'src/app/testing/router-link-stub';
 import { MemberDetailComponent } from './member-detail.component';
 
 describe('MemberDetailComponent', () => {
@@ -61,23 +51,11 @@ describe('MemberDetailComponent', () => {
 
     await TestBed.configureTestingModule({
       imports: [
+        MemberDetailComponent,
         FirebaseTestingModule,
-        MatButtonModule,
-        MatCardModule,
-        MatCheckboxModule,
-        MatCheckboxModule,
-        MatFormFieldModule,
-        FormsModule,
-        ReactiveFormsModule,
-        MatIconModule,
-        MatInputModule,
-        MatProgressBarModule,
-        MatSlideToggleModule,
         MatSnackBarModule,
         NoopAnimationsModule,
-        ReactiveFormsModule,
       ],
-      declarations: [MemberDetailComponent, RouterLinkStubDirective],
       providers: [
         provideRouter([
           {

@@ -28,8 +28,8 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: { authGuardPipe: isAdmin },
     loadChildren: () =>
-      import('./components/members/members.module').then(
-        (m) => m.MembersModule
+      import('./components/members/members.routes').then(
+        (m) => m.MEMBERS_ROUTES
       ),
   },
   {

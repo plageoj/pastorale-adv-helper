@@ -1,29 +1,14 @@
 import { HarnessLoader } from '@angular/cdk/testing';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatTableModule } from '@angular/material/table';
 import { MatRowHarness } from '@angular/material/table/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute, provideRouter, Router } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
 import { cold, getTestScheduler } from 'jasmine-marbles';
 import { MemberService } from 'src/app/services/member.service';
 import { ActivatedRouteStub } from 'src/app/testing/activated-route-stub';
 import { FirebaseTestingModule } from 'src/app/testing/firebase-testing.module';
 import { MembersComponent } from './members.component';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MemberDetailComponent } from './member-detail/member-detail.component';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatCardModule } from '@angular/material/card';
-import { MatInputModule } from '@angular/material/input';
-import { MatIconModule } from '@angular/material/icon';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatButtonModule } from '@angular/material/button';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { ReactiveFormsModule } from '@angular/forms';
-import { RouterLinkStubDirective } from 'src/app/testing/router-link-stub';
 
 describe('MembersComponent', () => {
   let component: MembersComponent;
@@ -57,22 +42,10 @@ describe('MembersComponent', () => {
     );
 
     await TestBed.configureTestingModule({
-      declarations: [MembersComponent, MemberDetailComponent, RouterLinkStubDirective],
       imports: [
+        MembersComponent,
         FirebaseTestingModule,
-        MatTableModule,
-        MatSidenavModule,
         NoopAnimationsModule,
-        MatSlideToggleModule,
-        MatFormFieldModule,
-        MatCardModule,
-        MatInputModule,
-        MatIconModule,
-        MatProgressBarModule,
-        MatCheckboxModule,
-        MatButtonModule,
-        MatTooltipModule,
-        ReactiveFormsModule,
       ],
       providers: [
         provideRouter([{ path: 'members', component: MembersComponent }]),

@@ -51,8 +51,8 @@ const routes: Routes = [
   {
     path: 'account',
     loadChildren: () =>
-      import('./components/account/account.module').then(
-        (m) => m.AccountModule
+      import('./components/account/account.routes').then(
+        (m) => m.ACCOUNT_ROUTES
       ),
   },
 ];

@@ -2,25 +2,36 @@
 # https://github.com/firebase/firebase-tools
 
 name: Deploy to Firebase Hosting on merge
-"on":
+
+on:
   push:
     branches:
       - master
+
+permissions:
+  contents: read
+  id-token: write
+  deployments: write
+
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/cache@v4
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v6
         with:
-          key: npm-cache-${{ hashFiles('**/package-lock.json') }}
-          path: ~/.npm
-      - uses: actions/cache@v4
+          node-version-file: .node-version
+          cache: npm
+          cache-dependency-path: "**/package-lock.json"
+
+      - uses: actions/cache@v5
         with:
           key: angular-cache
           path: |
             client/.angular
             admin/.angular
+
       - run: |
           cd client
           npm ci
@@ -28,6 +39,7 @@ jobs:
           cd ../admin
           npm ci
           npx ng build -c production
+
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"

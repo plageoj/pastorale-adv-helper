@@ -34,12 +34,12 @@ export class ReportComponent {
   mode = '';
 
   constructor(
-    private ss: StoreService,
-    private route: ActivatedRoute,
-    private fb: UntypedFormBuilder,
-    private snack: MatSnackBar,
-    private router: Router,
-    private ms: ModeService
+    private readonly ss: StoreService,
+    private readonly route: ActivatedRoute,
+    private readonly fb: UntypedFormBuilder,
+    private readonly snack: MatSnackBar,
+    private readonly router: Router,
+    private readonly ms: ModeService
   ) {
     this.store = this.fb.group({
       id: [''],

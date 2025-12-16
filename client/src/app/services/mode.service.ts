@@ -14,21 +14,30 @@ export type Mode = 'contract' | 'receipt';
 })
 export class ModeService {
   private config?: RemoteConfig;
+  private configInitialized = false;
+  private initPromise?: Promise<void>;
 
-  constructor(private readonly inj: Injector) {
-    this.initializeConfig();
-  }
+  constructor(private readonly inj: Injector) {}
 
-  private async initializeConfig(): Promise<void> {
-    const supported = await isSupported();
-    if (supported) {
-      this.config = this.inj.get(RemoteConfig);
-      this.config.settings.minimumFetchIntervalMillis = 60 * 1000;
-      runInInjectionContext(this.inj, () => fetchAndActivate(this.config!));
-    }
+  private initializeConfig(): Promise<void> {
+    if (this.initPromise) return this.initPromise;
+
+    this.initPromise = isSupported().then((supported) => {
+      if (supported) {
+        this.config = this.inj.get(RemoteConfig);
+        this.config.settings.minimumFetchIntervalMillis = 60 * 1000;
+        runInInjectionContext(this.inj, () => fetchAndActivate(this.config!));
+      }
+      this.configInitialized = true;
+    });
+
+    return this.initPromise;
   }
 
   getMode(): Observable<Mode> {
+    if (!this.configInitialized) {
+      this.initializeConfig();
+    }
     if (!this.config) return of('contract');
     return runInInjectionContext(this.inj, () =>
       getStringChanges(this.config!, 'mode')

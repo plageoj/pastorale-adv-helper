@@ -8,8 +8,8 @@ import { ReplaySubject } from 'rxjs';
 export class ActivatedRouteStub {
   // Use a ReplaySubject to share previous values with subscribers
   // and pump new values into the `paramMap` observable
-  private paramMapSub = new ReplaySubject<ParamMap>();
-  private queryParamMapSub = new ReplaySubject<ParamMap>();
+  private readonly paramMapSub = new ReplaySubject<ParamMap>();
+  private readonly queryParamMapSub = new ReplaySubject<ParamMap>();
 
   snapshot = {};
 

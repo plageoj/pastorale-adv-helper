@@ -3,7 +3,6 @@ import {
   provideZoneChangeDetection,
 } from '@angular/core';
 import { provideRouter } from '@angular/router';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideServiceWorker } from '@angular/service-worker';
 import { provideHttpClient, withJsonpSupport } from '@angular/common/http';
 import {
@@ -37,7 +36,6 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(APP_ROUTES),
-    provideAnimationsAsync(),
     provideHttpClient(withJsonpSupport()),
     provideServiceWorker('ngsw-worker.js', {
       enabled: environment.production,

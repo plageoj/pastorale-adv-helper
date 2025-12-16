@@ -13,7 +13,7 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 export class AppComponent {
   signedIn = false;
 
-  constructor(private auth: Auth) {
+  constructor(private readonly auth: Auth) {
     this.auth.onAuthStateChanged((user) => {
       this.signedIn = user !== null;
     });

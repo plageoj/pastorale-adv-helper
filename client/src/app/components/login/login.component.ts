@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
         if (e.code === 'auth/account-exists-with-different-credential') {
           const { email } = e.customData;
           if (!email) return;
-          const studentNumber = RegExp(/[bmd](\d+)@/).exec(email)?.[1];
+          const studentNumber = /[bmd](\d+)@/.exec(email)?.[1];
           if (!studentNumber) return;
           const result = await signInWithEmailAndPassword(
             this.auth,

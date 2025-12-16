@@ -105,7 +105,7 @@ export class RegisterComponent implements OnInit {
     const member = this.profile.value;
     if (typeof member.studentNumber === 'string') {
       member.studentNumber = Number(
-        member.studentNumber.replace(/[^0-9]/g, '')
+        member.studentNumber.replaceAll(/\D/g, '')
       );
     }
 

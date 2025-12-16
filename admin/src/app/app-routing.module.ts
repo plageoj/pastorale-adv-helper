@@ -44,8 +44,8 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: { authGuardPipe: isAdmin },
     loadChildren: () =>
-      import('./components/settings/settings.module').then(
-        (m) => m.SettingsModule
+      import('./components/settings/settings.routes').then(
+        (m) => m.SETTINGS_ROUTES
       ),
   },
   {

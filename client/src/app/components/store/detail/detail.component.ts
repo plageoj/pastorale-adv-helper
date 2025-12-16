@@ -1,17 +1,35 @@
+import { DecimalPipe, NgClass } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { MapGeocoder } from '@angular/google-maps';
-import { ActivatedRoute } from '@angular/router';
+import { GoogleMap, MapGeocoder, MapMarker } from '@angular/google-maps';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { map, mergeMap } from 'rxjs';
 import { Store } from 'src/app/models/store.model';
+import { StatusIconPipe } from 'src/app/pipes/status-icon.pipe';
 import { StoreService } from 'src/app/services/store.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
-    selector: 'app-detail',
-    templateUrl: './detail.component.html',
-    styleUrls: ['./detail.component.scss'],
-    standalone: false
+  selector: 'app-detail',
+  templateUrl: './detail.component.html',
+  styleUrls: ['./detail.component.scss'],
+  standalone: true,
+  imports: [
+    DecimalPipe,
+    GoogleMap,
+    MapMarker,
+    MatButtonModule,
+    MatIconModule,
+    MatListModule,
+    MatToolbarModule,
+    NgClass,
+    RouterLink,
+    StatusIconPipe,
+  ],
 })
 export class DetailComponent {
   store?: Store;

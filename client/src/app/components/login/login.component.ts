@@ -9,14 +9,18 @@ import {
   signInWithPopup,
   signOut,
 } from '@angular/fire/auth';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
-  standalone: false,
+  standalone: true,
+  imports: [MatButtonModule, MatIconModule, MatToolbarModule],
 })
 export class LoginComponent implements OnInit {
   private readonly injector = inject(Injector);

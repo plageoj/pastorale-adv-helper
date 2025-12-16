@@ -6,8 +6,7 @@ import { FirebaseTestingModule } from './testing/firebase-testing.module';
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RouterTestingModule, FirebaseTestingModule],
-      declarations: [AppComponent],
+      imports: [RouterTestingModule, FirebaseTestingModule, AppComponent],
     }).compileComponents();
   });
 

@@ -1,4 +1,11 @@
-import { NgModule } from '@angular/core';
+import {
+  ApplicationConfig,
+  provideZoneChangeDetection,
+} from '@angular/core';
+import { provideRouter } from '@angular/router';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { provideServiceWorker } from '@angular/service-worker';
+import { provideHttpClient, withJsonpSupport } from '@angular/common/http';
 import {
   getAnalytics,
   provideAnalytics,
@@ -6,7 +13,11 @@ import {
   UserTrackingService,
 } from '@angular/fire/analytics';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
-import { connectAuthEmulator, getAuth, provideAuth } from '@angular/fire/auth';
+import {
+  connectAuthEmulator,
+  getAuth,
+  provideAuth,
+} from '@angular/fire/auth';
 import {
   connectFirestoreEmulator,
   getFirestore,
@@ -18,29 +29,20 @@ import {
   provideRemoteConfig,
 } from '@angular/fire/remote-config';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { NavBarComponent } from './components/nav-bar/nav-bar.component';
+import { APP_ROUTES } from './app.routes';
 
-@NgModule({
-  declarations: [AppComponent, NavBarComponent],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MatIconModule,
-    ServiceWorkerModule.register('ngsw-worker.js', {
+export const appConfig: ApplicationConfig = {
+  providers: [
+    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideRouter(APP_ROUTES),
+    provideAnimationsAsync(),
+    provideHttpClient(withJsonpSupport()),
+    provideServiceWorker('ngsw-worker.js', {
       enabled: environment.production,
       registrationStrategy: 'registerWhenStable:30000',
     }),
-  ],
-  providers: [
     ScreenTrackingService,
     UserTrackingService,
     {
@@ -72,6 +74,4 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
     providePerformance(() => getPerformance()),
     provideRemoteConfig(() => getRemoteConfig()),
   ],
-  bootstrap: [AppComponent],
-})
-export class AppModule {}
+};

@@ -6,19 +6,12 @@ import {
   tick,
 } from '@angular/core/testing';
 import { Auth, deleteUser, signInAnonymously } from '@angular/fire/auth';
-import { ReactiveFormsModule } from '@angular/forms';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatToolbarModule } from '@angular/material/toolbar';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { getTestScheduler } from 'jasmine-marbles';
 import { MemberService } from 'src/app/services/member.service';
 import { FirebaseTestingModule } from 'src/app/testing/firebase-testing.module';
-import { NavBarComponent } from '../../nav-bar/nav-bar.component';
 import { RegisterComponent } from './register.component';
 
 describe('RegisterComponent', () => {
@@ -29,18 +22,12 @@ describe('RegisterComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [RegisterComponent, NavBarComponent],
       imports: [
-        ReactiveFormsModule,
         FirebaseTestingModule,
         MatSnackBarModule,
-        MatIconModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatToolbarModule,
-        MatCheckboxModule,
         RouterTestingModule,
         NoopAnimationsModule,
+        RegisterComponent,
       ],
     }).compileComponents();
   });

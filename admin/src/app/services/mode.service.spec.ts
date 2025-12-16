@@ -13,8 +13,8 @@ describe('ModeService', () => {
     });
     service = TestBed.inject(ModeService);
 
-    // Wait for isSupported().then() to complete
-    await new Promise((resolve) => setTimeout(resolve, 100));
+    // Wait for initialization to complete
+    await service.ready;
   });
 
   describe('getMode', () => {

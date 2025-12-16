@@ -23,18 +23,17 @@ export class ModeService {
   private readonly inj = inject(Injector);
   private readonly fn = inject(Functions);
 
-  constructor() {
-    this.initializeConfig();
-  }
+  readonly ready = this.initializeConfig();
 
-  private initializeConfig(): void {
-    isSupported().then((supported) => {
-      if (!supported) return;
+  constructor() {}
 
-      this.config = this.inj.get(RemoteConfig);
-      this.config.settings.minimumFetchIntervalMillis = 3600000;
-      runInInjectionContext(this.inj, () => fetchAndActivate(this.config!));
-    });
+  private async initializeConfig(): Promise<void> {
+    const supported = await isSupported();
+    if (!supported) return;
+
+    this.config = this.inj.get(RemoteConfig);
+    this.config.settings.minimumFetchIntervalMillis = 3600000;
+    await runInInjectionContext(this.inj, () => fetchAndActivate(this.config!));
   }
 
   getMode(): Observable<Mode> {

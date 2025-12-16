@@ -16,8 +16,8 @@ describe('HistoryComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [RouterLinkStubDirective],
       imports: [
+        RouterLinkStubDirective,
         HistoryComponent,
         FirebaseTestingModule,
         NoopAnimationsModule,

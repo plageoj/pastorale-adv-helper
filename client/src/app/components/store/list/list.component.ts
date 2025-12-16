@@ -30,9 +30,9 @@ export class ListComponent implements OnInit {
   stores?: Observable<Store[]>;
 
   constructor(
-    private auth: Auth,
-    private router: Router,
-    private store: StoreService
+    private readonly auth: Auth,
+    private readonly router: Router,
+    private readonly store: StoreService
   ) {}
 
   ngOnInit(): void {

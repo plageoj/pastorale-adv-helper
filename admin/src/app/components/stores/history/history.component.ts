@@ -30,9 +30,9 @@ export class HistoryComponent {
   historyItems: History[] = [];
 
   constructor(
-    private hs: HistoryService,
-    private route: ActivatedRoute,
-    private ss: StoreService
+    private readonly hs: HistoryService,
+    private readonly route: ActivatedRoute,
+    private readonly ss: StoreService
   ) {
     const storeId = this.route.params.pipe(map((p) => p.id));
 

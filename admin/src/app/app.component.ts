@@ -29,7 +29,7 @@ export class AppComponent {
 
   segment = '';
 
-  constructor(private auth: Auth, private router: Router) {
+  constructor(private readonly auth: Auth, private readonly router: Router) {
     this.auth.onAuthStateChanged((user) => {
       this.user = user;
     });

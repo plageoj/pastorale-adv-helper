@@ -98,8 +98,8 @@ describe('AssignMemberComponent', () => {
     activatedRoute = new ActivatedRouteStub({ id: 'store-id' });
 
     await TestBed.configureTestingModule({
-      declarations: [RouterLinkStubDirective],
       imports: [
+        RouterLinkStubDirective,
         AssignMemberComponent,
         StatusSelectorComponent,
         CommuteComponent,

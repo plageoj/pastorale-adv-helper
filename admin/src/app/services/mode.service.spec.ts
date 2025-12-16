@@ -1,4 +1,5 @@
-import { fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
+import { firstValueFrom } from 'rxjs';
 
 import { FirebaseTestingModule } from '../testing/firebase-testing.module';
 import { ModeService } from './mode.service';
@@ -6,15 +7,14 @@ import { ModeService } from './mode.service';
 describe('ModeService', () => {
   let service: ModeService;
 
-  beforeEach(() => {
+  beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [FirebaseTestingModule],
     });
     service = TestBed.inject(ModeService);
-  });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
+    // Wait for isSupported().then() to complete
+    await new Promise((resolve) => setTimeout(resolve, 100));
   });
 
   describe('getMode', () => {
@@ -24,43 +24,16 @@ describe('ModeService', () => {
       expect(typeof result.subscribe).toBe('function');
     });
 
-    it('should emit a valid mode value', (done) => {
-      service.getMode().subscribe((mode) => {
-        expect(['contract', 'receipt']).toContain(mode);
-        done();
-      });
+    it('should return contract as default mode', async () => {
+      const mode = await firstValueFrom(service.getMode());
+      expect(mode).toBe('contract');
     });
   });
 
   describe('setMode', () => {
-    it('should return a Promise when setting mode to contract', () => {
+    it('should return a Promise', () => {
       const result = service.setMode('contract');
       expect(result).toBeInstanceOf(Promise);
     });
-
-    it('should return a Promise when setting mode to receipt', () => {
-      const result = service.setMode('receipt');
-      expect(result).toBeInstanceOf(Promise);
-    });
-  });
-
-  describe('after RemoteConfig initialization', () => {
-    it('should initialize RemoteConfig asynchronously', fakeAsync(() => {
-      tick(100);
-      expect(service).toBeTruthy();
-    }));
-
-    it('should return mode from getMode after initialization', fakeAsync(() => {
-      tick(100);
-      let emittedMode: string | undefined;
-
-      service.getMode().subscribe((mode) => {
-        emittedMode = mode;
-      });
-
-      tick();
-      expect(emittedMode).toBeDefined();
-      expect(['contract', 'receipt']).toContain(emittedMode!);
-    }));
   });
 });

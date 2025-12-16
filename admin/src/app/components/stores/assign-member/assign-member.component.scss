@@ -24,8 +24,9 @@ mat-card-actions {
   }
 }
 
-[matListItemLine] {
+.item-row {
   display: flex;
+  width: 100%;
   .left {
     flex-grow: 1;
     color: map.get(mat.$m2-grey-palette, 700);

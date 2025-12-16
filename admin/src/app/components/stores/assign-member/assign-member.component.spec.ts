@@ -15,6 +15,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute, provideRouter } from '@angular/router';
 import { cold, getTestScheduler } from 'jasmine-marbles';
@@ -115,6 +116,7 @@ describe('AssignMemberComponent', () => {
         MatSnackBarModule,
         MatSortModule,
         MatTableModule,
+        MatTooltipModule,
         NoopAnimationsModule,
         StatusIconPipe,
       ],

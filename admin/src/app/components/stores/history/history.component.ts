@@ -1,5 +1,10 @@
+import { CurrencyPipe } from '@angular/common';
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatIconModule } from '@angular/material/icon';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { map, mergeMap } from 'rxjs';
 import { History } from 'src/app/models/history.model';
 import { Store } from 'src/app/models/store.model';
@@ -10,7 +15,15 @@ import { StoreService } from 'src/app/services/store.service';
     selector: 'app-history',
     templateUrl: './history.component.html',
     styleUrls: ['./history.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [
+      CurrencyPipe,
+      RouterLink,
+      MatButtonModule,
+      MatCardModule,
+      MatExpansionModule,
+      MatIconModule,
+    ]
 })
 export class HistoryComponent {
   store?: Store;

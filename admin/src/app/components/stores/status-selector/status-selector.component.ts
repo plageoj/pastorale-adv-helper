@@ -1,11 +1,16 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { StatusIconPipe } from 'src/app/pipes/status-icon.pipe';
 import { Status } from 'src/app/models/status.model';
 
 @Component({
     selector: 'app-status-selector',
     templateUrl: './status-selector.component.html',
     styleUrls: ['./status-selector.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [MatButtonModule, MatIconModule, MatTooltipModule, StatusIconPipe]
 })
 export class StatusSelectorComponent {
   @Input() omit: Status[] = [];

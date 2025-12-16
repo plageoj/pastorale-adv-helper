@@ -37,7 +37,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: { authGuardPipe: isAdmin },
     loadChildren: () =>
-      import('./components/stores/stores.module').then((m) => m.StoresModule),
+      import('./components/stores/stores.routes').then((m) => m.STORES_ROUTES),
   },
   {
     path: 'settings',

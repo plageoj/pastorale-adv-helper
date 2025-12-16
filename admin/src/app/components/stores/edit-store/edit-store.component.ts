@@ -1,13 +1,27 @@
 import { Component, Inject } from '@angular/core';
-import { UntypedFormBuilder } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ReactiveFormsModule, UntypedFormBuilder } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { Store } from 'src/app/models/store.model';
 
 @Component({
     selector: 'app-edit-store',
     templateUrl: './edit-store.component.html',
     styleUrls: ['./edit-store.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [
+      ReactiveFormsModule,
+      MatButtonModule,
+      MatDialogModule,
+      MatFormFieldModule,
+      MatIconModule,
+      MatInputModule,
+      MatSlideToggleModule,
+    ]
 })
 export class EditStoreComponent {
   storeForm;

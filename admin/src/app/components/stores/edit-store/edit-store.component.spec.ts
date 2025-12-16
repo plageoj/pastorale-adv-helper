@@ -31,8 +31,8 @@ describe('EditStoreComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [EditStoreComponent],
       imports: [
+        EditStoreComponent,
         ReactiveFormsModule,
         NoopAnimationsModule,
         MatInputModule,

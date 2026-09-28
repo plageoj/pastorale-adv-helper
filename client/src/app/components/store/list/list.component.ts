@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, DestroyRef, OnInit } from '@angular/core';
 import { Auth, signOut } from '@angular/fire/auth';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -32,13 +32,15 @@ export class ListComponent implements OnInit {
   constructor(
     private readonly auth: Auth,
     private readonly router: Router,
-    private readonly store: StoreService
+    private readonly store: StoreService,
+    private readonly destroyRef: DestroyRef
   ) {}
 
   ngOnInit(): void {
-    this.auth.onAuthStateChanged((user) => {
+    const unsubscribe = this.auth.onAuthStateChanged((user) => {
       if (user) this.stores = this.store.list();
     });
+    this.destroyRef.onDestroy(unsubscribe);
   }
 
   async logout() {

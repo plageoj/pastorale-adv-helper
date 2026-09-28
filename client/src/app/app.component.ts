@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, DestroyRef } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Auth } from '@angular/fire/auth';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
@@ -13,9 +13,10 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 export class AppComponent {
   signedIn = false;
 
-  constructor(private readonly auth: Auth) {
-    this.auth.onAuthStateChanged((user) => {
+  constructor(private readonly auth: Auth, destroyRef: DestroyRef) {
+    const unsubscribe = this.auth.onAuthStateChanged((user) => {
       this.signedIn = user !== null;
     });
+    destroyRef.onDestroy(unsubscribe);
   }
 }

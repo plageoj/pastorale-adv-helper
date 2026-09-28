@@ -1,7 +1,8 @@
+import { setSourceMapsSupport } from "node:module";
 import * as admin from "firebase-admin";
 import { https } from "firebase-functions/v2";
-import "source-map-support/register";
 
+setSourceMapsSupport(true);
 admin.initializeApp();
 
 export const elevateasadmin = https.onCall<{ uid: string; isAdmin: boolean }>(

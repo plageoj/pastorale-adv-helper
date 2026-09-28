@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ReactiveFormsModule, UntypedFormBuilder } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
@@ -8,7 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { mergeMap } from 'rxjs';
+import { filter, mergeMap } from 'rxjs';
 import { ModeService } from 'src/app/services/mode.service';
 import { StoreService } from 'src/app/services/store.service';
 
@@ -49,7 +50,11 @@ export class ReportComponent {
       status: [''],
     });
     this.route.paramMap
-      .pipe(mergeMap((params) => this.ss.get(params.get('id')!)))
+      .pipe(
+        mergeMap((params) => this.ss.get(params.get('id')!)),
+        filter((store) => !!store),
+        takeUntilDestroyed()
+      )
       .subscribe((store) => {
         this.store.patchValue(store);
         this.storeName = store.name;

@@ -1,7 +1,7 @@
 import { afterAll, beforeAll, describe, expect, it } from "@jest/globals";
 import * as admin from "firebase-admin";
+import type { Request } from "firebase-functions/https";
 import functionsTest from "firebase-functions-test";
-import { Request } from "firebase-functions/https";
 import * as sinon from "sinon";
 import { elevateasadmin } from "../src/index";
 
@@ -43,7 +43,7 @@ describe("elevateAsAdmin", () => {
       rawRequest: {} as unknown as Request, // TODO: Remove this cast when upgrading firebase-functions-test
     });
     expect(res.message).toBe(
-      "Role set error - auth.setCustomUserClaims is not a function"
+      "Role set error - auth.setCustomUserClaims is not a function",
     );
   });
 

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, DestroyRef } from '@angular/core';
 import { Auth, signOut, User } from '@angular/fire/auth';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -29,10 +29,15 @@ export class AppComponent {
 
   segment = '';
 
-  constructor(private readonly auth: Auth, private readonly router: Router) {
-    this.auth.onAuthStateChanged((user) => {
+  constructor(
+    private readonly auth: Auth,
+    private readonly router: Router,
+    destroyRef: DestroyRef
+  ) {
+    const unsubscribe = this.auth.onAuthStateChanged((user) => {
       this.user = user;
     });
+    destroyRef.onDestroy(unsubscribe);
 
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {

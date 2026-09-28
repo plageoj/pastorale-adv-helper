@@ -8,13 +8,9 @@
     "sourceMap": true,
     "strict": true,
     "target": "es2022",
-    "lib": [
-      "ES2022"
-    ],
+    "lib": ["ES2022"],
     "esModuleInterop": true
   },
   "compileOnSave": true,
-  "include": [
-    "src"
-  ]
+  "include": ["src"]
 }

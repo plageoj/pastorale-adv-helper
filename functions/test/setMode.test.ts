@@ -1,8 +1,8 @@
 import { afterAll, beforeAll, describe, expect, it } from "@jest/globals";
 import * as admin from "firebase-admin";
+import type { Request } from "firebase-functions/https";
+import type { AuthData } from "firebase-functions/tasks";
 import functionsTest from "firebase-functions-test";
-import { Request } from "firebase-functions/https";
-import { AuthData } from "firebase-functions/tasks";
 import * as sinon from "sinon";
 import { setmode } from "../src/index";
 

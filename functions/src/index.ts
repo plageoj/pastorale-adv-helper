@@ -20,12 +20,12 @@ export const elevateasadmin = https.onCall<{ uid: string; isAdmin: boolean }>(
     } catch (e) {
       return new https.HttpsError(
         "internal",
-        `Role set error - ${(e as admin.FirebaseError).message}`
+        `Role set error - ${(e as admin.FirebaseError).message}`,
       );
     }
 
     return { ok: true, set: true, uid };
-  }
+  },
 );
 
 export const setmode = https.onCall<{ mode: string }>(
@@ -39,5 +39,5 @@ export const setmode = https.onCall<{ mode: string }>(
     template.parameters.mode.defaultValue = { value: mode };
     await config.publishTemplate(template);
     return { ok: true, mode };
-  }
+  },
 );

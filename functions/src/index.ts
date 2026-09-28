@@ -1,5 +1,4 @@
 import * as admin from "firebase-admin";
-import { FirebaseError } from "firebase-admin/lib/utils/error";
 import { https } from "firebase-functions/v2";
 import "source-map-support/register";
 
@@ -20,7 +19,7 @@ export const elevateasadmin = https.onCall<{ uid: string; isAdmin: boolean }>(
     } catch (e) {
       return new https.HttpsError(
         "internal",
-        `Role set error - ${(e as FirebaseError).message}`
+        `Role set error - ${(e as admin.FirebaseError).message}`
       );
     }
 

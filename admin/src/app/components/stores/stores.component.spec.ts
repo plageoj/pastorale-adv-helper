@@ -131,10 +131,15 @@ describe('StoresComponent', () => {
   });
 
   it('updates attention', async () => {
+    const snack = spyOn(
+      fixture.debugElement.injector.get(MatSnackBar),
+      'open'
+    ).and.callThrough();
     const checkboxes = await loader.getAllHarnesses(MatCheckboxHarness);
     await checkboxes[0].check();
     fixture.detectChanges();
     expect(component.stores.data[0].needAttention).toBeTrue();
+    await waitUntil(() => snack.calls.any());
 
     const links = fixture.debugElement.queryAll(
       By.directive(RouterLinkStubDirective)
@@ -182,7 +187,11 @@ describe('StoresComponent', () => {
     expect(snack).toHaveBeenCalledWith('保存できませんでした！');
   });
 
-  it('should add store', () => {
+  it('should add store', async () => {
+    const snack = spyOn(
+      fixture.debugElement.injector.get(MatSnackBar),
+      'open'
+    ).and.callThrough();
     const update = spyOn(
       fixture.debugElement.injector.get(StoreService),
       'update'
@@ -201,5 +210,6 @@ describe('StoresComponent', () => {
     fixture.detectChanges();
     expect(dialog).toHaveBeenCalled();
     expect(update).toHaveBeenCalled();
+    await waitUntil(() => snack.calls.any());
   });
 });

@@ -49,17 +49,19 @@ describe('app.routes', () => {
     });
 
     it('should set title with suffix when title is defined', () => {
-      const setTitleSpy = spyOn(titleService, 'setTitle');
-      spyOn(strategy, 'buildTitle').and.returnValue('テストページ');
+      const setTitleSpy = vi.spyOn(titleService, 'setTitle');
+      vi.spyOn(strategy, 'buildTitle').mockReturnValue('テストページ');
 
       strategy.updateTitle({} as RouterStateSnapshot);
 
-      expect(setTitleSpy).toHaveBeenCalledWith('テストページ - 協賛広告ヘルパー');
+      expect(setTitleSpy).toHaveBeenCalledWith(
+        'テストページ - 協賛広告ヘルパー'
+      );
     });
 
     it('should not set title when buildTitle returns undefined', () => {
-      const setTitleSpy = spyOn(titleService, 'setTitle');
-      spyOn(strategy, 'buildTitle').and.returnValue(undefined);
+      const setTitleSpy = vi.spyOn(titleService, 'setTitle');
+      vi.spyOn(strategy, 'buildTitle').mockReturnValue(undefined);
 
       strategy.updateTitle({} as RouterStateSnapshot);
 

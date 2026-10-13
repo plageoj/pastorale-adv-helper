@@ -1,3 +1,4 @@
+import type { Mock } from 'vitest';
 import { HarnessLoader } from '@angular/cdk/testing';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
@@ -15,13 +16,15 @@ describe('MembersComponent', () => {
   let fixture: ComponentFixture<MembersComponent>;
   let activatedRoute: ActivatedRouteStub;
   let loader: HarnessLoader;
-  let navigate: jasmine.Spy;
+  let navigate: Mock;
 
   beforeEach(async () => {
     activatedRoute = new ActivatedRouteStub();
 
-    const memberService = jasmine.createSpyObj('MemberService', ['getAll']);
-    memberService.getAll.and.returnValue(
+    const memberService = {
+      getAll: vi.fn().mockName('MemberService.getAll'),
+    };
+    memberService.getAll.mockReturnValue(
       cold('-m|', {
         m: [
           {
@@ -42,11 +45,7 @@ describe('MembersComponent', () => {
     );
 
     await TestBed.configureTestingModule({
-      imports: [
-        MembersComponent,
-        FirebaseTestingModule,
-        NoopAnimationsModule,
-      ],
+      imports: [MembersComponent, FirebaseTestingModule, NoopAnimationsModule],
       providers: [
         provideRouter([{ path: 'members', component: MembersComponent }]),
         {
@@ -67,7 +66,7 @@ describe('MembersComponent', () => {
     loader = TestbedHarnessEnvironment.loader(fixture);
 
     const router = TestBed.inject(Router);
-    navigate = spyOn(router, 'navigateByUrl').and.callThrough();
+    navigate = vi.spyOn(router, 'navigateByUrl');
 
     fixture.detectChanges();
 

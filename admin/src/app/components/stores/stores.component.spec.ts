@@ -1,3 +1,4 @@
+import type { Mock } from 'vitest';
 import { HarnessLoader } from '@angular/cdk/testing';
 import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
@@ -131,15 +132,15 @@ describe('StoresComponent', () => {
   });
 
   it('updates attention', async () => {
-    const snack = spyOn(
+    const snack = vi.spyOn(
       fixture.debugElement.injector.get(MatSnackBar),
       'open'
-    ).and.callThrough();
+    );
     const checkboxes = await loader.getAllHarnesses(MatCheckboxHarness);
     await checkboxes[0].check();
     fixture.detectChanges();
-    expect(component.stores.data[0].needAttention).toBeTrue();
-    await waitUntil(() => snack.calls.any());
+    expect(component.stores.data[0].needAttention).toBe(true);
+    await waitUntil(() => vi.mocked(snack).mock.calls.length > 0);
 
     const links = fixture.debugElement.queryAll(
       By.directive(RouterLinkStubDirective)
@@ -148,7 +149,7 @@ describe('StoresComponent', () => {
       link.injector.get(RouterLinkStubDirective)
     );
 
-    expect(routerLinks.every((link) => !link.navigatedTo)).toBeTrue();
+    expect(routerLinks.every((link) => !link.navigatedTo)).toBe(true);
   });
 
   it('shows invisible stores', async () => {
@@ -163,13 +164,14 @@ describe('StoresComponent', () => {
 
   it('should open edit dialog and update stores', async () => {
     const dialog = (
-      spyOn(fixture.debugElement.injector.get(MatDialog), 'open') as jasmine.Spy
-    ).and.returnValue({
+      vi.spyOn(fixture.debugElement.injector.get(MatDialog), 'open') as Mock
+    ).mockReturnValue({
       afterClosed: () => of(undefined),
     });
-    const snack = (
-      spyOn(fixture.debugElement.injector.get(MatSnackBar), 'open') as jasmine.Spy
-    ).and.callThrough();
+    const snack = vi.spyOn(
+      fixture.debugElement.injector.get(MatSnackBar),
+      'open'
+    ) as Mock;
     const editButton = await loader.getHarness(
       MatButtonHarness.with({
         text: 'edit',
@@ -179,7 +181,7 @@ describe('StoresComponent', () => {
     fixture.detectChanges();
     expect(dialog).toHaveBeenCalled();
 
-    dialog.and.returnValue({
+    dialog.mockReturnValue({
       afterClosed: () => of({ name: 'updated' }),
     });
     await editButton.click();
@@ -188,17 +190,16 @@ describe('StoresComponent', () => {
   });
 
   it('should add store', async () => {
-    const snack = spyOn(
+    const snack = vi.spyOn(
       fixture.debugElement.injector.get(MatSnackBar),
       'open'
-    ).and.callThrough();
-    const update = spyOn(
-      fixture.debugElement.injector.get(StoreService),
-      'update'
-    ).and.returnValue(Promise.resolve());
+    );
+    const update = vi
+      .spyOn(fixture.debugElement.injector.get(StoreService), 'update')
+      .mockReturnValue(Promise.resolve());
     const dialog = (
-      spyOn(fixture.debugElement.injector.get(MatDialog), 'open') as jasmine.Spy
-    ).and.callFake((data) => ({
+      vi.spyOn(fixture.debugElement.injector.get(MatDialog), 'open') as Mock
+    ).mockImplementation((data) => ({
       afterClosed: () => cold('--d|', { d: data }),
     }));
 
@@ -210,6 +211,6 @@ describe('StoresComponent', () => {
     fixture.detectChanges();
     expect(dialog).toHaveBeenCalled();
     expect(update).toHaveBeenCalled();
-    await waitUntil(() => snack.calls.any());
+    await waitUntil(() => vi.mocked(snack).mock.calls.length > 0);
   });
 });

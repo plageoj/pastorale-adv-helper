@@ -1,10 +1,5 @@
-import {
-  ComponentFixture,
-  fakeAsync,
-  flush,
-  TestBed,
-  tick,
-} from '@angular/core/testing';
+import type { Mock } from 'vitest';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute, provideRouter, Router } from '@angular/router';
@@ -23,11 +18,11 @@ describe('MemberDetailComponent', () => {
   let snackbar: MatSnackBar['open'];
 
   beforeEach(async () => {
-    const memberService = jasmine.createSpyObj('MemberService', [
-      'get',
-      'update',
-    ]);
-    memberService.get.and.returnValue(
+    const memberService = {
+      get: vi.fn().mockName('MemberService.get'),
+      update: vi.fn().mockName('MemberService.update'),
+    };
+    memberService.get.mockReturnValue(
       cold('-m|', {
         m: {
           uid: 'uid',
@@ -45,7 +40,7 @@ describe('MemberDetailComponent', () => {
         } as Member,
       })
     );
-    memberService.update.and.returnValue(Promise.resolve());
+    memberService.update.mockReturnValue(Promise.resolve());
 
     activatedRoute = new ActivatedRouteStub();
 
@@ -84,8 +79,8 @@ describe('MemberDetailComponent', () => {
     const router = TestBed.inject(Router);
     const snack = TestBed.inject(MatSnackBar);
 
-    navigate = spyOn(router, 'navigateByUrl').and.callThrough();
-    snackbar = spyOn(snack, 'open').and.callThrough();
+    navigate = vi.spyOn(router, 'navigateByUrl');
+    snackbar = vi.spyOn(snack, 'open');
     getTestScheduler().flush();
     fixture.detectChanges();
   });
@@ -98,32 +93,30 @@ describe('MemberDetailComponent', () => {
     expect(component.memberForm.value.name).toBe('name');
   });
 
-  it('save current member', fakeAsync(() => {
-    component.save();
-    expect(component.loading).toBeTrue();
-    tick();
+  it('save current member', async () => {
+    const saving = component.save();
+    expect(component.loading).toBe(true);
+    await saving;
     fixture.detectChanges();
 
-    expect(component.loading).toBeFalse();
+    expect(component.loading).toBe(false);
     expect(snackbar).toHaveBeenCalledWith('保存しました');
     expect(navigate).toHaveBeenCalledWith('/members');
     expect(component.loading).toBe(false);
-    flush();
-  }));
+  });
 
-  it('should display error on saving fails', fakeAsync(() => {
+  it('should display error on saving fails', async () => {
     const memberService = TestBed.inject(MemberService);
-    (memberService.update as jasmine.Spy).and.rejectWith();
+    (memberService.update as Mock).mockRejectedValue(undefined);
 
-    component.save();
-    expect(component.loading).toBeTrue();
-    tick();
+    const saving = component.save();
+    expect(component.loading).toBe(true);
+    await saving;
     fixture.detectChanges();
 
-    expect(component.loading).toBeFalse();
+    expect(component.loading).toBe(false);
     expect(snackbar).toHaveBeenCalledWith('保存できませんでした！');
     expect(navigate).not.toHaveBeenCalled();
     expect(component.loading).toBe(false);
-    flush();
-  }));
+  });
 });

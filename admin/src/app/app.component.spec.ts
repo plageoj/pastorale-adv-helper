@@ -54,7 +54,7 @@ describe('AppComponent', () => {
   it('should logout the user', async () => {
     const fixture = TestBed.createComponent(AppComponent);
     const router = TestBed.inject(Router);
-    const navigate = spyOn(router, 'navigateByUrl').and.callThrough();
+    const navigate = vi.spyOn(router, 'navigateByUrl');
     fixture.detectChanges();
 
     await fixture.componentInstance.logout();

@@ -33,7 +33,9 @@ describe('ModeService', () => {
   describe('setMode', () => {
     it('should return a Promise', () => {
       const result = service.setMode('contract');
-      expect(result).toBeInstanceOf(Promise);
+      // Firebase returns a native Promise, not the zone-patched global one
+      expect(typeof result.then).toBe('function');
+      result.catch(() => undefined);
     });
   });
 });

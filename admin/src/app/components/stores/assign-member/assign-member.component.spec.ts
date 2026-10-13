@@ -1,10 +1,5 @@
-import {
-  ComponentFixture,
-  fakeAsync,
-  flush,
-  TestBed,
-  tick,
-} from '@angular/core/testing';
+import type { Mock } from 'vitest';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
@@ -38,11 +33,11 @@ describe('AssignMemberComponent', () => {
   let activatedRoute: ActivatedRouteStub;
 
   beforeEach(async () => {
-    const storeService = jasmine.createSpyObj<StoreService>('StoreService', [
-      'get',
-      'update',
-    ]);
-    storeService.get.and.returnValue(
+    const storeService = {
+      get: vi.fn().mockName('StoreService.get'),
+      update: vi.fn().mockName('StoreService.update'),
+    };
+    storeService.get.mockReturnValue(
       cold('-a|', {
         a: {
           id: 'store-id',
@@ -64,13 +59,13 @@ describe('AssignMemberComponent', () => {
         } as Store,
       })
     );
-    storeService.update.and.returnValue(Promise.resolve());
+    storeService.update.mockReturnValue(Promise.resolve());
 
-    const memberService = jasmine.createSpyObj('MemberService', [
-      'getAll',
-      'update',
-    ]);
-    memberService.getAll.and.returnValue(
+    const memberService = {
+      getAll: vi.fn().mockName('MemberService.getAll'),
+      update: vi.fn().mockName('MemberService.update'),
+    };
+    memberService.getAll.mockReturnValue(
       cold('-m|', {
         m: [
           {
@@ -93,7 +88,7 @@ describe('AssignMemberComponent', () => {
         ],
       })
     );
-    memberService.update.and.returnValue(Promise.resolve());
+    memberService.update.mockReturnValue(Promise.resolve());
 
     activatedRoute = new ActivatedRouteStub({ id: 'store-id' });
 
@@ -157,10 +152,9 @@ describe('AssignMemberComponent', () => {
   });
 
   it('should open edit dialog', () => {
-    const dialog = spyOn<any>(
-      fixture.debugElement.injector.get(MatDialog),
-      'open'
-    ).and.returnValue({
+    const dialog = (
+      vi.spyOn(fixture.debugElement.injector.get(MatDialog), 'open') as Mock
+    ).mockReturnValue({
       afterClosed: () => of(undefined),
     });
     component.edit();
@@ -177,31 +171,28 @@ describe('AssignMemberComponent', () => {
     expect(component.members.filter).toBe('name');
   });
 
-  it('should assign and unassign member', fakeAsync(() => {
-    const snack = spyOn(TestBed.inject(MatSnackBar), 'open');
+  it('should assign and unassign member', async () => {
+    const snack = vi.spyOn(TestBed.inject(MatSnackBar), 'open');
 
     expect(component.store?.status).toBe('担当者なし');
-    component.assignMember(component.members.data[0]);
-    tick();
+    await component.assignMember(component.members.data[0]);
     fixture.detectChanges();
     expect(snack).toHaveBeenCalledWith('保存しました');
     expect(component.store?.status).toBe('未着手');
 
     const storeService = TestBed.inject(StoreService);
-    (storeService.update as jasmine.Spy).and.returnValue(Promise.reject());
+    (storeService.update as Mock).mockReturnValue(Promise.reject());
 
-    component.unassign();
-    tick();
+    await component.unassign();
     fixture.detectChanges();
     expect(snack).toHaveBeenCalledWith('保存できませんでした！');
-    flush();
-  }));
+  });
 
   it('should not assign when store is accidentally empty', () => {
     delete component.store;
-    const unassign = spyOn(component, 'unassign').and.returnValue(
-      Promise.resolve()
-    );
+    const unassign = vi
+      .spyOn(component, 'unassign')
+      .mockReturnValue(Promise.resolve());
     component.assignMember(component.members.data[0]);
     expect(unassign).not.toHaveBeenCalled();
   });

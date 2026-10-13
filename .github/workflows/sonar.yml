@@ -58,6 +58,11 @@ jobs:
         run: npm i && npm i -g firebase-tools
         working-directory: ${{ matrix.project }}/
 
+      - name: Install Playwright browser
+        if: matrix.project == 'admin'
+        run: npx playwright install --with-deps chromium-headless-shell
+        working-directory: ${{ matrix.project }}/
+
       - name: Setup Functions for emulator
         run: npm i && npm run build
         working-directory: functions/

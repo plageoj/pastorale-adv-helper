@@ -50,3 +50,7 @@ Thumbs.db
 .firebase
 *-debug.log
 .runtimeconfig.json
+
+# Vitest browser mode
+/.vitest-attachments
+__screenshots__/
